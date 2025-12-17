@@ -1,0 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow: /admin
+Disallow: /profile
+Disallow: /query
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+Disallow: /forgot-password
+Disallow: /privacy-policy
+Disallow: /terms-of-service
+Disallow: /facebook
+Disallow: /twitter
+Disallow: /linkedin
+Disallow: /instagram
+
+Sitemap: /sitemap.xml
