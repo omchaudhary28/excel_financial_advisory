@@ -2,23 +2,14 @@ import React, { useState } from "react";
 import api from "../services/api";
 
 export default function QueryForm() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [fullName, setFullName] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [subjectText, setSubjectText] = useState("");
+  const [messageText, setMessageText] = useState("");
 
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,16 +18,19 @@ export default function QueryForm() {
     setLoading(true);
 
     try {
-      const res = await api.post("/submit_query.php", form);
+      const res = await api.post("/submit_query.php", {
+        name: fullName,
+        email: emailAddress,
+        subject: subjectText,
+        message: messageText,
+      });
 
       if (res.data?.success) {
         setSuccess("Query submitted successfully!");
-        setForm({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+        setFullName("");
+        setEmailAddress("");
+        setSubjectText("");
+        setMessageText("");
       } else {
         setError(res.data?.message || "Submission failed");
       }
@@ -49,7 +43,7 @@ export default function QueryForm() {
 
   return (
     <div className="flex justify-center items-center min-h-[70vh]">
-      <div className="w-full max-w-lg bg-white dark:bg-gray-900 shadow-xl rounded-xl p-8">
+      <div className="w-full max-w-lg bg-white shadow-xl rounded-xl p-8">
         <h2 className="text-2xl font-bold text-center mb-6">
           Raise a Query
         </h2>
@@ -66,42 +60,38 @@ export default function QueryForm() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="name"
             placeholder="Your Name"
-            value={form.name}
-            onChange={handleChange}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             required
             className="w-full px-4 py-2 border rounded-lg"
           />
 
           <input
             type="email"
-            name="email"
             placeholder="Your Email"
-            value={form.email}
-            onChange={handleChange}
+            value={emailAddress}
+            onChange={(e) => setEmailAddress(e.target.value)}
             required
             className="w-full px-4 py-2 border rounded-lg"
           />
 
           <input
             type="text"
-            name="subject"
             placeholder="Subject"
-            value={form.subject}
-            onChange={handleChange}
+            value={subjectText}
+            onChange={(e) => setSubjectText(e.target.value)}
             required
             className="w-full px-4 py-2 border rounded-lg"
           />
 
           <textarea
-            name="message"
             placeholder="Your Message"
-            value={form.message}
-            onChange={handleChange}
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
             rows="4"
             required
             className="w-full px-4 py-2 border rounded-lg"
@@ -110,7 +100,7 @@ export default function QueryForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition"
+            className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600"
           >
             {loading ? "Submitting..." : "Submit Query"}
           </button>
