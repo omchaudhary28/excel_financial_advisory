@@ -31,9 +31,17 @@ function AppContent() {
   return (
     <div className="bg-background-light dark:bg-background-dark text-text dark:text-text-inverted min-h-screen flex flex-col">
       <Header />
+
       <main className="flex-grow container mx-auto px-6 py-8 max-w-7xl w-full">
-        <Suspense fallback={<div className="flex justify-center items-center h-full"><LoadingSpinner /></div>}>
+        <Suspense
+          fallback={
+            <div className="flex justify-center items-center h-full">
+              <LoadingSpinner />
+            </div>
+          }
+        >
           <Routes>
+            {/* Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -44,14 +52,27 @@ function AppContent() {
             <Route path="/twitter" element={<Twitter />} />
             <Route path="/linkedin" element={<LinkedIn />} />
             <Route path="/instagram" element={<Instagram />} />
+
+            {/* ✅ DASHBOARD (FIX) */}
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Protected routes */}
             <Route
               path="/admin"
               element={
-                <PrivateRoute adminOnly={true}>
+                <PrivateRoute adminOnly>
                   <AdminDashboard />
                 </PrivateRoute>
               }
             />
+
             <Route
               path="/profile"
               element={
@@ -60,6 +81,7 @@ function AppContent() {
                 </PrivateRoute>
               }
             />
+
             <Route
               path="/query"
               element={
@@ -71,6 +93,7 @@ function AppContent() {
           </Routes>
         </Suspense>
       </main>
+
       <Footer />
       <ScrollToTop />
     </div>

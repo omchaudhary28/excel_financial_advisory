@@ -1,30 +1,55 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const res = await login(e.target.email.value, e.target.password.value);
+    const res = await login(email, password);
 
     if (res.success) {
-      navigate("/profile");
+      navigate("/profile"); // ✅ correct route
     } else {
-      setError(res.message);
+      setError(res.message || "Invalid email or password");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="email" required />
-      <input name="password" type="password" required />
-      {error && <p style={{color:"red"}}>{error}</p>}
-      <button>Login</button>
-    </form>
+    <div className="login-container">
+      <h2>Welcome Back</h2>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
-}
+};
+
+export default Login;
