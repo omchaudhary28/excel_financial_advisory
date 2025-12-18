@@ -1,10 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://excel-financial-advisory.kesug.com",
+  // 🔴 IMPORTANT: SAME ORIGIN
+  // This makes `/api/login` go to Vercel, not InfinityFree
+  baseURL: "",
+
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded"
-  }
+    Accept: "application/json",
+  },
 });
 
 export default api;
