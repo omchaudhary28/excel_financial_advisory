@@ -15,50 +15,54 @@ export const AuthProvider = ({ children }) => {
 
     if (token && storedUser) {
       setUser(JSON.parse(storedUser));
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
 
     setLoading(false);
   }, []);
 
-  // LOGIN (form-urlencoded, no CORS preflight)
+  // LOGIN (JSON → PHP reads php://input)
   const login = async (email, password) => {
-    const formData = new URLSearchParams();
-    formData.append("email", email);
-    formData.append("password", password);
+    try {
+      const res = await api.post("/login.php", { email, password });
 
-    const response = await api.post("/login.php", formData);
+      if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        api.defaults.headers.common["Authorization"] =
+          `Bearer ${res.data.token}`;
+        setUser(res.data.user);
+      }
 
-    if (response.data.success) {
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
-      setUser(response.data.user);
+      return res.data;
+    } catch (err) {
+      return {
+        success: false,
+        message: "Server error",
+      };
     }
-
-    return response.data;
   };
 
-  // REGISTER (JSON is fine – backend allows it)
-  const register = async (name, email, password, confirm_password, phone) => {
-    return api.post("/register.php", {
+  // REGISTER
+  const register = async (name, email, password) => {
+    const res = await api.post("/register.php", {
       name,
       email,
       password,
-      confirm_password,
-      phone,
     });
+    return res.data;
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    delete api.defaults.headers.common.Authorization;
+    localStorage.clear();
+    delete api.defaults.headers.common["Authorization"];
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, register, logout }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );
