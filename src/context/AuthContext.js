@@ -12,29 +12,35 @@ export const AuthProvider = ({ children }) => {
     if (u) setUser(JSON.parse(u));
   }, []);
 
-  const login = async (email, password) => {
-  const formData = new URLSearchParams();
-  formData.append("email", email);
-  formData.append("password", password);
+const login = async (email, password) => {
+  try {
+    const response = await api.post("/login.php", {
+      email,
+      password,
+    });
 
-  const response = await api.post("/login.php", formData, {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  });
+    if (response.data.success) {
+      const { token, user } = response.data;
 
-  if (response.data.success) {
-    const { token, user } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setUser(user);
 
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    setUser(user);
+      return { success: true };
+    }
+
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Login failed. Try again.",
+    };
   }
-
-  return response.data;
 };
+
 
 
   const register = (data) => api.post("/register.php", data);

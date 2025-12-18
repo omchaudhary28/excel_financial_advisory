@@ -2,14 +2,9 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://excel-financial-advisory-backend.onrender.com",
-});
-
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export default api;
