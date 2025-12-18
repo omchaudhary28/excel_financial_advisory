@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PrivateRoute from '../components/PrivateRoute';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api'; // Import api service
 import { LoadingSpinner } from '../components/Notifications'; // Assuming this component exists
@@ -217,7 +216,7 @@ function Profile() {
                         id="email"
                         name="email"
                         value={profileData.email}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-1 focus:ring-primary-light text-text dark:text-text-inverted bg-gray-100 dark:bg-gray-800 cursor-not-allowed"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-1 focus:ring-primary-light text-text dark:text-text-inverted bg-gray-50 dark:bg-gray-700 cursor-not-allowed"
                         disabled={true}
                         autoComplete="email"
                       />

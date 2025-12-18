@@ -233,13 +233,13 @@ function Register() {
                   />
                   <label htmlFor="agree" className="ml-3 text-sm text-text dark:text-text-inverted">
                     I agree to the{' '}
-                    <a href="#" className="text-primary hover:text-primary-dark font-semibold">
+                    <Link to="/terms-of-service" className="text-primary hover:text-primary-dark font-semibold">
                       Terms of Service
-                    </a>{' '}
+                    </Link>{' '}
                     and{' '}
-                    <a href="#" className="text-primary hover:text-primary-dark font-semibold">
+                    <Link to="/privacy-policy" className="text-primary hover:text-primary-dark font-semibold">
                       Privacy Policy
-                    </a>
+                    </Link>
                   </label>
                 </div>
 

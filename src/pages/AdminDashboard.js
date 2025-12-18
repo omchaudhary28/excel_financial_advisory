@@ -261,6 +261,7 @@ function AdminDashboard() {
                           <th className="px-6 py-4 text-left text-sm font-bold">Query By</th>
                           <th className="px-6 py-4 text-left text-sm font-bold">Subject</th>
                           <th className="px-6 py-4 text-left text-sm font-bold">Message</th>
+                          <th className="px-6 py-4 text-left text-sm font-bold">Type</th>
                           <th className="px-6 py-4 text-left text-sm font-bold">Date</th>
                           <th className="px-6 py-4 text-left text-sm font-bold">Contact</th>
                         </tr>
@@ -295,6 +296,9 @@ function AdminDashboard() {
                               <p className="text-text dark:text-text-inverted max-w-xs truncate" title={query.message}>
                                 {query.message}
                               </p>
+                            </td>
+                            <td className="px-6 py-4">
+                              <p className="text-text dark:text-text-inverted">{query.type}</p>
                             </td>
                             <td className="px-6 py-4">
                               <div className="flex flex-col gap-1">

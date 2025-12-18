@@ -3,51 +3,70 @@ import api from '../services/api';
 
 const AuthContext = createContext(null);
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔹 Restore auth from JWT on page refresh
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await api.get('/check_session.php');
-        if (response.data.loggedIn) {
-          setUser(response.data.user);
-        }
-      } catch (error) {
-        console.error('Session check failed:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
 
-    checkSession();
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser));
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+
+    setLoading(false);
   }, []);
 
+  // 🔹 LOGIN
   const login = async (email, password) => {
     const response = await api.post('/login.php', { email, password });
+
     if (response.data.success) {
-      setUser(response.data.user);
+      const { token, user } = response.data;
+
+      // Store token & user
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Attach token to all future requests
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      setUser(user);
+    } else {
+      setUser(null);
     }
+
     return response.data;
   };
 
+  // 🔹 REGISTER (unchanged)
   const register = async (name, email, password, confirm_password, phone) => {
-    return await api.post('/register.php', { name, email, password, confirm_password, phone });
+    return await api.post('/register.php', {
+      name,
+      email,
+      password,
+      confirm_password,
+      phone
+    });
   };
 
-  const logout = async () => {
-    await api.post('/logout.php');
+  // 🔹 LOGOUT (JWT-style)
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    delete api.defaults.headers.common['Authorization'];
+
     setUser(null);
   };
 
   const value = {
     user,
-    setUser, // Expose setUser
     loading,
     login,
     register,
