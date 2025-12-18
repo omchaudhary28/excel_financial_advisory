@@ -1,20 +1,22 @@
 <?php
 $allowed_origins = [
-    'https://excel-financial-advisory.vercel.app',
-    'http://localhost:3000'
+    "https://excel-financial-advisory.vercel.app"
 ];
 
-if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
-    header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
-} else {
-    // Fallback to the production URL if the origin is not in the list
-    header("Access-Control-Allow-Origin: https://excel-financial-advisory.vercel.app");
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+if (in_array($origin, $allowed_origins, true)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header("Vary: Origin");
 }
 
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Max-Age: 86400");
+header("Content-Type: application/json; charset=UTF-8");
 
+// Handle preflight request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0);
+    http_response_code(204);
+    exit;
 }
