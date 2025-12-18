@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function Login() {
-  const { login, user } = useAuth();
+const Login = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // 🔹 If already logged in → redirect
-  useEffect(() => {
-    if (user) {
-      navigate("/dashboard", { replace: true });
-    }
-  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,17 +19,10 @@ function Login() {
     try {
       const res = await login(email, password);
 
-      if (!res.success) {
-        setError(res.message || "Login failed");
-        setLoading(false);
-        return;
-      }
-
-      // ✅ Redirect based on role
-      if (res.user?.role === "admin") {
-        navigate("/admin", { replace: true });
+      if (res.success) {
+        navigate("/profile"); // ✅ redirect after login
       } else {
-        navigate("/dashboard", { replace: true });
+        setError(res.message || "Login failed");
       }
     } catch (err) {
       setError("Server error. Please try again.");
@@ -48,51 +34,53 @@ function Login() {
   return (
     <div className="flex justify-center items-center min-h-[70vh]">
       <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-center mb-6">
+        <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
           Login to Your Account
         </h2>
 
         {error && (
-          <div className="mb-4 p-3 rounded bg-red-100 text-red-700 text-sm">
+          <div className="mb-4 text-sm text-red-600 bg-red-100 dark:bg-red-900 dark:text-red-300 p-3 rounded">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1">
+              Email address
+            </label>
             <input
               type="email"
-              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 dark:bg-gray-800"
-              placeholder="you@example.com"
+              required
             />
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Password</label>
+            <label className="block text-sm font-medium mb-1">
+              Password
+            </label>
             <input
               type="password"
-              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 dark:bg-gray-800"
-              placeholder="••••••••"
+              required
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition disabled:opacity-60"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="text-sm text-center mt-6">
+        <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           Don’t have an account?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">
             Register
@@ -101,6 +89,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

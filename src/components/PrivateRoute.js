@@ -1,23 +1,20 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const PrivateRoute = ({ children, adminOnly = false }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    // You can render a spinner or a loading message here
-    return <div>Loading...</div>;
+    return <div className="text-center py-10">Loading...</div>;
   }
 
   if (!user) {
-    // Not logged in, redirect to login page
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (adminOnly && user.role !== 'admin') {
-    // Logged in but not an admin, redirect to home page
-    return <Navigate to="/" />;
+  if (adminOnly && user.role !== "admin") {
+    return <Navigate to="/" replace />;
   }
 
   return children;

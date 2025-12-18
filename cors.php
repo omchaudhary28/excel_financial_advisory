@@ -1,22 +1,53 @@
 <?php
-$allowed_origins = [
-    "https://excel-financial-advisory.vercel.app"
-];
+require_once __DIR__ . '/cors.php';
 
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-
-if (in_array($origin, $allowed_origins, true)) {
-    header("Access-Control-Allow-Origin: $origin");
-    header("Vary: Origin");
-}
-
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Max-Age: 86400");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Handle preflight request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
+require_once __DIR__ . '/db.php';
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+if (!$data) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Invalid JSON"]);
     exit;
+}
+
+$name    = trim($data['name'] ?? '');
+$email   = trim($data['email'] ?? '');
+$message = trim($data['message'] ?? '');
+$subject = trim($data['subject'] ?? 'Contact');
+
+if ($name === '' || $email === '' || $message === '') {
+    http_response_code(400);
+    echo json_encode([
+        "success" => false,
+        "message" => "All fields are required"
+    ]);
+    exit;
+}
+
+try {
+    $stmt = $pdo->prepare(
+        "INSERT INTO queries (name, email, subject, message)
+         VALUES (:name, :email, :subject, :message)"
+    );
+
+    $stmt->execute([
+        ":name"    => $name,
+        ":email"   => $email,
+        ":subject" => $subject,
+        ":message" => $message
+    ]);
+
+    echo json_encode([
+        "success" => true,
+        "message" => "Contact message sent"
+    ]);
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "error" => $e->getMessage()
+    ]);
 }

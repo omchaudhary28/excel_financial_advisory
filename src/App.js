@@ -1,29 +1,32 @@
-import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import ScrollToTop from './components/ScrollToTop';
-import Footer from './components/Footer';
-import { ThemeProvider } from './context/ThemeContext';
-import { LoadingSpinner } from './components/Notifications';
-import PrivateRoute from './components/PrivateRoute';
+import React, { useEffect, Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
-const Home = lazy(() => import('./pages/Home'));
-const Login = lazy(() => import('./pages/Login'));
-const Register = lazy(() => import('./pages/Register'));
-const Contact = lazy(() => import('./pages/Contact'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const Profile = lazy(() => import('./pages/Profile'));
-const QueryForm = lazy(() => import('./pages/QueryForm'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const TermsOfService = lazy(() => import('./pages/TermsOfService'));
-const Facebook = lazy(() => import('./pages/Facebook'));
-const Twitter = lazy(() => import('./pages/Twitter'));
-const LinkedIn = lazy(() => import('./pages/LinkedIn'));
-const Instagram = lazy(() => import('./pages/Instagram'));
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import { ThemeProvider } from "./context/ThemeContext";
+import { LoadingSpinner } from "./components/Notifications";
+import PrivateRoute from "./components/PrivateRoute";
+
+// Lazy-loaded pages
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Profile = lazy(() => import("./pages/Profile"));
+const QueryForm = lazy(() => import("./pages/QueryForm"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const Facebook = lazy(() => import("./pages/Facebook"));
+const Twitter = lazy(() => import("./pages/Twitter"));
+const LinkedIn = lazy(() => import("./pages/LinkedIn"));
+const Instagram = lazy(() => import("./pages/Instagram"));
 
 function AppContent() {
   const location = useLocation();
 
+  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -35,7 +38,7 @@ function AppContent() {
       <main className="flex-grow container mx-auto px-6 py-8 max-w-7xl w-full">
         <Suspense
           fallback={
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-[60vh]">
               <LoadingSpinner />
             </div>
           }
@@ -53,26 +56,7 @@ function AppContent() {
             <Route path="/linkedin" element={<LinkedIn />} />
             <Route path="/instagram" element={<Instagram />} />
 
-            {/* ✅ DASHBOARD (FIX) */}
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
-              }
-            />
-
             {/* Protected routes */}
-            <Route
-              path="/admin"
-              element={
-                <PrivateRoute adminOnly>
-                  <AdminDashboard />
-                </PrivateRoute>
-              }
-            />
-
             <Route
               path="/profile"
               element={
@@ -90,6 +74,18 @@ function AppContent() {
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute adminOnly={true}>
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Fallback */}
+            <Route path="*" element={<Home />} />
           </Routes>
         </Suspense>
       </main>
@@ -102,7 +98,7 @@ function AppContent() {
 
 function App() {
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <Router>
       <ThemeProvider>
         <AppContent />
       </ThemeProvider>
