@@ -1,12 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  // 🔴 IMPORTANT: SAME ORIGIN
-  // This makes `/api/login` go to Vercel, not InfinityFree
-  baseURL: "",
-
+  baseURL: "https://excel-financial-advisory-backend.onrender.com",
   headers: {
-    Accept: "application/json",
+    "Content-Type": "application/json",
   },
 });
 
