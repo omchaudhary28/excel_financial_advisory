@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const Login = () => {
+export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,12 +24,12 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await login(email, password);
+      const res = await login(form.email, form.password);
 
-      if (res.success) {
-        navigate("/profile"); // ✅ redirect after login
+      if (res?.success) {
+        navigate("/profile");
       } else {
-        setError(res.message || "Login failed");
+        setError(res?.message || "Login failed");
       }
     } catch (err) {
       setError("Server error. Please try again.");
@@ -33,62 +40,63 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center min-h-[70vh]">
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          Login to Your Account
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 shadow-xl rounded-xl p-8">
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Welcome Back
         </h2>
+        <p className="text-center text-gray-500 mb-6">
+          Sign in to your account
+        </p>
 
         {error && (
-          <div className="mb-4 text-sm text-red-600 bg-red-100 dark:bg-red-900 dark:text-red-300 p-3 rounded">
+          <div className="mb-4 p-3 rounded bg-red-100 text-red-700 text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Email address
+            <label className="block mb-1 font-medium">
+              Email Address
             </label>
             <input
               type="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={form.email}
+              onChange={handleChange}
               required
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="you@example.com"
             />
           </div>
 
+          {/* Password */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block mb-1 font-medium">
               Password
             </label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={form.password}
+              onChange={handleChange}
               required
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="••••••••"
             />
           </div>
 
+          {/* Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition disabled:opacity-60"
+            className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
-
-        <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-          Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
-            Register
-          </Link>
-        </p>
       </div>
     </div>
   );
-};
-
-export default Login;
+}
