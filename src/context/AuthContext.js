@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     formData.append("email", email);
     formData.append("password", password);
 
-    const response = await api.post("/login.php", formData);
+const response = await api.post("/api/login", formData);
 
     if (response.data.success) {
       const { token, user } = response.data;
