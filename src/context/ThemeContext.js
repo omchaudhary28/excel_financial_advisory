@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import useDarkMode from '../../useDarkMode'; // Adjust path if necessary
+import useDarkMode from '../hooks/useDarkMode';
 
 export const ThemeContext = createContext();
 
