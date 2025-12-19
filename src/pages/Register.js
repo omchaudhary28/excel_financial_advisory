@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../components/Notifications";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -59,31 +60,24 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-      <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 form-container">
+      <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+          <div className="px-8 pt-8 pb-6">
         <div>
-          <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl font-bold text-center text-text dark:text-text-inverted mb-2">
             Create Account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
             Join us to manage your finances
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="rounded-lg bg-red-50 dark:bg-red-900/30 p-4 border-l-4 border-red-500">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="ml-3">
-                  <h3 className="text-sm font-medium text-red-800 dark:text-red-200">Registration Error</h3>
-                  <div className="mt-2 text-sm text-red-700 dark:text-red-300">{error}</div>
-                </div>
-              </div>
+            <div className="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 dark:border-red-700 text-red-700 dark:text-red-300 p-4 mb-6 rounded-md">
+              {error}
             </div>
           )}
 
@@ -180,6 +174,8 @@ export default function Register() {
             </button>
           </div>
         </form>
+      </div>
+    </div>
       </div>
     </div>
   );

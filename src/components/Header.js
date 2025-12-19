@@ -37,7 +37,7 @@ function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-black shadow-md">
+    <header className="sticky top-0 z-50 bg-white dark:bg-background-dark shadow-md">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
         <Link to="/" className="flex items-center gap-2" onClick={handleLinkClick}>
           <img
@@ -53,17 +53,17 @@ function Header() {
             <Link
               key={link.path}
               to={link.path}
-              className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
+              className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors font-medium"
             >
               {link.label}
             </Link>
           ))}
           {user ? (
             <>
-              <Link to="/profile" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">
+              <Link to="/profile" className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors font-medium">
                 Profile
               </Link>
-              <Link to="/query" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">
+              <Link to="/query" className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors font-medium">
                 Raise Query
               </Link>
               <div className="relative ml-4">
@@ -86,7 +86,7 @@ function Header() {
             </>
           ) : (
             <div className="flex items-center gap-4">
-              <Link to="/login" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Login</Link>
+              <Link to="/login" className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors font-medium">Login</Link>
               <Link
                 to="/register"
                 className="btn-primary rounded-full"
@@ -108,24 +108,24 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-black absolute top-full left-0 w-full shadow-lg">
+        <div className="md:hidden bg-white dark:bg-background-dark absolute top-full left-0 w-full shadow-lg">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={handleLinkClick}
-                className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium"
+                className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium"
               >
                 {link.label}
               </Link>
             ))}
             {user ? (
               <>
-                <Link to="/profile" onClick={handleLinkClick} className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium">
+                <Link to="/profile" onClick={handleLinkClick} className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium">
                   Profile
                 </Link>
-                <Link to="/query" onClick={handleLinkClick} className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium">
+                <Link to="/query" onClick={handleLinkClick} className="text-gray-600 dark:text-text-inverted hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium">
                   Raise Query
                 </Link>
                 <div className="flex flex-col items-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -148,7 +148,7 @@ function Header() {
               </>
             ) : (
               <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <Link to="/login" onClick={handleLinkClick} className="py-2 text-center text-gray-600 dark:text-gray-300 font-medium">Login</Link>
+                <Link to="/login" onClick={handleLinkClick} className="py-2 text-center text-gray-600 dark:text-text-inverted font-medium">Login</Link>
                 <Link
                   to="/register"
                   onClick={handleLinkClick}
@@ -165,9 +165,9 @@ function Header() {
       {/* Logout Modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
-          <div className="bg-white dark:bg-black p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4">
-            <h3 className="text-xl font-bold mb-4">Confirm Logout</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to logout?</p>
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4">
+            <h3 className="text-xl font-bold mb-4 text-text dark:text-text-inverted">Confirm Logout</h3>
+            <p className="text-gray-600 dark:text-gray-200 mb-6">Are you sure you want to logout?</p>
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowLogoutConfirm(false)}
