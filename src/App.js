@@ -23,6 +23,7 @@ const Facebook = lazy(() => import("./pages/Facebook"));
 const Twitter = lazy(() => import("./pages/Twitter"));
 const LinkedIn = lazy(() => import("./pages/LinkedIn"));
 const Instagram = lazy(() => import("./pages/Instagram"));
+const Rating = lazy(() => import("./pages/rating"));
 
 function AppContent() {
   const location = useLocation();
@@ -46,6 +47,7 @@ function AppContent() {
         >
           <Routes>
             {/* Public routes */}
+            <Route path="/rating" element={<Rating />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
