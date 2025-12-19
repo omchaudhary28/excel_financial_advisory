@@ -85,6 +85,21 @@ function AdminDashboard() {
     return `https://wa.me/${cleanedPhone}`;
   };
 
+  const [feedback, setFeedback] = useState([]);
+
+useEffect(() => {
+  axios
+    .get("https://excel-financial-advisory-backend.onrender.com/admin_feedback.php", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then(res => setFeedback(res.data))
+    .catch(() => {});
+}, []);
+
+
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -172,6 +187,19 @@ function AdminDashboard() {
                 Registered Users
               </button>
             </div>
+
+<div className="mt-8">
+  <h3 className="text-xl font-bold mb-4">User Feedback</h3>
+
+  {feedback.map(f => (
+    <div key={f.id} className="border p-4 rounded mb-3">
+      <p><strong>Rating:</strong> {f.rating} ⭐</p>
+      <p>{f.message}</p>
+      <p className="text-sm text-gray-500">{f.created_at}</p>
+    </div>
+  ))}
+</div>
+
 
             {activeTab === 'queries' && (
               <div className="flex border-b border-gray-300 dark:border-gray-700 mb-8">
