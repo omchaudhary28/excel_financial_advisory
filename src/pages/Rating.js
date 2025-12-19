@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Rating = () => {
+export default function Rating() {
   const [rating, setRating] = useState(5);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(null);
@@ -19,8 +19,8 @@ const Rating = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
 
@@ -60,8 +60,10 @@ const Rating = () => {
             onChange={(e) => setRating(Number(e.target.value))}
             className="w-full border rounded px-3 py-2"
           >
-            {[5,4,3,2,1].map(n => (
-              <option key={n} value={n}>{n} ⭐</option>
+            {[5, 4, 3, 2, 1].map((n) => (
+              <option key={n} value={n}>
+                {n} ⭐
+              </option>
             ))}
           </select>
         </div>
@@ -86,6 +88,4 @@ const Rating = () => {
       </form>
     </div>
   );
-};
-
-export default Rating;
+}
