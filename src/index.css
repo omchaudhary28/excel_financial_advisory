@@ -259,21 +259,21 @@ select:focus {
 .dark input,
 .dark textarea,
 .dark select {
-  background-color: #1a202c;
-  color: var(--color-text);
-  border-color: #4a5568;
+  background-color: #1a202c !important;
+  color: var(--color-text) !important;
+  border-color: #4a5568 !important;
 }
 
 .dark input::placeholder,
 .dark textarea::placeholder {
-  color: #a0aec0;
+  color: #a0aec0 !important;
 }
 
 .dark input:focus,
 .dark textarea:focus,
 .dark select:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.6);
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.6) !important;
 }
 
 /* Light theme styles for forms */
@@ -298,5 +298,5 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.6);
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, .6);
 }
