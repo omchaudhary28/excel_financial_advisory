@@ -1,58 +1,41 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
-import api from "../services/api";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
-const AuthContext = createContext(null);
-export const useAuth = () => useContext(AuthContext);
+const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  // Restore user on refresh
   useEffect(() => {
-    const u = localStorage.getItem("user");
-    if (u) setUser(JSON.parse(u));
-  }, []);
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
 
-const login = async (email, password) => {
-  try {
-    const response = await api.post("/login.php", {
-      email,
-      password,
-    });
-
-    if (response.data.success) {
-      const { token, user } = response.data;
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setUser(user);
-
-      return { success: true };
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser));
     }
 
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      message:
-        error.response?.data?.message || "Login failed. Try again.",
-    };
-  }
-};
+    setLoading(false);
+  }, []);
 
+  const login = (data) => {
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    setUser(data.user);
+  };
 
-
-  const register = (data) => api.post("/register.php", data);
-
-  const logout = () => {
-    localStorage.clear();
+  const logout = async () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
-      {children}
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
-};
+}
+
+export const useAuth = () => useContext(AuthContext);
