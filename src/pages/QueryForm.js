@@ -41,7 +41,7 @@ const QueryForm = () => {
   };
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[60vh] flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
         <div className="bg-background-light dark:bg-background-dark rounded-2xl shadow-2xl dark:shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>

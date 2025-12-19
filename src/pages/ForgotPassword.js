@@ -39,21 +39,21 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 form-container">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 form-container">
       <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
+            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
               Reset Password
             </h2>
-            <p className="text-center text-gray-600 mb-8">
+            <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
               Enter your email to receive a reset link.
             </p>
 
             {message && (
               <div
-                className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md"
+                className="bg-green-100 dark:bg-green-900 border-l-4 border-green-500 text-green-700 dark:text-green-300 p-4 mb-6 rounded-md"
                 role="alert"
               >
                 {message}
@@ -62,7 +62,7 @@ function ForgotPassword() {
 
             {error && (
               <div
-                className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md"
+                className="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 mb-6 rounded-md"
                 role="alert"
               >
                 {error}
@@ -73,7 +73,7 @@ function ForgotPassword() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
                 >
                   📧 Email Address
                 </label>
@@ -84,9 +84,7 @@ function ForgotPassword() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  disabled={loading}
-                  autoComplete="email"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  disabled autoComplete="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -100,14 +98,14 @@ function ForgotPassword() {
             </form>
 
             <div className="my-6 flex items-center gap-4">
-              <div className="flex-1 h-px bg-gray-200"></div>
-              <span className="text-sm text-gray-600">
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 or
               </span>
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
             </div>
 
-            <p className="text-center text-gray-600 text-sm">
+            <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
               Remembered your password?{" "}
               <Link
                 to="/login"
