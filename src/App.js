@@ -7,7 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ThemeProvider } from "./context/ThemeContext";
 import { LoadingSpinner } from "./components/Notifications";
 import PrivateRoute from "./components/PrivateRoute";
-
+import Rating from "./pages/rating";
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -23,7 +23,7 @@ const Facebook = lazy(() => import("./pages/Facebook"));
 const Twitter = lazy(() => import("./pages/Twitter"));
 const LinkedIn = lazy(() => import("./pages/LinkedIn"));
 const Instagram = lazy(() => import("./pages/Instagram"));
-const Rating = lazy(() => import("./pages/rating"));
+
 
 function AppContent() {
   const location = useLocation();
