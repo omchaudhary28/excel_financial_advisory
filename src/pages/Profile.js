@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import { LoadingSpinner } from "../components/Notifications";
 
 function Profile() {
   const { user, login } = useAuth();
@@ -31,13 +32,13 @@ function Profile() {
         "https://excel-financial-advisory-backend.onrender.com/update_profile.php",
         {
           name,
-          phone
+          phone,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -50,16 +51,15 @@ function Profile() {
       const updatedUser = {
         ...user,
         name,
-        phone
+        phone,
       };
 
       login({
         token,
-        user: updatedUser
+        user: updatedUser,
       });
 
       setSuccess("Profile updated successfully");
-
     } catch (err) {
       setError("Unable to update profile");
     } finally {
@@ -68,138 +68,95 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold">Your Profile</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">Manage your personal information and settings.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Left Panel: Profile Picture and Info */}
-          <div className="md:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-lg animate-fade-in-up" data-aos="fade-up">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+          <div className="px-8 pt-8 pb-6">
+            <div className="text-center mb-8">
               <div className="relative w-32 h-32 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-5xl font-bold text-white">
-                  {user?.name ? user.name.charAt(0).toUpperCase() : ''}
+                  {user?.name ? user.name.charAt(0).toUpperCase() : ""}
                 </span>
               </div>
-              <h2 className="text-2xl font-bold">{name}</h2>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                {name}
+              </h2>
               <p className="text-gray-600 dark:text-gray-400">{user?.email}</p>
             </div>
-          </div>
 
-          {/* Right Panel: Form */}
-          <div className="md:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">Edit Profile</h3>
-              {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md">{error}</div>}
-              {success && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">{success}</div>}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Phone Number
-                  </label>
-                  <input
-                    type="text"
-                    id="phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                    className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={user?.email || ""}
-                    disabled
-                    className="mt-1 block w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm"
-                  />
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
-                    {loading ? "Saving..." : "Save Changes"}
-                  </button>
-                </div>
-              </form>
-            </div>
+            {error && (
+              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md">
+                {error}
+              </div>
+            )}
+            {success && (
+              <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">
+                {success}
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                >
+                  👤 Full Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                  placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                >
+                  📱 Phone Number
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                  placeholder="1234567890"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                >
+                  📧 Email Address
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  disabled
+                  className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                  value={user?.email || ""}
+                />
+              </div>
 
-            {/* Change Password Section */}
-            <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">Change Password</h3>
-              <form className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="current-password"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    Current Password
-                  </label>
-                  <input
-                    type="password"
-                    id="current-password"
-                    className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="new-password"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    New Password
-                  </label>
-                  <input
-                    type="password"
-                    id="new-password"
-                    className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    Confirm New Password
-                  </label>
-                  <input
-                    type="password"
-                    id="confirm-password"
-                    className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
-                  >
-                    Change Password
-                  </button>
-                </div>
-              </form>
-            </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover-lift shadow-lg disabled:shadow-none disabled:cursor-not-allowed mt-6"
+              >
+                {loading ? <LoadingSpinner text="Saving..." /> : "Save Changes"}
+              </button>
+            </form>
           </div>
         </div>
       </div>

@@ -92,54 +92,57 @@ function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            Create a new account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Or{" "}
-            <Link to="/login" className="font-medium text-primary hover:text-opacity-90">
-              sign in to your existing account
-            </Link>
-          </p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-8">
-          {success && (
-            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">
-              {success}
-            </div>
-          )}
-          {errors.length > 0 && (
-            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md">
-              <ul>
-                {errors.map((error, index) => (
-                  <li key={index}>{error}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {!success && (
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="rounded-md shadow-sm">
+      <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+          <div className="px-8 pt-8 pb-6">
+            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+              Create an Account
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+              Join thousands of successful investors.
+            </p>
+
+            {success && (
+              <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">
+                {success}
+              </div>
+            )}
+            {errors.length > 0 && (
+              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md">
+                <ul>
+                  {errors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {!success && (
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="sr-only">
-                    Full Name
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    👤 Full Name
                   </label>
                   <input
                     id="name"
                     name="name"
                     type="text"
                     required
-                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                    placeholder="Full Name"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    placeholder="John Doe"
                     value={formData.name}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mt-4">
-                  <label htmlFor="email-address" className="sr-only">
-                    Email address
+                <div>
+                  <label
+                    htmlFor="email-address"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    📧 Email Address
                   </label>
                   <input
                     id="email-address"
@@ -147,30 +150,36 @@ function Register() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                    placeholder="Email address"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    placeholder="you@example.com"
                     value={formData.email}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mt-4">
-                  <label htmlFor="phone" className="sr-only">
-                    Phone Number
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    📱 Phone Number
                   </label>
                   <input
                     id="phone"
                     name="phone"
                     type="tel"
                     required
-                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                    placeholder="Phone Number"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    placeholder="1234567890"
                     value={formData.phone}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mt-4">
-                  <label htmlFor="password" className="sr-only">
-                    Password
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    🔐 Password
                   </label>
                   <div className="relative">
                     <input
@@ -179,8 +188,8 @@ function Register() {
                       type={showPasswords ? 'text' : 'password'}
                       autoComplete="new-password"
                       required
-                      className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                      placeholder="Password"
+                      className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                      placeholder="••••••••"
                       value={formData.password}
                       onChange={handleChange}
                     />
@@ -193,9 +202,12 @@ function Register() {
                     </button>
                   </div>
                 </div>
-                <div className="mt-4">
-                  <label htmlFor="confirm-password" className="sr-only">
-                    Confirm Password
+                <div>
+                  <label
+                    htmlFor="confirm-password"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    🔐 Confirm Password
                   </label>
                   <input
                     id="confirm-password"
@@ -203,45 +215,68 @@ function Register() {
                     type={showPasswords ? 'text' : 'password'}
                     autoComplete="new-password"
                     required
-                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                    placeholder="Confirm Password"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    placeholder="••••••••"
                     value={formData.confirm_password}
                     onChange={handleChange}
                   />
                 </div>
-              </div>
 
-              <div className="flex items-center mt-6">
-                <input
-                  id="agree"
-                  name="agree"
-                  type="checkbox"
-                  required
-                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded"
-                />
-                <label htmlFor="agree" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                  I agree to the{" "}
-                  <Link to="/terms-of-service" className="font-medium text-primary hover:text-opacity-90">
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link to="/privacy-policy" className="font-medium text-primary hover:text-opacity-90">
-                    Privacy Policy
-                  </Link>
-                </label>
-              </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="agree"
+                    required
+                    className="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded"
+                  />
+                  <label
+                    htmlFor="agree"
+                    className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+                  >
+                    I agree to the{" "}
+                    <Link
+                      to="/terms-of-service"
+                      className="font-semibold text-primary hover:text-opacity-90"
+                    >
+                      Terms of Service
+                    </Link>{" "}
+                    and{" "}
+                    <Link
+                      to="/privacy-policy"
+                      className="font-semibold text-primary hover:text-opacity-90"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </label>
+                </div>
 
-              <div className="mt-6">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover-lift shadow-lg disabled:shadow-none disabled:cursor-not-allowed mt-6"
                 >
-                  {loading ? <LoadingSpinner /> : 'Create Account'}
+                  {loading ? <LoadingSpinner text="Creating Account..." /> : "Create Account"}
                 </button>
-              </div>
-            </form>
-          )}
+              </form>
+            )}
+            <div className="my-6 flex items-center gap-4">
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                or
+              </span>
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+            </div>
+
+            <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="font-semibold text-primary hover:text-opacity-90"
+              >
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
