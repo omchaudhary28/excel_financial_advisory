@@ -64,8 +64,8 @@ function Contact() {
     {
       icon: <FaWhatsapp />,
       label: "WhatsApp",
-      value: "+1234567890",
-      href: "https://wa.me/1234567890",
+      value: "+7499953708",
+      href: "https://wa.me/7499953708",
     },
   ];
 
