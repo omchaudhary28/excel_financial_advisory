@@ -52,14 +52,14 @@ function Contact() {
     {
       icon: <FaPhone />,
       label: "Phone",
-      value: "+1234567890",
-      href: "tel:+1234567890",
+      value: "+917499953708",
+      href: "tel:+917499953708",
     },
     {
       icon: <FaEnvelope />,
       label: "Email",
-      value: "contact@excelfinancial.com",
-      href: "mailto:contact@excelfinancial.com",
+      value: "omchaudhary2111@gmail.com",
+      href: "mailto:omchaudhary2111@gmail.com",
     },
     {
       icon: <FaWhatsapp />,
