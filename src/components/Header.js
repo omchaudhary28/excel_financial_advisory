@@ -37,12 +37,12 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-background-light dark:bg-background-dark shadow-lg">
-      <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
+      <nav className="container mx-auto px-6 py-2 flex justify-between items-center max-w-7xl">
         <Link to="/" className="flex items-center gap-2" onClick={handleLinkClick}>
           <img
             src="/excel_financial.png"
             alt="Excel Financial Advisory"
-            className="h-10"
+            className="h-14"
           />
         </Link>
 
