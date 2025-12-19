@@ -1,29 +1,75 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-  try {
-    const response = await fetch(
-      "https://excel-financial-advisory.kesug.com/login.php",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(req.body),
+function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMsg("");
+    setLoading(true);
+
+    try {
+      const res = await login(email, password);
+
+      if (res?.success) {
+        navigate("/"); // ✅ redirect to home
+      } else {
+        setErrorMsg(res?.message || "Login failed");
       }
-    );
+    } catch (err) {
+      setErrorMsg("Server error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const data = await response.text();
+  return (
+    <div className="max-w-md mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">Login</h1>
 
-    res.setHeader("Content-Type", "application/json");
-    return res.status(200).send(data);
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Proxy error",
-      error: error.message,
-    });
-  }
+      {errorMsg && (
+        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+          {errorMsg}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="email"
+          placeholder="Email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full p-3 border rounded"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full p-3 border rounded"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-primary text-white py-3 rounded-lg hover:opacity-90 disabled:opacity-50"
+        >
+          {loading ? "Signing in..." : "Login"}
+        </button>
+      </form>
+    </div>
+  );
 }
+
+export default Login;
