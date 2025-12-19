@@ -200,7 +200,7 @@ html {
 
 /* Button Animations */
 .btn-hover-glow {
-  @apply relative overflow-hidden transition-all duration-400;
+  @apply relative overflow-hidden transition-all duration-300;
 }
 
 .btn-hover-glow:hover {
@@ -211,7 +211,7 @@ html {
 input:focus,
 textarea:focus,
 select:focus {
-  @apply ring-4 ring-blue-300 ring-offset-2 transition-all duration-400;
+  @apply ring-4 ring-blue-300 ring-offset-2 transition-all duration-300;
 }
 
 /* Loading Spinner */
