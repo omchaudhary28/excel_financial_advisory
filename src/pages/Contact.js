@@ -46,6 +46,27 @@ function Contact() {
     }
   };
 
+  const contactOptions = [
+    {
+      name: "Phone",
+      value: "7499953708",
+      href: "tel:7499953708",
+      icon: "📞",
+    },
+    {
+      name: "Email",
+      value: "omchaudhary2111@gmail.com",
+      href: "mailto:omchaudhary2111@gmail.com",
+      icon: "📧",
+    },
+    {
+      name: "WhatsApp",
+      value: "7499953708",
+      href: "https://wa.me/7499953708",
+      icon: "💬",
+    },
+  ];
+
   return (
     <div className="min-h-[60vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
@@ -59,6 +80,24 @@ function Contact() {
             <p className="text-center text-text dark:text-text-inverted mb-8">
               We'll get back to you as soon as possible.
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              {contactOptions.map((option, index) => (
+                <a
+                  key={index}
+                  href={option.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex flex-col items-center justify-center text-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
+                  data-aos="fade-up"
+                  data-aos-delay={100 + index * 50}
+                >
+                  <span className="text-3xl mb-2">{option.icon}</span>
+                  <span className="font-semibold text-text dark:text-text-inverted">{option.name}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{option.value}</span>
+                </a>
+              ))}
+            </div>
 
             {status && (
               <div className="bg-green-50 dark:bg-green-900 border-l-4 border-green-500 text-green-700 dark:text-green-300 px-4 py-4 rounded-lg mb-6 animate-fade-in-up">
@@ -103,6 +142,16 @@ function Contact() {
                 </div>
               </div>
             )}
+            
+            <div className="my-6 flex items-center gap-4">
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+              <span className="text-sm text-text dark:text-text-inverted">or</span>
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+            </div>
+
+            <h3 className="text-xl font-bold text-center text-text dark:text-text-inverted mb-4">
+              Send us a Message
+            </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div data-aos="fade-up" data-aos-delay="100">
