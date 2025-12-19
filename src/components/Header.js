@@ -37,7 +37,7 @@ function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md">
+    <header className="sticky top-0 z-50 bg-white dark:bg-black shadow-md">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
         <Link to="/" className="flex items-center gap-2" onClick={handleLinkClick}>
           <img
@@ -71,7 +71,7 @@ function Header() {
                   {avatarLetter}
                 </button>
                 {isMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg py-1 z-50">
                     <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200">{displayName}</div>
                     <button
                       onClick={confirmLogout}
@@ -108,7 +108,7 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-800 absolute top-full left-0 w-full shadow-lg">
+        <div className="md:hidden bg-white dark:bg-black absolute top-full left-0 w-full shadow-lg">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
@@ -165,7 +165,7 @@ function Header() {
       {/* Logout Modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4">
+          <div className="bg-white dark:bg-black p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4">
             <h3 className="text-xl font-bold mb-4">Confirm Logout</h3>
             <p className="text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to logout?</p>
             <div className="flex justify-end gap-4">

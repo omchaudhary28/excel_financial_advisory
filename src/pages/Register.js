@@ -121,7 +121,7 @@ function Register() {
           )}
           {!success && (
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="rounded-md shadow-sm -space-y-px">
+              <div className="rounded-md shadow-sm">
                 <div>
                   <label htmlFor="name" className="sr-only">
                     Full Name
@@ -131,13 +131,13 @@ function Register() {
                     name="name"
                     type="text"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                     placeholder="Full Name"
                     value={formData.name}
                     onChange={handleChange}
                   />
                 </div>
-                <div>
+                <div className="mt-4">
                   <label htmlFor="email-address" className="sr-only">
                     Email address
                   </label>
@@ -147,13 +147,13 @@ function Register() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                     placeholder="Email address"
                     value={formData.email}
                     onChange={handleChange}
                   />
                 </div>
-                <div>
+                <div className="mt-4">
                   <label htmlFor="phone" className="sr-only">
                     Phone Number
                   </label>
@@ -162,13 +162,13 @@ function Register() {
                     name="phone"
                     type="tel"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                     placeholder="Phone Number"
                     value={formData.phone}
                     onChange={handleChange}
                   />
                 </div>
-                <div>
+                <div className="mt-4">
                   <label htmlFor="password" className="sr-only">
                     Password
                   </label>
@@ -179,7 +179,7 @@ function Register() {
                       type={showPasswords ? 'text' : 'password'}
                       autoComplete="new-password"
                       required
-                      className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                      className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                       placeholder="Password"
                       value={formData.password}
                       onChange={handleChange}
@@ -187,13 +187,13 @@ function Register() {
                     <button
                       type="button"
                       onClick={() => setShowPasswords(!showPasswords)}
-                      className="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5"
+                      className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500"
                     >
-                      {showPasswords ? 'Hide' : 'Show'}
+                      {showPasswords ? <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> : <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7 1.274-4.057 5.064-7 9.542-7 .926 0 1.828.148 2.69.418M18.44 18.44L6 6M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>}
                     </button>
                   </div>
                 </div>
-                <div>
+                <div className="mt-4">
                   <label htmlFor="confirm-password" className="sr-only">
                     Confirm Password
                   </label>
@@ -203,7 +203,7 @@ function Register() {
                     type={showPasswords ? 'text' : 'password'}
                     autoComplete="new-password"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-lg relative block w-full px-4 py-4 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                     placeholder="Confirm Password"
                     value={formData.confirm_password}
                     onChange={handleChange}
@@ -211,7 +211,7 @@ function Register() {
                 </div>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-center mt-6">
                 <input
                   id="agree"
                   name="agree"
@@ -231,11 +231,11 @@ function Register() {
                 </label>
               </div>
 
-              <div>
+              <div className="mt-6">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 >
                   {loading ? <LoadingSpinner /> : 'Create Account'}
                 </button>
