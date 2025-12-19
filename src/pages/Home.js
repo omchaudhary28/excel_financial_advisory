@@ -70,7 +70,7 @@ function Home() {
       <section className="relative py-24 px-6 overflow-hidden bg-background dark:bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 blur-3xl pointer-events-none"></div>
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-text dark:text-white mb-6 leading-tight animate-fade-in-up">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-text dark:text-white mb-6 leading-tight animate-fade-in-up gradient-text">
             Achieve Financial Freedom
           </h1>
           <p className="text-lg md:text-xl text-text-light dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

@@ -80,15 +80,10 @@ function Profile() {
           {/* Left Panel: Profile Picture and Info */}
           <div className="md:col-span-1">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center">
-              <div className="relative w-32 h-32 mx-auto mb-6">
-                <img
-                  className="w-full h-full rounded-full object-cover"
-                  src={`https://i.pravatar.cc/150?u=${user?.email}`}
-                  alt={name}
-                />
-                <button className="absolute bottom-0 right-0 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-opacity-90 transition-colors">
-                  ✏️
-                </button>
+              <div className="relative w-32 h-32 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-5xl font-bold text-white">
+                  {user?.name ? user.name.charAt(0).toUpperCase() : ''}
+                </span>
               </div>
               <h2 className="text-2xl font-bold">{name}</h2>
               <p className="text-gray-600 dark:text-gray-400">{user?.email}</p>
@@ -123,7 +118,7 @@ function Profile() {
                     type="text"
                     id="phone"
                     value={phone}
-                    onChange={(e) => setPhone(e.targe.value)}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                     className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
                   />
