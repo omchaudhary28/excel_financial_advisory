@@ -39,15 +39,15 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 form-container">
       <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
               Reset Password
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-center text-gray-600 mb-8">
               Enter your email to receive a reset link.
             </p>
 
@@ -73,7 +73,7 @@ function ForgotPassword() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   📧 Email Address
                 </label>
@@ -86,7 +86,7 @@ function ForgotPassword() {
                   required
                   disabled={loading}
                   autoComplete="email"
-                  className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -100,14 +100,14 @@ function ForgotPassword() {
             </form>
 
             <div className="my-6 flex items-center gap-4">
-              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex-1 h-px bg-gray-200"></div>
+              <span className="text-sm text-gray-600">
                 or
               </span>
-              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+              <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
-            <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-center text-gray-600 text-sm">
               Remembered your password?{" "}
               <Link
                 to="/login"

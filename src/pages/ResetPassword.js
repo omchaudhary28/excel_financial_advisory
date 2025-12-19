@@ -61,15 +61,15 @@ function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 form-container">
       <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
               Reset Your Password
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-center text-gray-600 mb-8">
               Enter your new password below.
             </p>
 
@@ -95,7 +95,7 @@ function ResetPassword() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   🔐 New Password
                 </label>
@@ -108,14 +108,14 @@ function ResetPassword() {
                   required
                   disabled={loading}
                   autoComplete="new-password"
-                  className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   🔐 Confirm New Password
                 </label>
@@ -128,7 +128,7 @@ function ResetPassword() {
                   required
                   disabled={loading}
                   autoComplete="new-password"
-                  className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 />
               </div>
 

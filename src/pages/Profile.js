@@ -68,9 +68,9 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 form-container">
       <div className="w-full max-w-lg animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
           <div className="px-8 pt-8 pb-6">
             <div className="text-center mb-8">
@@ -79,10 +79,10 @@ function Profile() {
                   {user?.name ? user.name.charAt(0).toUpperCase() : ""}
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl font-bold text-gray-900">
                 {name}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">{user?.email}</p>
+              <p className="text-gray-600">{user?.email}</p>
             </div>
 
             {error && (
@@ -99,7 +99,7 @@ function Profile() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   👤 Full Name
                 </label>
@@ -108,7 +108,7 @@ function Profile() {
                   name="name"
                   type="text"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -117,7 +117,7 @@ function Profile() {
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   📱 Phone Number
                 </label>
@@ -126,7 +126,7 @@ function Profile() {
                   name="phone"
                   type="tel"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
                   placeholder="1234567890"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -135,7 +135,7 @@ function Profile() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   📧 Email Address
                 </label>
@@ -144,7 +144,7 @@ function Profile() {
                   name="email"
                   type="email"
                   disabled
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
                   value={user?.email || ""}
                 />
               </div>

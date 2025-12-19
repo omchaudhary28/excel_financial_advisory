@@ -60,6 +60,55 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
+/* Form Container */
+.dark .form-container .bg-white {
+  background-color: #1f2937 !important;
+}
+
+.dark .form-container .text-gray-900 {
+  color: var(--color-text) !important;
+}
+
+.dark .form-container .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+.dark .form-container .border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+.dark .form-container .placeholder-gray-400::placeholder {
+  color: #9ca3af !important;
+}
+
+.dark .form-container .bg-red-100 {
+  background-color: #450a0a !important;
+}
+
+.dark .form-container .text-red-700 {
+  color: #fca5a5 !important;
+}
+
+.dark .form-container .border-red-500 {
+  border-color: #ef4444 !important;
+}
+
+.dark .form-container .bg-green-100 {
+  background-color: #064e3b !important;
+}
+
+.dark .form-container .text-green-700 {
+  color: #6ee7b7 !important;
+}
+
+.dark .form-container .border-green-500 {
+  border-color: #22c55e !important;
+}
+
+.dark .form-container .bg-gray-200 {
+    background-color: #374151 !important;
+}
+
 /* Custom Animations */
 @keyframes fadeInUp {
   from {
@@ -266,7 +315,7 @@ select:focus {
 
 .dark input::placeholder,
 .dark textarea::placeholder {
-  color: #060606 !important;
+  color: #a0aec0 !important;
 }
 
 .dark input:focus,
