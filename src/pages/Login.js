@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 function Login() {
   const { login } = useAuth();
@@ -25,6 +25,7 @@ function Login() {
     setLoading(true);
 
     try {
+      // Using the backend URL from previous examples.
       const res = await axios.post(
         "https://excel-financial-advisory-backend.onrender.com/login.php",
         form,
@@ -33,7 +34,7 @@ function Login() {
 
       if (res.data.success) {
         login(res.data);
-        navigate("/"); // ✅ redirect to home
+        navigate("/");
       } else {
         setError(res.data.message || "Login failed");
       }
@@ -45,7 +46,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
         <div className="bg-background-light dark:bg-background-dark rounded-2xl shadow-2xl dark:shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>

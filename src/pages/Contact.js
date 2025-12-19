@@ -131,6 +131,7 @@ function Contact() {
                     <input
                       type="text"
                       name="name"
+                      id="name"
                       value={form.name}
                       onChange={handleChange}
                       placeholder="John Doe"
@@ -146,6 +147,7 @@ function Contact() {
                     <input
                       type="email"
                       name="email"
+                      id="email"
                       value={form.email}
                       onChange={handleChange}
                       placeholder="you@example.com"
@@ -161,6 +163,7 @@ function Contact() {
                     <input
                       type="text"
                       name="subject"
+                      id="subject"
                       value={form.subject}
                       onChange={handleChange}
                       placeholder="Regarding my account"
@@ -175,6 +178,7 @@ function Contact() {
                     </label>
                     <textarea
                       name="message"
+                      id="message"
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Your message here..."
