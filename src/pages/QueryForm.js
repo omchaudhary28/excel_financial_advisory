@@ -1,111 +1,92 @@
 import React, { useState } from "react";
 import api from "../services/api";
 
-export default function QueryForm() {
-  const [fullName, setFullName] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [subjectText, setSubjectText] = useState("");
-  const [messageText, setMessageText] = useState("");
-
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const QueryForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccess("");
-    setError("");
-    setLoading(true);
+    setStatus("");
 
     try {
       const res = await api.post("/submit_query.php", {
-        name: fullName,
-        email: emailAddress,
-        subject: subjectText,
-        message: messageText,
+        name,
+        email,
+        subject,
+        message,
       });
 
-      if (res.data?.success) {
-        setSuccess("Query submitted successfully!");
-        setFullName("");
-        setEmailAddress("");
-        setSubjectText("");
-        setMessageText("");
+      if (res.data.success) {
+        setStatus("Query submitted successfully!");
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
       } else {
-        setError(res.data?.message || "Submission failed");
+        setStatus(res.data.message || "Failed to submit query");
       }
     } catch (err) {
-      setError("Server error. Please try again.");
-    } finally {
-      setLoading(false);
+      setStatus("Server error. Try again.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[70vh]">
-      <div className="w-full max-w-lg bg-white shadow-xl rounded-xl p-8">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Raise a Query
-        </h2>
+    <div className="max-w-xl mx-auto bg-white p-8 rounded-xl shadow">
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        Raise a Query
+      </h2>
 
-        {success && (
-          <div className="mb-4 p-3 rounded bg-green-100 text-green-700 text-sm">
-            {success}
-          </div>
-        )}
+      {status && (
+        <div className="mb-4 text-center text-red-600">
+          {status}
+        </div>
+      )}
 
-        {error && (
-          <div className="mb-4 p-3 rounded bg-red-100 text-red-700 text-sm">
-            {error}
-          </div>
-        )}
+      <form onSubmit={handleSubmit}>
+        <input
+          className="w-full border p-3 rounded mb-4"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-lg"
-          />
+        <input
+          className="w-full border p-3 rounded mb-4"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <input
-            type="email"
-            placeholder="Your Email"
-            value={emailAddress}
-            onChange={(e) => setEmailAddress(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-lg"
-          />
+        <input
+          className="w-full border p-3 rounded mb-4"
+          placeholder="Subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          required
+        />
 
-          <input
-            type="text"
-            placeholder="Subject"
-            value={subjectText}
-            onChange={(e) => setSubjectText(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-lg"
-          />
+        <textarea
+          className="w-full border p-3 rounded mb-6"
+          placeholder="Message"
+          rows="4"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          required
+        />
 
-          <textarea
-            placeholder="Your Message"
-            value={messageText}
-            onChange={(e) => setMessageText(e.target.value)}
-            rows="4"
-            required
-            className="w-full px-4 py-2 border rounded-lg"
-          />
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600"
-          >
-            {loading ? "Submitting..." : "Submit Query"}
-          </button>
-        </form>
-      </div>
+        <button className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700">
+          Submit
+        </button>
+      </form>
     </div>
   );
-}
+};
+
+export default QueryForm;
