@@ -65,123 +65,106 @@ function Home() {
   ];
 
   return (
-    <div className="space-y-12 md:space-y-16 pb-12 md:pb-16">
+    <div className="space-y-24 pb-24">
       {/* Hero Section */}
-      <section className="relative py-12 md:py-20 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 blur-3xl pointer-events-none"></div>
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-12 items-center">
-          <div className="text-center md:text-center animate-fade-in-up" data-aos="fade-up">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-blue-500 bg-clip-text text-transparent mb-6 leading-tight">
-              Clarity and Strategy For Your Financial Future
-            </h1>
-            <p className="text-lg md:text-xl text-text dark:text-text-inverted mb-8 max-w-2xl mx-auto">
-              We provide bespoke financial advisory services to help you navigate market complexities and achieve your goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-center animate-scale-up">
+      <section className="relative py-24 px-6 overflow-hidden bg-background dark:bg-gray-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 blur-3xl pointer-events-none"></div>
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-text dark:text-white mb-6 leading-tight animate-fade-in-up">
+            Achieve Financial Freedom
+          </h1>
+          <p className="text-lg md:text-xl text-text-light dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            Expert financial guidance to help you build, manage, and protect your wealth.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <Link
+              to="/contact"
+              className="bg-primary hover:bg-opacity-90 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              Get Started
+            </Link>
+            {!user && (
               <Link
-                to="/contact"
-                className="bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 hover-lift shadow-lg"
+                to="/register"
+                className="bg-secondary hover:bg-opacity-90 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
-                Book a Free Consultation
+                Sign Up
               </Link>
-              {!user && (
-                <Link
-                  to="/register"
-                  className="border-2 border-primary text-primary dark:text-primary-light hover:bg-primary-light/10 dark:hover:bg-background-dark font-bold py-3 px-8 rounded-lg transition-all duration-300 hover-scale"
-                >
-                  Create an Account
-                </Link>
-              )}
-            </div>
+            )}
           </div>
-
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-12" data-aos="fade-up">
-          <h2 className="text-4xl font-bold text-text dark:text-text-inverted mb-4">Our Core Services</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-text dark:text-white mb-4">Our Services</h2>
+          <p className="text-lg text-text-light dark:text-gray-400">Comprehensive solutions for your financial needs.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}
+              className="group bg-background dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200 dark:border-gray-700 text-center transform hover:-translate-y-2"
               data-aos="fade-up"
               data-aos-delay={index * 100}
-              className="group bg-background-light dark:bg-background-dark rounded-xl shadow-md dark:shadow-xl hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 dark:border-gray-700 hover-lift text-center"
             >
-              <div className="flex justify-center text-5xl mb-4 group-hover:scale-125 transition-transform duration-300">
+              <div className="flex justify-center text-primary text-5xl mb-6">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold text-text dark:text-text-inverted mb-3">{feature.title}</h3>
-              <p className="text-text-muted dark:text-text-muted leading-relaxed text-sm">{feature.description}</p>
-              <div className="mt-4 w-0 group-hover:w-full h-1 bg-gradient-to-r from-primary to-secondary transition-all duration-300 rounded-full mx-auto"></div>
+              <h3 className="text-2xl font-semibold text-text dark:text-white mb-4">{feature.title}</h3>
+              <p className="text-text-light dark:text-gray-400 leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="mx-4 sm:mx-6 lg:mx-8 py-12 bg-gradient-to-r from-primary-dark to-secondary-dark rounded-2xl text-white shadow-xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-4">
+      <section className="py-20 bg-primary text-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-4">
           {[
-            { number: '500+', label: 'Happy Clients' },
-            { number: '15+', label: 'Years of Experience' },
-            { number: '$2B+', label: 'In Assets Managed' },
+            { number: '1,200+', label: 'Clients Served' },
+            { number: '20+', label: 'Years of Expertise' },
+            { number: '$5B+', label: 'Assets Under Management' },
           ].map((stat, index) => (
-            <div
-              key={index}
-              data-aos="zoom-in"
-              data-aos-delay={index * 100}
-              className="animate-fade-in-up"
-            >
-              <div className="text-4xl md:text-5xl font-bold mb-2">{stat.number}</div>
-              <div className="text-primary-light">{stat.label}</div>
+            <div key={index} data-aos="zoom-in" data-aos-delay={index * 100}>
+              <div className="text-5xl font-extrabold mb-2">{stat.number}</div>
+              <div className="text-lg opacity-80">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-12 overflow-hidden">
-        <div className="text-center mb-12" data-aos="fade-up">
-          <h2 className="text-4xl font-bold text-text dark:text-text-inverted mb-4">Trusted by Leaders</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-text dark:text-white mb-4">What Our Clients Say</h2>
+          <p className="text-lg text-text-light dark:text-gray-400">Real stories from people we've helped.</p>
         </div>
 
-        <style>{`
-          @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          .animate-scroll {
-            animation: scroll 40s linear infinite;
-          }
-          .animate-scroll:hover {
-            animation-play-state: paused;
-          }
-        `}</style>
-
-        <div className="flex w-max animate-scroll gap-6">
-          {[...testimonials, ...testimonials].map((testimonial, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="w-72 sm:w-80 md:w-96 flex-shrink-0 bg-background-light dark:bg-background-dark rounded-xl shadow-lg dark:shadow-xl hover:shadow-2xl transition-all duration-300 p-6 border-l-4 border-primary dark:border-primary-light hover-lift"
+              className="bg-background dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-xl animate-pulse-glow">
-                    ⭐
-                  </span>
-                ))}
+              <div className="flex items-center mb-4">
+                <div className="flex-shrink-0">
+                  <img className="w-12 h-12 rounded-full" src={`https://i.pravatar.cc/150?u=${testimonial.name}`} alt={testimonial.name} />
+                </div>
+                <div className="ml-4">
+                  <p className="font-semibold text-text dark:text-white">{testimonial.name}</p>
+                  <p className="text-sm text-text-light dark:text-gray-400">{testimonial.role}</p>
+                </div>
               </div>
-              <p className="text-text-muted dark:text-text-muted mb-4 italic">"{testimonial.feedback}"</p>
-              <div className="border-t pt-4">
-                <p className="font-semibold text-text dark:text-text-inverted">{testimonial.name}</p>
-                <p className="text-sm text-text-muted dark:text-text-muted">{testimonial.role}</p>
+              <p className="text-text-light dark:text-gray-300 italic">"{testimonial.feedback}"</p>
+              <div className="flex mt-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <span key={i} className="text-yellow-400">⭐</span>
+                ))}
               </div>
             </div>
           ))}
@@ -189,21 +172,23 @@ function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="mx-4 sm:mx-6 lg:mx-8 py-16 bg-gradient-to-r from-blue-700 to-slate-800 dark:bg-background-dark rounded-2xl text-white text-center shadow-xl px-4">
-        <h2 className="text-4xl font-bold mb-4" data-aos="fade-up">
-          Take Control of Your Financial Future
-        </h2>
-        <p className="text-blue-200 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-          Our expert advisors are ready to help you build a resilient financial strategy. Schedule a complimentary consultation today to get started.
-        </p>
-        <Link
-          to="/contact"
-          className="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg animate-bounce-smooth"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          Request a Free Consultation
-        </Link>
+      <section className="py-20 bg-gradient-to-r from-primary to-accent text-white text-center">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl font-extrabold mb-4" data-aos="fade-up">
+            Ready to Take the Next Step?
+          </h2>
+          <p className="text-lg opacity-80 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Schedule a free consultation with one of our expert advisors and start your journey to financial success.
+          </p>
+          <Link
+            to="/contact"
+            className="bg-white text-primary font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            Book a Consultation
+          </Link>
+        </div>
       </section>
     </div>
   );

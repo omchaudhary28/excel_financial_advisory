@@ -37,65 +37,69 @@ function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-background-light dark:bg-background-dark shadow-lg">
-      <nav className="container mx-auto px-6 py-2 flex justify-between items-center max-w-7xl">
+    <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md">
+      <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
         <Link to="/" className="flex items-center gap-2" onClick={handleLinkClick}>
           <img
             src="/excel_financial.png"
             alt="Excel Financial Advisory"
-            className="h-14"
+            className="h-16"
           />
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className="hover:text-primary transition"
+              className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
             >
               {link.label}
             </Link>
           ))}
           {user ? (
             <>
-              <Link to="/profile" className="hover:text-primary">
+              <Link to="/profile" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">
                 Profile
               </Link>
-              <Link to="/query" className="hover:text-primary">
+              <Link to="/query" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">
                 Raise Query
               </Link>
-              <div className="flex items-center gap-3 ml-4 border-l pl-4">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white flex items-center justify-center font-bold">
+              <div className="relative ml-4">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
                   {avatarLetter}
-                </div>
-                <span className="text-sm hidden sm:block">{displayName}</span>
-                <button
-                  onClick={confirmLogout}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
-                >
-                  Logout
                 </button>
-                <ThemeToggle />
+                {isMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50">
+                    <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200">{displayName}</div>
+                    <button
+                      onClick={confirmLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
+              <ThemeToggle />
             </>
           ) : (
-            <>
-              <Link to="/login">Login</Link>
+            <div className="flex items-center gap-4">
+              <Link to="/login" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Login</Link>
               <Link
                 to="/register"
-                className="bg-primary text-white px-5 py-2 rounded-lg"
+                className="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-opacity-90 transition-colors"
               >
                 Register
               </Link>
-            </>
+            </div>
           )}
         </div>
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden text-2xl"
+          className="md:hidden text-3xl"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? "✕" : "☰"}
@@ -104,49 +108,51 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-background-light dark:bg-background-dark pb-4">
-          <div className="container mx-auto px-6 flex flex-col gap-4">
+        <div className="md:hidden bg-white dark:bg-gray-800 absolute top-full left-0 w-full shadow-lg">
+          <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={handleLinkClick}
-                className="hover:text-primary transition py-2 text-center"
+                className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium"
               >
                 {link.label}
               </Link>
             ))}
             {user ? (
               <>
-                <Link to="/profile" onClick={handleLinkClick} className="hover:text-primary transition py-2 text-center">
+                <Link to="/profile" onClick={handleLinkClick} className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium">
                   Profile
                 </Link>
-                <Link to="/query" onClick={handleLinkClick} className="hover:text-primary transition py-2 text-center">
+                <Link to="/query" onClick={handleLinkClick} className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors py-2 text-center font-medium">
                   Raise Query
                 </Link>
-                <div className="flex flex-col items-center gap-4 mt-4 pt-4 border-t">
+                <div className="flex flex-col items-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white flex items-center justify-center font-bold">
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
                       {avatarLetter}
                     </div>
-                    <span>{displayName}</span>
+                    <span className="font-medium text-gray-700 dark:text-gray-200">{displayName}</span>
                   </div>
                   <button
                     onClick={confirmLogout}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg w-full"
+                    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full w-full font-medium"
                   >
                     Logout
                   </button>
-                  <ThemeToggle />
+                  <div className="mt-4">
+                    <ThemeToggle />
+                  </div>
                 </div>
               </>
             ) : (
-              <div className="flex flex-col gap-4 mt-4 pt-4 border-t">
-                <Link to="/login" onClick={handleLinkClick} className="py-2 text-center">Login</Link>
+              <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <Link to="/login" onClick={handleLinkClick} className="py-2 text-center text-gray-600 dark:text-gray-300 font-medium">Login</Link>
                 <Link
                   to="/register"
                   onClick={handleLinkClick}
-                  className="bg-primary text-white px-5 py-2 rounded-lg text-center"
+                  className="bg-primary text-white px-6 py-2 rounded-full text-center font-medium"
                 >
                   Register
                 </Link>
@@ -158,19 +164,20 @@ function Header() {
 
       {/* Logout Modal */}
       {showLogoutConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-background-dark p-6 rounded-lg">
-            <p className="mb-4">Are you sure you want to logout?</p>
-            <div className="flex justify-end gap-3">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4">
+            <h3 className="text-xl font-bold mb-4">Confirm Logout</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to logout?</p>
+            <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowLogoutConfirm(false)}
-                className="px-4 py-2 bg-gray-300 rounded"
+                className="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-full font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={proceedLogout}
-                className="px-4 py-2 bg-red-600 text-white rounded"
+                className="px-6 py-2 bg-red-600 text-white rounded-full font-medium hover:bg-red-700 transition-colors"
               >
                 Logout
               </button>

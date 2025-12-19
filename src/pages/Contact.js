@@ -68,136 +68,130 @@ function Contact() {
   ];
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-4xl animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-background-light dark:bg-background-dark rounded-2xl shadow-2xl dark:shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
-          <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
-          <div className="px-8 pt-8 pb-8">
-            <h2 className="text-3xl font-bold text-center text-text dark:text-text-inverted mb-8">
-              Get in Touch
-            </h2>
-            <div className="lg:grid lg:grid-cols-2 lg:gap-8">
-              {/* Left side: Contact options */}
-              <div className="flex flex-col justify-center mb-8 lg:mb-0">
-                <h3 className="text-xl font-bold text-text dark:text-text-inverted mb-4 text-center lg:text-left">
-                  Direct Contact
-                </h3>
-                <p className="text-center lg:text-left text-text dark:text-text-inverted mb-6">
-                  Reach out to us directly through any of these channels.
-                </p>
-                <div className="space-y-4">
-                  {contactOptions.map((option, index) => (
-                    <a
-                      key={index}
-                      href={option.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center text-left hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
-                      data-aos="fade-up"
-                      data-aos-delay={100 + index * 50}
-                    >
-                      <span className="text-3xl mr-4">{option.icon}</span>
-                      <div>
-                        <span className="font-semibold text-text dark:text-text-inverted">{option.name}</span>
-                        <span className="block text-sm text-gray-500 dark:text-gray-400">{option.value}</span>
-                      </div>
-                    </a>
-                  ))}
-                </div>
+    <div className="bg-background-light dark:bg-gray-900 text-text dark:text-white">
+      {/* Header Section */}
+      <section className="py-24 text-center bg-gradient-to-r from-primary to-accent text-white">
+        <h1 className="text-5xl font-extrabold mb-4" data-aos="fade-up">Contact Us</h1>
+        <p className="max-w-3xl mx-auto text-lg opacity-90" data-aos="fade-up" data-aos-delay="100">
+          We'd love to hear from you. Reach out with any questions or to schedule a consultation.
+        </p>
+      </section>
+
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:gap-12">
+          {/* Contact Form */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8" data-aos="fade-right">
+            <h2 className="text-3xl font-bold mb-6">Send a Message</h2>
+            {status && (
+              <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">
+                {status}
               </div>
-
-              {/* Right side: Contact form */}
+            )}
+            {error && (
+              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md">
+                {error}
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-text dark:text-text-inverted mb-4 text-center lg:text-left">
-                  Send a Message
-                </h3>
-                {status && (
-                  <div className="bg-green-50 dark:bg-green-900 border-l-4 border-green-500 text-green-700 dark:text-green-300 px-4 py-4 rounded-lg mb-6 animate-fade-in-up">
-                    <strong className="font-bold">Success! </strong>{status}
-                  </div>
-                )}
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                />
+              </div>
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  name="subject"
+                  id="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="5"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                >
+                  {loading ? 'Sending...' : 'Send Message'}
+                </button>
+              </div>
+            </form>
+          </div>
 
-                {error && (
-                  <div className="bg-red-50 dark:bg-red-900 border-l-4 border-red-500 text-red-700 dark:text-red-300 px-4 py-4 rounded-lg mb-6 animate-fade-in-up">
-                    <strong className="font-bold">Error: </strong>{error}
+          {/* Contact Info and Map */}
+          <div className="mt-12 lg:mt-0" data-aos="fade-left">
+            <h2 className="text-3xl font-bold mb-6">Direct Contact</h2>
+            <div className="space-y-6">
+              {contactOptions.map((option) => (
+                <a key={option.name} href={option.href} className="flex items-center p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <div className="text-3xl mr-4">{option.icon}</div>
+                  <div>
+                    <p className="font-semibold text-lg">{option.name}</p>
+                    <p className="text-gray-600 dark:text-gray-400">{option.value}</p>
                   </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div data-aos="fade-up" data-aos-delay="100">
-                    <label htmlFor="name" className="block text-sm font-semibold text-text dark:text-text-inverted mb-2">
-                      👤 Your Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300"
-                    />
-                  </div>
-
-                  <div data-aos="fade-up" data-aos-delay="150">
-                    <label htmlFor="email" className="block text-sm font-semibold text-text dark:text-text-inverted mb-2">
-                      📧 Your Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="you@example.com"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300"
-                    />
-                  </div>
-
-                  <div data-aos="fade-up" data-aos-delay="200">
-                    <label htmlFor="subject" className="block text-sm font-semibold text-text dark:text-text-inverted mb-2">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      name="subject"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300"
-                    />
-                  </div>
-
-                  <div data-aos="fade-up" data-aos-delay="250">
-                    <label htmlFor="message" className="block text-sm font-semibold text-text dark:text-text-inverted mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      name="message"
-                      id="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="Your message here..."
-                      rows="5"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover-lift shadow-lg disabled:shadow-none disabled:cursor-not-allowed mt-6"
-                    data-aos="fade-up"
-                    data-aos-delay="300"
-                  >
-                    {loading ? "Sending..." : "Send Message"}
-                  </button>
-                </form>
+                </a>
+              ))}
+            </div>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold mb-4">Our Location</h3>
+              <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-lg">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.825680105394!2d73.85435961540196!3d18.52043038740123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c0e522f4b4b9%3A0x8b3cf6b3b5b7b0f0!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1620027735398!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  title="Google Maps"
+                ></iframe>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
