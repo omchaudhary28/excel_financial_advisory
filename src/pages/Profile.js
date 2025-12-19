@@ -22,6 +22,15 @@ function Profile() {
   const avatarLetter =
     displayName ? displayName.charAt(0).toUpperCase() : "?";
 
+    const updatedUser = {
+  ...user,
+  name,
+  phone
+};
+
+localStorage.setItem("user", JSON.stringify(updatedUser));
+setUser(updatedUser);
+
   // Load user data safely
   useEffect(() => {
     if (user) {
