@@ -30,6 +30,11 @@ module.exports = {
           inverted: '#F8F9FA',   // Off-white for dark mode text
           muted: '#6C757D',   // Muted gray for secondary text
         },
+        danger: {
+          DEFAULT: '#DC3545', // Standard red for destructive actions
+          light: '#E74C3C',   // Lighter red for hover states
+          dark: '#C0392B',    // Darker red for active states
+        },
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
@@ -53,6 +58,9 @@ module.exports = {
         },
         '.btn-secondary': {
           '@apply bg-secondary text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong hover:bg-secondary-light transition': {},
+        },
+        '.btn-danger': {
+          '@apply bg-danger text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong hover:bg-danger-light transition': {},
         },
         '.card': {
           '@apply bg-background-light dark:bg-background-dark p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},

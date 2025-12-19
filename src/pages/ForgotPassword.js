@@ -44,7 +44,7 @@ function ForgotPassword() {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl font-bold text-center text-text dark:text-text-inverted mb-2">
               Reset Password
             </h2>
             <p className="text-center text-gray-600 dark:text-gray-300 mb-8">

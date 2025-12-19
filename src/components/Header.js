@@ -89,7 +89,7 @@ function Header() {
               <Link to="/login" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">Login</Link>
               <Link
                 to="/register"
-                className="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-opacity-90 transition-colors"
+                className="btn-primary rounded-full"
               >
                 Register
               </Link>
@@ -137,7 +137,7 @@ function Header() {
                   </div>
                   <button
                     onClick={confirmLogout}
-                    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full w-full font-medium"
+                    className="btn-danger w-full"
                   >
                     Logout
                   </button>
@@ -152,7 +152,7 @@ function Header() {
                 <Link
                   to="/register"
                   onClick={handleLinkClick}
-                  className="bg-primary text-white px-6 py-2 rounded-full text-center font-medium"
+                  className="btn-primary rounded-full"
                 >
                   Register
                 </Link>
@@ -171,13 +171,13 @@ function Header() {
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowLogoutConfirm(false)}
-                className="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-full font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                className="btn-secondary"
               >
                 Cancel
               </button>
               <button
                 onClick={proceedLogout}
-                className="px-6 py-2 bg-red-600 text-white rounded-full font-medium hover:bg-red-700 transition-colors"
+                className="btn-danger"
               >
                 Logout
               </button>

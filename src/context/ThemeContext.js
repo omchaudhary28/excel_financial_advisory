@@ -4,14 +4,10 @@ import useDarkMode from '../hooks/useDarkMode';
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [colorTheme, setTheme] = useDarkMode();
-
-  const toggleTheme = () => {
-    setTheme(colorTheme);
-  };
+  const [theme, toggleTheme] = useDarkMode(); // Get current theme and toggle function
 
   return (
-    <ThemeContext.Provider value={{ theme: colorTheme === 'light' ? 'dark' : 'light', toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
