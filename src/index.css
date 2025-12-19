@@ -266,7 +266,7 @@ select:focus {
 
 .dark input::placeholder,
 .dark textarea::placeholder {
-  color: #a0aec0 !important;
+  color: #060606 !important;
 }
 
 .dark input:focus,
