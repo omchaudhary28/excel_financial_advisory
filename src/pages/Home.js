@@ -107,7 +107,7 @@ function Home() {
             <div
               key={index}
               className="group bg-background dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200 dark:border-gray-700 text-center transform hover:-translate-y-2"
-              data-aos="fade-up"
+              data-aos="zoom-in"
               data-aos-delay={index * 100}
             >
               <div className="flex justify-center text-primary text-5xl mb-6">
@@ -148,7 +148,7 @@ function Home() {
             <div
               key={index}
               className="bg-background dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700"
-              data-aos="fade-up"
+              data-aos="fade-up-right"
               data-aos-delay={index * 100}
             >
               <div className="flex items-center mb-4">
