@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Rating() {
+const Rating = () => {
   const [rating, setRating] = useState(5);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(null);
@@ -88,4 +88,6 @@ export default function Rating() {
       </form>
     </div>
   );
-}
+};
+
+export default Rating;
