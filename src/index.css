@@ -177,7 +177,7 @@ html {
 }
 
 .hover-scale {
-  @apply transition-all duration-400 hover:scale-110;
+  @apply transition-all duration-300 hover:scale-110;
 }
 
 /* Gradient Animations */
