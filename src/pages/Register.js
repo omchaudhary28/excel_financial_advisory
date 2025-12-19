@@ -93,7 +93,7 @@ function Register() {
   const inputFields = [
     { name: 'name', label: 'Full Name', type: 'text', placeholder: 'John Doe', icon: '👤' },
     { name: 'email', label: 'Email Address', type: 'email', placeholder: 'you@example.com', icon: '📧' },
-    { name: 'phone', label: 'Phone Number', type: 'tel', placeholder: '+1 (555) 123-4567', icon: '📱' },
+    { name: 'phone', label: 'Phone Number', type: 'tel', placeholder: '1234567890', icon: '📱' },
   ];
 
   return (
