@@ -91,7 +91,7 @@ const AboutUs = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center p-8 bg-white dark:bg-gray-900 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay={index * 100}>
+              <div key={index} className="text-center p-8 bg-white dark:bg-gray-900 rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay={index * 100}>
                 <div className="text-5xl mb-4">{value.icon}</div>
                 <h3 className="text-2xl font-bold mb-2">{value.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
@@ -115,7 +115,7 @@ const AboutUs = () => {
               <div
                 key={index}
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"
-                data-aos="fade-up"
+                data-aos="fade-up-right"
                 data-aos-delay={100 + index * 100}
               >
                 <div className="relative">
