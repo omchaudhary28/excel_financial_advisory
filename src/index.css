@@ -23,8 +23,8 @@
   --color-primary: #007BFF;
   --color-secondary: #6C757D;
   --color-accent: #28A745;
-  --color-background: #000000;
-  --color-text: #F8F9FA;
+  --color-background: #111827;
+  --color-text: #F9FAFB;
   --color-text-light: #212529;
 }
 
@@ -34,6 +34,10 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dark body {
+  background-color: var(--color-background);
 }
 
 /* Global smooth transition for theme changes */
