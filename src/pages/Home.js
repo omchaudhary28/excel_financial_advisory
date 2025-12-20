@@ -51,7 +51,7 @@ function Home() {
             Achieve Financial Freedom
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
             Expert financial guidance to help you build, manage, and protect your wealth.
           </p>
 
@@ -79,7 +79,7 @@ function Home() {
       <section className="py-20 max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Our Services</h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-slate-600 dark:text-slate-400">
             Comprehensive solutions for your financial needs.
           </p>
         </div>
@@ -88,11 +88,11 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center border dark:border-gray-700 hover:-translate-y-2 transition"
+              className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 text-center border dark:border-slate-700 hover:-translate-y-2 transition"
             >
               <div className="flex justify-center mb-6">{feature.icon}</div>
               <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-slate-600 dark:text-slate-400">
                 {feature.description}
               </p>
             </div>

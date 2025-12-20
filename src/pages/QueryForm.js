@@ -43,14 +43,14 @@ const QueryForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-background-dark py-12 px-4 sm:px-6 lg:px-8">
+<div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden dark:border dark:border-slate-700">
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-2">
               Raise a Query
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-center text-slate-600 dark:text-slate-400 mb-8">
               Have a question or need assistance? Let us know.
             </p>
 
@@ -67,10 +67,10 @@ const QueryForm = () => {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="relative">
-                <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="name"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -79,10 +79,10 @@ const QueryForm = () => {
               </div>
 
               <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="email"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
                   placeholder="Your Email"
                   type="email"
                   value={email}
@@ -92,10 +92,10 @@ const QueryForm = () => {
               </div>
 
               <div className="relative">
-                <FiMessageSquare className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiMessageSquare className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="subject"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
                   placeholder="Subject"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -105,7 +105,7 @@ const QueryForm = () => {
 
               <textarea
                 id="message"
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
+                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
                 placeholder="Your message..."
                 rows="5"
                 value={message}
@@ -116,7 +116,7 @@ const QueryForm = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
               >
                 {loading ? <LoadingSpinner text="Submitting..." /> : "Submit Query"}
               </button>

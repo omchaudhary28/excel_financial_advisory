@@ -48,14 +48,14 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden dark:border dark:border-slate-700">
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-2">
               Welcome Back
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-center text-slate-600 dark:text-slate-400 mb-8">
               Sign in to access your account.
             </p>
 
@@ -67,14 +67,14 @@ function Login() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -82,14 +82,14 @@ function Login() {
               </div>
 
               <div className="relative">
-                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -106,7 +106,7 @@ function Login() {
                   />
                   <label
                     htmlFor="remember"
-                    className="ml-2 block text-sm text-gray-900 dark:text-gray-100"
+                    className="ml-2 block text-sm text-slate-900 dark:text-slate-100"
                   >
                     Remember me
                   </label>
@@ -122,13 +122,13 @@ function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
+                className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
               >
                 {loading ? <LoadingSpinner text="Signing in..." /> : "Sign In"}
               </button>
             </form>
 
-            <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
               <p>
                 Don't have an account?{" "}
                 <Link to="/register" className="font-semibold text-primary hover:underline">
