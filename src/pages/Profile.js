@@ -59,10 +59,14 @@ function Profile() {
       return;
     }
 
-    const formData = new FormData();
-formData.append("full_name", name.trim());
+    
+const formData = new FormData();
+formData.append("name", name.trim());          // ✅ backend check
+formData.append("full_name", name.trim());     // ✅ DB update
+formData.append("phone", phone.trim());
 formData.append("mobile", phone.trim());
-    formData.append("email", user?.email); // 🔑 REQUIRED by backend
+formData.append("email", user?.email);
+ // 🔑 REQUIRED by backend
 
     if (avatarFile) {
       formData.append("avatar", avatarFile);
