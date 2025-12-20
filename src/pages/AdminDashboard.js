@@ -59,16 +59,20 @@ function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner />
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="card">
+          <LoadingSpinner />
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        {error}
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="bg-danger-light text-danger p-4 rounded-lg shadow-md">
+          {error}
+        </div>
       </div>
     );
   }
@@ -78,8 +82,8 @@ function AdminDashboard() {
       onClick={() => setActiveTab(tabName)}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
         activeTab === tabName
-          ? "bg-primary text-white"
-          : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          ? "bg-primary text-text-inverted"
+          : "text-text-muted dark:text-text-inverted hover:bg-gray-200 dark:hover:bg-gray-800"
       }`}
     >
       {icon}
@@ -97,7 +101,7 @@ function AdminDashboard() {
         <TabButton tabName="ratings" label="Ratings" icon={<FiStar />} />
       </div>
 
-      <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden">
+      <div className="card">
         {activeTab === "queries" && <QueriesTable queries={queries} whatsappLink={whatsappLink} />}
         {activeTab === "users" && <UsersTable users={users} makeAdmin={makeAdmin} />}
         {activeTab === "ratings" && <RatingsTable ratings={ratings} />}
@@ -111,12 +115,12 @@ function AdminDashboard() {
 const QueriesTable = ({ queries, whatsappLink }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-left table-auto">
-      <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm">
+      <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-300 uppercase text-sm">
         <tr>
-          <th className="px-6 py-3">Name</th>
-          <th className="px-6 py-3">Subject</th>
-          <th className="px-6 py-3 hidden md:table-cell">Message</th>
-          <th className="px-6 py-3">Actions</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Name</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Subject</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700 hidden md:table-cell">Message</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Actions</th>
         </tr>
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
@@ -144,13 +148,13 @@ const QueriesTable = ({ queries, whatsappLink }) => (
 const UsersTable = ({ users, makeAdmin }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-left table-auto">
-      <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm">
+      <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-300 uppercase text-sm">
         <tr>
-          <th className="px-6 py-3">Name</th>
-          <th className="px-6 py-3">Email</th>
-          <th className="px-6 py-3 hidden md:table-cell">Phone</th>
-          <th className="px-6 py-3">Role</th>
-          <th className="px-6 py-3">Action</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Name</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Email</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700 hidden md:table-cell">Phone</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Role</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Action</th>
         </tr>
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
@@ -177,13 +181,13 @@ const UsersTable = ({ users, makeAdmin }) => (
 const RatingsTable = ({ ratings }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-left table-auto">
-      <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm">
+      <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-300 uppercase text-sm">
         <tr>
-          <th className="px-6 py-3">User</th>
-          <th className="px-6 py-3 hidden md:table-cell">Email</th>
-          <th className="px-6 py-3">Rating</th>
-          <th className="px-6 py-3">Feedback</th>
-          <th className="px-6 py-3 hidden sm:table-cell">Date</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">User</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700 hidden md:table-cell">Email</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Rating</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700">Feedback</th>
+          <th className="px-6 py-3 border-b border-gray-200 dark:border-gray-700 hidden sm:table-cell">Date</th>
         </tr>
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">

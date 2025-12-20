@@ -9,8 +9,8 @@ export default function Header() {
 
   return (
     <header className="bg-white dark:bg-background-dark shadow px-6 py-4 flex justify-between items-center">
-      <Link to="/" className="font-bold text-xl">
-        EXCEL
+      <Link to="/" className="flex items-center">
+        <img src="/logo.svg" alt="Financial App Logo" className="w-32 h-auto mr-2" />
       </Link>
 
       <nav className="flex items-center gap-5">
@@ -34,7 +34,7 @@ export default function Header() {
             <img
               src={user.avatar || "/avatar.png"}
               alt="avatar"
-              className="w-8 h-8 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover"
             />
             <button onClick={logout} className="text-red-500">
               Logout
