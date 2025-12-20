@@ -1,115 +1,96 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { FiStar } from "react-icons/fi";
-import { LoadingSpinner } from "../components/Notifications";
+import api from "../services/api";
 
 const Rating = () => {
   const [rating, setRating] = useState(5);
-  const [hoverRating, setHoverRating] = useState(0);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(null);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const submitFeedback = async (e) => {
     e.preventDefault();
     setStatus(null);
-    setError("");
     setLoading(true);
 
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.post(
-        "https://excel-financial-advisory-backend.onrender.com/submit_rating.php",
-        { rating, message },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await api.post("/submit_rating.php", {
+        rating,
+        message,
+      });
 
       if (res.data.success) {
-        setStatus("success");
+        setStatus({ type: "success", text: res.data.message });
         setMessage("");
         setRating(5);
-      } else {
-        setError(res.data.message || "Failed to submit feedback");
       }
     } catch (err) {
-      setError("Server error. Please try again.");
+      if (err.response?.status === 409) {
+        setStatus({
+          type: "error",
+          text: "You have already submitted feedback.",
+        });
+      } else {
+        setStatus({
+          type: "error",
+          text: "Failed to submit feedback. Please try again.",
+        });
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-lg" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-          <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
-              Rate Our Service
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-              We value your feedback to improve our services.
-            </p>
+    <div className="max-w-xl mx-auto bg-background-light dark:bg-background-dark p-6 rounded-xl shadow-strong">
+      <h2 className="text-2xl font-bold mb-4">Rate Our Service</h2>
 
-            {status === "success" && (
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 p-4 mb-6 rounded-lg">
-                Thank you for your feedback!
-              </div>
-            )}
-            {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={submitFeedback} className="space-y-6">
-              <div>
-                <label className="block font-semibold text-gray-700 dark:text-gray-200 mb-2">Your Rating</label>
-                <div className="flex justify-center space-x-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <FiStar
-                      key={star}
-                      className={`w-10 h-10 cursor-pointer transition-colors ${
-                        (hoverRating || rating) >= star
-                          ? "text-yellow-400"
-                          : "text-gray-300 dark:text-gray-600"
-                      }`}
-                      onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-gray-700 dark:text-gray-200 mb-2">Feedback Message</label>
-                <textarea
-                  required
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
-                  rows={5}
-                  placeholder="Tell us what you think..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
-              >
-                {loading ? <LoadingSpinner text="Submitting..." /> : "Submit Feedback"}
-              </button>
-            </form>
-          </div>
+      {status && (
+        <div
+          className={`p-3 rounded mb-4 ${
+            status.type === "success"
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-700"
+          }`}
+        >
+          {status.text}
         </div>
-      </div>
+      )}
+
+      <form onSubmit={submitFeedback} className="space-y-4">
+        <div>
+          <label className="block font-medium mb-1">Rating</label>
+          <select
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800"
+          >
+            {[5, 4, 3, 2, 1].map((n) => (
+              <option key={n} value={n}>
+                {n} ⭐
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1">Feedback</label>
+          <textarea
+            required
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800"
+            rows={4}
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn-primary w-full disabled:opacity-60"
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
     </div>
   );
 };
