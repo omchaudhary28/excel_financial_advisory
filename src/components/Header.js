@@ -19,6 +19,12 @@ export default function Header() {
     );
   };
 
+  const handleLogoutConfirmation = () => {
+    if (window.confirm("Are you sure you want to log out?")) {
+      logout();
+    }
+  };
+
   return (
     <header className="bg-white dark:bg-background-dark shadow px-6 py-4 flex justify-between items-center">
       <Link to="/" className="flex items-center transform transition-transform duration-200 hover:scale-105">
@@ -54,7 +60,7 @@ export default function Header() {
                 {getInitials(user.name)}
               </div>
             )}
-            <button onClick={logout} className="text-danger hover:text-danger-light transition-colors">
+            <button onClick={handleLogoutConfirmation} className="text-danger hover:text-danger-light transition-colors">
               Logout
             </button>
           </>
