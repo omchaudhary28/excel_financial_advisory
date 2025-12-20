@@ -23,7 +23,7 @@ function Header() {
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/excel_financial.png" alt="Excel" className="h-14" />
+          <img src="/excel_financial.png" alt="Excel" className="h-14 dark:invert" />
         </Link>
 
         {/* Desktop Menu */}
