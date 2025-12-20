@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="bg-white dark:bg-background-dark shadow px-6 py-4 flex justify-between items-center">
       <Link to="/" className="flex items-center">
-        <img src="/logo.svg" alt="Financial App Logo" className="w-32 h-auto mr-2" />
+        <img src="/excel_financial.png" alt="Financial App Logo" className="w-32 h-auto mr-2" />
       </Link>
 
       <nav className="flex items-center gap-5">
