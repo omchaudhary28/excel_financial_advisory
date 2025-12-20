@@ -1,132 +1,137 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
+import { FiMenu, FiX } from "react-icons/fi";
 
-const Header = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+function Header() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
   return (
-    <header
-      className="
-        sticky top-0 z-50
-        bg-white dark:bg-[#0F172A]
-        border-b border-gray-200 dark:border-gray-800
-        shadow-sm dark:shadow-lg
-      "
-    >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* LOGO */}
+    <header className="sticky top-0 z-50 bg-background-light dark:bg-background-dark shadow-strong">
+      <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
+        
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img
             src="/excel_financial.png"
             alt="Excel Financial Advisory"
-            className="h-8"
+            className="h-12"
           />
         </Link>
 
-        {/* NAV LINKS */}
-        <nav className="flex items-center gap-6">
-          <Link
-            to="/"
-            className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition"
-          >
-            Home
-          </Link>
-
-          <Link
-            to="/about"
-            className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition"
-          >
-            About Us
-          </Link>
-
-          <Link
-            to="/contact"
-            className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition"
-          >
-            Contact
-          </Link>
-
-          <Link
-            to="/rating"
-            className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition"
-          >
-            Rating
-          </Link>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8 text-text dark:text-text-inverted font-medium">
+          <Link to="/" className="hover:text-primary">Home</Link>
+          <Link to="/about" className="hover:text-primary">About Us</Link>
+          <Link to="/contact" className="hover:text-primary">Contact</Link>
+          <Link to="/rating" className="hover:text-primary">Rating</Link>
 
           {user && (
-            <Link
-              to="/profile"
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition"
-            >
-              Profile
-            </Link>
-          )}
+            <>
+              <Link to="/profile" className="hover:text-primary">Profile</Link>
+              <Link to="/query" className="hover:text-primary">Raise Query</Link>
 
-          {user && (
-            <Link
-              to="/raise-query"
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition"
-            >
-              Raise Query
-            </Link>
+              {user.role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="px-3 py-1 rounded-lg bg-primary text-text-inverted font-semibold"
+                >
+                  Admin
+                </Link>
+              )}
+            </>
           )}
+        </div>
 
-          {/* ADMIN LINK — ONLY FOR ADMINS */}
-          {user?.role === "admin" && (
-            <Link
-              to="/admin"
-              className="
-                px-4 py-2 rounded-lg font-semibold
-                bg-primary dark:bg-primary-dark
-                text-white
-                hover:bg-primary-light dark:hover:bg-primary
-                transition
-              "
-            >
-              Admin
-            </Link>
-          )}
-
-          {/* LOGOUT */}
-          {user && (
+        {/* Desktop Right */}
+        <div className="hidden md:flex items-center gap-4">
+          {user ? (
             <button
               onClick={handleLogout}
-              className="
-                text-danger font-semibold
-                hover:text-danger-light
-                transition
-              "
+              className="text-danger font-semibold hover:underline"
             >
               Logout
             </button>
+          ) : (
+            <>
+              <Link to="/login" className="hover:text-primary">
+                Login
+              </Link>
+              <Link to="/register" className="btn-primary rounded-full">
+                Register
+              </Link>
+            </>
           )}
+          <ThemeToggle />
+        </div>
 
-          {/* THEME TOGGLE */}
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
           <button
-            onClick={toggleTheme}
-            className="
-              p-2 rounded-full
-              bg-gray-100 dark:bg-gray-800
-              hover:bg-gray-200 dark:hover:bg-gray-700
-              transition
-            "
-            title="Toggle theme"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-text dark:text-text-inverted"
           >
-            {theme === "dark" ? "🌙" : "☀️"}
+            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-        </nav>
-      </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-background-light dark:bg-background-dark border-t border-accent dark:border-accent-dark">
+          <div className="px-4 py-4 space-y-2 text-text dark:text-text-inverted">
+            <Link className="block py-2" to="/">Home</Link>
+            <Link className="block py-2" to="/about">About Us</Link>
+            <Link className="block py-2" to="/contact">Contact</Link>
+            <Link className="block py-2" to="/rating">Rating</Link>
+
+            {user && (
+              <>
+                <Link className="block py-2" to="/profile">Profile</Link>
+                <Link className="block py-2" to="/query">Raise Query</Link>
+
+                {user.role === "admin" && (
+                  <Link
+                    className="block py-2 font-semibold text-primary"
+                    to="/admin"
+                  >
+                    Admin
+                  </Link>
+                )}
+              </>
+            )}
+
+            <div className="pt-3 border-t border-accent dark:border-accent-dark">
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="text-danger font-semibold"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <Link className="block py-2" to="/login">Login</Link>
+                  <Link className="block py-2 text-primary" to="/register">
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
-};
+}
 
 export default Header;
