@@ -8,14 +8,29 @@ function Profile() {
   const { user, login } = useAuth();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const getInitials = (name) => {
+    if (!name) return "";
+    const parts = name.split(" ");
+    if (parts.length === 1) {
+      return parts[0].charAt(0).toUpperCase();
+    }
+    return (
+      parts[0].charAt(0).toUpperCase() + parts[parts.length - 1].charAt(0).toUpperCase()
+    );
+  };
+
 
   useEffect(() => {
     if (user) {
       setName(user.name || "");
       setPhone(user.phone || "");
+      setAvatarPreview(user.avatar || null);
     }
   }, [user]);
 
@@ -27,13 +42,19 @@ function Profile() {
 
     try {
       const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("phone", phone);
+      if (avatarFile) {
+        formData.append("avatar", avatarFile);
+      }
 
       const res = await axios.post(
         "https://excel-financial-advisory-backend.onrender.com/update_profile.php",
-        { name, phone },
+        formData, // Send FormData
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data", // Important for file uploads
             Authorization: `Bearer ${token}`,
           },
         }
@@ -45,8 +66,10 @@ function Profile() {
         return;
       }
 
-      const updatedUser = { ...user, name, phone };
+      // Assuming the backend returns the updated user object with the new avatar URL
+      const updatedUser = { ...user, name, phone, avatar: res.data.user?.avatar || user.avatar };
       login({ token, user: updatedUser });
+      setAvatarFile(null); // Clear the file input
       setSuccess("Profile updated successfully");
     } catch (err) {
       setError("Unable to update profile");
@@ -61,12 +84,31 @@ function Profile() {
         <div className="bg-background-light dark:bg-black rounded-2xl shadow-xl overflow-hidden">
           <div className="px-8 pt-8 pb-6">
             <div className="text-center mb-8">
-              <div className="relative w-32 h-32 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center ring-4 ring-primary/20">
-                <span className="text-5xl font-bold text-text-inverted">
-                  {user?.name ? user.name.charAt(0).toUpperCase() : ""}
-                </span>
+              <div className="relative w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center ring-4 ring-primary/20 overflow-hidden">
+                {avatarPreview ? (
+                  <img src={avatarPreview} alt="User Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-primary flex items-center justify-center">
+                    <span className="text-5xl font-bold text-text-inverted">
+                      {getInitials(user?.name)}
+                    </span>
+                  </div>
+                )}
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <input
+                type="file"
+                id="avatar-upload"
+                accept="image/*"
+                className="hidden" // Hide the default input
+                onChange={handleAvatarChange}
+              />
+              <label
+                htmlFor="avatar-upload"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-text-inverted bg-primary hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light cursor-pointer transition-all duration-200 transform hover:scale-105"
+              >
+                Change Avatar
+              </label>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-6">
                 {name}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">{user?.email}</p>
