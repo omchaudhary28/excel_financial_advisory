@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { LoadingSpinner } from "../components/Notifications";
 
@@ -6,183 +6,123 @@ function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [queries, setQueries] = useState([]);
   const [feedback, setFeedback] = useState([]);
-
+  const [activeTab, setActiveTab] = useState("queries");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("date");
-  const [activeTab, setActiveTab] = useState("queries"); // queries | users
-  const [activeQueryTab, setActiveQueryTab] = useState("all"); // all | query | contact
-
   useEffect(() => {
-    const fetchAdminData = async () => {
+    const loadData = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const q = await api.get("/admin_queries.php");
+        setUsers(q.data.users);
+        setQueries(q.data.queries);
 
-        if (!token) {
-          throw new Error("Missing auth token");
-        }
-
-        // 🔐 ADMIN QUERIES
-        const res = await api.get("/admin_queries.php", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!res.data?.success) {
-          throw new Error("Invalid admin response");
-        }
-
-        setUsers(res.data.users || []);
-        setQueries(res.data.queries || []);
-
-        // 🔐 FEEDBACK (optional endpoint)
-        try {
-          const feedbackRes = await api.get("/admin_feedback.php", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          setFeedback(feedbackRes.data?.data || feedbackRes.data || []);
-        } catch {
-          // feedback endpoint may not exist yet — ignore safely
-          setFeedback([]);
-        }
-      } catch (err) {
-        if (err.response?.status === 401) {
-          setError("Unauthorized. Please log in again.");
-        } else if (err.response?.status === 403) {
-          setError("Forbidden: Admin access required.");
-        } else {
-          setError("Failed to load admin dashboard data.");
-        }
+        const f = await api.get("/admin_feedback.php");
+        setFeedback(f.data.data);
+      } catch {
+        setError("Failed to load admin dashboard data.");
       } finally {
         setLoading(false);
       }
     };
-
-    fetchAdminData();
+    loadData();
   }, []);
 
-  const getWhatsAppLink = (phone) => {
-    if (!phone) return "#";
-    return `https://wa.me/${phone.replace(/\D/g, "")}`;
+  const makeAdmin = async (id) => {
+    await api.post("/admin_make_admin.php", { user_id: id });
+    setUsers((prev) =>
+      prev.map((u) => (u.id === id ? { ...u, role: "admin" } : u))
+    );
   };
 
-  /* ---------------- FILTERING ---------------- */
-
-  const filteredQueries = queries
-    .filter((q) => (activeQueryTab === "all" ? true : q.type === activeQueryTab))
-    .filter((q) =>
-      [
-        q.query_name,
-        q.query_email,
-        q.subject,
-        q.message,
-        q.user_name,
-        q.user_email,
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) =>
-      sortBy === "date"
-        ? new Date(b.created_at) - new Date(a.created_at)
-        : a.query_name.localeCompare(b.query_name)
-    );
-
-  const filteredUsers = users
-    .filter((u) =>
-      [u.name, u.email, u.phone]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) =>
-      sortBy === "date"
-        ? new Date(b.created_at) - new Date(a.created_at)
-        : a.name.localeCompare(b.name)
-    );
-
-  /* ---------------- RENDER ---------------- */
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner text="Loading admin dashboard..." />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-500 text-xl">
-        {error}
-      </div>
-    );
-  }
+  if (loading) return <LoadingSpinner text="Loading Admin..." />;
+  if (error) return <div className="text-red-500">{error}</div>;
 
   return (
-    <div className="min-h-screen px-6 py-12 bg-background-light dark:bg-background-dark">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
 
-        {/* Tabs */}
-        <div className="flex gap-6 border-b mb-8">
-          <button
-            onClick={() => setActiveTab("queries")}
-            className={activeTab === "queries" ? "font-bold text-primary" : ""}
-          >
-            Queries
-          </button>
-          <button
-            onClick={() => setActiveTab("users")}
-            className={activeTab === "users" ? "font-bold text-primary" : ""}
-          >
-            Users
-          </button>
-        </div>
-
-        {/* Feedback */}
-        {feedback.length > 0 && (
-          <div className="mb-10">
-            <h3 className="text-xl font-bold mb-4">User Feedback</h3>
-            {feedback.map((f) => (
-              <div key={f.id} className="border p-4 rounded mb-3">
-                <p>
-                  <strong>Rating:</strong> {f.rating} ⭐
-                </p>
-                <p>{f.message}</p>
-                <p className="text-sm text-gray-500">{f.created_at}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Search */}
-        <input
-          type="text"
-          placeholder="Search..."
-          className="mb-6 w-full p-3 border rounded"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
-        {/* Tables */}
-        {activeTab === "queries" ? (
-          <pre className="text-sm overflow-x-auto">
-            {JSON.stringify(filteredQueries, null, 2)}
-          </pre>
-        ) : (
-          <pre className="text-sm overflow-x-auto">
-            {JSON.stringify(filteredUsers, null, 2)}
-          </pre>
-        )}
+      <div className="flex gap-6 mb-6">
+        <button onClick={() => setActiveTab("queries")}>Queries</button>
+        <button onClick={() => setActiveTab("users")}>Users</button>
+        <button onClick={() => setActiveTab("ratings")}>Ratings</button>
       </div>
+
+      {activeTab === "queries" && (
+        <table className="w-full border">
+          <thead>
+            <tr>
+              <th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {queries.map((q) => (
+              <tr key={q.id}>
+                <td>{q.query_name}</td>
+                <td>{q.query_email}</td>
+                <td>{q.subject}</td>
+                <td>{q.message}</td>
+                <td>
+                  <a href={`mailto:${q.query_email}`}>📧</a>{" "}
+                  {q.user_phone && (
+                    <>
+                      <a href={`tel:${q.user_phone}`}>📞</a>{" "}
+                      <a href={`https://wa.me/${q.user_phone}`}>💬</a>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {activeTab === "users" && (
+        <table className="w-full border">
+          <thead>
+            <tr>
+              <th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <tr key={u.id}>
+                <td>{u.name}</td>
+                <td>{u.email}</td>
+                <td>{u.phone}</td>
+                <td>{u.role}</td>
+                <td>
+                  {u.role !== "admin" && (
+                    <button onClick={() => makeAdmin(u.id)}>
+                      Make Admin
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {activeTab === "ratings" && (
+        <table className="w-full border">
+          <thead>
+            <tr>
+              <th>User</th><th>Email</th><th>Rating</th><th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {feedback.map((f) => (
+              <tr key={f.id}>
+                <td>{f.name}</td>
+                <td>{f.email}</td>
+                <td>{f.rating} ⭐</td>
+                <td>{f.message}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
