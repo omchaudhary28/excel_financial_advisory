@@ -70,7 +70,7 @@ const QueryForm = () => {
                 <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="name"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -82,7 +82,7 @@ const QueryForm = () => {
                 <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="email"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="Your Email"
                   type="email"
                   value={email}
@@ -95,7 +95,7 @@ const QueryForm = () => {
                 <FiMessageSquare className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="subject"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="Subject"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -105,7 +105,7 @@ const QueryForm = () => {
 
               <textarea
                 id="message"
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                 placeholder="Your message..."
                 rows="5"
                 value={message}

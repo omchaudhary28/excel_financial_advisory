@@ -91,7 +91,7 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200 dark:border-gray-700 text-center transform hover:-translate-y-2"
+              className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary text-center transform hover:-translate-y-2"
               data-aos="zoom-in"
               data-aos-delay={index * 100}
             >

@@ -98,7 +98,7 @@ const Rating = () => {
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   rows={5}
                   placeholder="Tell us what you think..."
                 />

@@ -85,7 +85,7 @@ export default function Register() {
                   type="text"
                   autoComplete="name"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="John Doe"
                   value={form.name}
                   onChange={handleChange}
@@ -100,7 +100,7 @@ export default function Register() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="you@example.com"
                   value={form.email}
                   onChange={handleChange}
@@ -115,7 +115,7 @@ export default function Register() {
                   type="tel"
                   autoComplete="tel"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="+1 (555) 000-0000"
                   value={form.phone}
                   onChange={handleChange}
@@ -130,7 +130,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="••••••••"
                   value={form.password}
                   onChange={handleChange}
@@ -145,7 +145,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                   placeholder="••••••••"
                   value={form.confirm_password}
                   onChange={handleChange}

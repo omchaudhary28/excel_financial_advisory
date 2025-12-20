@@ -90,7 +90,7 @@ function Contact() {
                 href={method.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow"
+                className="flex items-center p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-primary dark:hover:border-primary"
               >
                 <div className="text-3xl text-primary mr-5">{method.icon}</div>
                 <div>
@@ -131,7 +131,7 @@ function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                       placeholder="Your Name"
                       value={form.name}
                       onChange={handleChange}
@@ -146,7 +146,7 @@ function Contact() {
                       type="email"
                       autoComplete="email"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                       placeholder="Your Email"
                       value={form.email}
                       onChange={handleChange}
@@ -160,7 +160,7 @@ function Contact() {
                       name="subject"
                       type="text"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                       placeholder="Subject"
                       value={form.subject}
                       onChange={handleChange}
@@ -172,7 +172,7 @@ function Contact() {
                     name="message"
                     rows="5"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                     placeholder="Your message..."
                     value={form.message}
                     onChange={handleChange}

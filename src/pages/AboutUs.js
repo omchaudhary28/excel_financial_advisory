@@ -90,7 +90,7 @@ const AboutUs = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center p-8 bg-white dark:bg-gray-900 rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay={index * 100}>
+              <div key={index} className="text-center p-8 bg-white dark:bg-gray-700 rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay={index * 100}>
                 <div className="flex justify-center text-5xl mb-4 text-primary">{value.icon}</div>
                 <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{value.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
@@ -117,7 +117,7 @@ const AboutUs = () => {
                 data-aos-delay={100 + index * 100}
               >
                 <div className="relative">
-                  <img src={member.imageUrl} alt={member.name} className="w-full h-64 object-cover" />
+                  <img src={member.imageUrl} alt={member.name} className="w-full h-64 object-cover dark:opacity-80" />
                   <div className="absolute inset-0 bg-black bg-opacity-25"></div>
                 </div>
                 <div className="p-6 text-center">
