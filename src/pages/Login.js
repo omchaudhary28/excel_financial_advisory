@@ -102,7 +102,7 @@ function Login() {
                     id="remember"
                     name="remember"
                     type="checkbox"
-                    className="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded"
+                    className="form-checkbox"
                   />
                   <label
                     htmlFor="remember"
