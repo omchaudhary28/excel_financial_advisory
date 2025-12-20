@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { LoadingSpinner } from "../components/Notifications";
 import { FaPhone, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { FiUser, FiMail, FiMessageSquare } from "react-icons/fi";
 
 function Contact() {
   const { user } = useAuth();
@@ -70,37 +71,33 @@ function Contact() {
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-background-dark">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12" data-aos="fade-down">
-          <h1 className="text-4xl font-extrabold text-text dark:text-text-inverted tracking-tight sm:text-5xl">
-            Contact Us
+          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight sm:text-5xl">
+            Get in Touch
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-xl text-text-muted dark:text-gray-400">
-            Have questions? We'd love to hear from you.
+          <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400">
+            We're here to help. Reach out to us anytime.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Contact Information */}
-          <div className="space-y-8" data-aos="fade-right">
-            <h3 className="text-2xl font-bold text-text dark:text-text-inverted">
-              Contact Information
-            </h3>
+          <div className="space-y-6" data-aos="fade-right">
             {contactMethods.map((method, index) => (
               <a
                 key={index}
                 href={method.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
+                className="flex items-center p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="text-2xl text-primary mr-4">{method.icon}</div>
+                <div className="text-3xl text-primary mr-5">{method.icon}</div>
                 <div>
-                  <p className="font-semibold text-text dark:text-text-inverted">
+                  <p className="font-semibold text-lg text-gray-900 dark:text-white">
                     {method.label}
                   </p>
-                  <p className="text-text-muted dark:text-gray-400">
+                  <p className="text-gray-600 dark:text-gray-400">
                     {method.value}
                   </p>
                 </div>
@@ -108,121 +105,85 @@ function Contact() {
             ))}
           </div>
 
-          {/* Contact Form */}
-          <div
-            className="w-full animate-fade-in-up"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <div className="bg-background-light dark:bg-background-dark rounded-2xl shadow-2xl dark:shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
-              <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+          <div className="w-full" data-aos="fade-left" data-aos-delay="100">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
               <div className="px-8 pt-8 pb-6">
-                <h2 className="text-2xl font-bold text-center text-text dark:text-text-inverted mb-2">
-                  Send a Message
+                <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-6">
+                  Send Us a Message
                 </h2>
-                <p className="text-center text-text-muted dark:text-gray-400 mb-8">
-                  Or reach us via the form below.
-                </p>
 
                 {status && (
-                  <div className="bg-green-50 dark:bg-green-900 border-l-4 border-green-500 text-green-700 dark:text-green-300 px-4 py-3 rounded-lg mb-6">
+                  <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 px-4 py-3 rounded-lg mb-6">
                     {status}
                   </div>
                 )}
                 {error && (
-                  <div className="bg-red-50 dark:bg-red-900 border-l-4 border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6">
+                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-6">
                     {error}
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-semibold text-text dark:text-text-inverted mb-2"
-                    >
-                      👤 Your Name
-                    </label>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="relative">
+                    <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                     <input
                       id="name"
                       name="name"
                       type="text"
                       required
-                      className="w-full px-4 py-3 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 text-text dark:text-text-inverted disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
-                      placeholder="John Doe"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                      placeholder="Your Name"
                       value={form.name}
                       onChange={handleChange}
                     />
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-semibold text-text dark:text-text-inverted mb-2"
-                    >
-                      📧 Email Address
-                    </label>
+                  <div className="relative">
+                    <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                     <input
                       id="email"
                       name="email"
                       type="email"
                       autoComplete="email"
                       required
-                      className="w-full px-4 py-3 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 text-text dark:text-text-inverted disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
-                      placeholder="you@example.com"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                      placeholder="Your Email"
                       value={form.email}
                       onChange={handleChange}
                     />
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor="subject"
-                      className="block text-sm font-semibold text-text dark:text-text-inverted mb-2"
-                    >
-                      Subject
-                    </label>
+                  <div className="relative">
+                    <FiMessageSquare className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                     <input
                       id="subject"
                       name="subject"
                       type="text"
                       required
-                      className="w-full px-4 py-3 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 text-text dark:text-text-inverted disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
-                      placeholder="Regarding..."
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                      placeholder="Subject"
                       value={form.subject}
                       onChange={handleChange}
                     />
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-semibold text-text dark:text-text-inverted mb-2"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="5"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-300 text-text dark:text-text-inverted disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
-                      placeholder="Your message..."
-                      value={form.message}
-                      onChange={handleChange}
-                    />
-                  </div>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300"
+                    placeholder="Your message..."
+                    value={form.message}
+                    onChange={handleChange}
+                  ></textarea>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover-lift shadow-lg disabled:shadow-none disabled:cursor-not-allowed mt-4"
+                    className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
                   >
-                    {loading ? (
-                      <LoadingSpinner text="Sending..." />
-                    ) : (
-                      "Send Message"
-                    )}
+                    {loading ? <LoadingSpinner text="Sending..." /> : "Send Message"}
                   </button>
                 </form>
               </div>

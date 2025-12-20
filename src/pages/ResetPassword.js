@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { LoadingSpinner } from '../components/Notifications';
+import { FiLock } from 'react-icons/fi';
 
 function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -43,14 +44,12 @@ function ResetPassword() {
         setMessage(response.data.message);
         setTimeout(() => {
           navigate('/login');
-        }, 3000); // Increased delay for better user experience
+        }, 3000);
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.errors) {
-        // Handle array of errors
         setError(err.response.data.errors.join(' '));
       } else if (err.response && err.response.data && err.response.data.message) {
-        // Handle single error message
         setError(err.response.data.message);
       } else {
         setError('An unexpected error occurred. Please try again.');
@@ -61,77 +60,60 @@ function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 form-container">
-      <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
-          <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md" data-aos="fade-up">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
           <div className="px-8 pt-8 pb-6">
             <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
-              Reset Your Password
+              Set a New Password
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
-              Enter your new password below.
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+              Your new password must be different from previous used passwords.
             </p>
 
             {message && (
-              <div
-                className="bg-green-100 dark:bg-green-900 border-l-4 border-green-500 text-green-700 dark:text-green-300 p-4 mb-6 rounded-md"
-                role="alert"
-              >
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 p-4 mb-6 rounded-lg">
                 {message}
               </div>
             )}
 
             {error && (
-              <div
-                className="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 mb-6 rounded-md"
-                role="alert"
-              >
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-                >
-                  🔐 New Password
-                </label>
+              <div className="relative">
+                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="New Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-disabled autoComplete="new-password" className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-                >
-                  🔐 Confirm New Password
-                </label>
+              <div className="relative">
+                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="confirmPassword"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Confirm New Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-disabled autoComplete="new-password" className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover-lift shadow-lg disabled:shadow-none disabled:cursor-not-allowed mt-6"
+                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
               >
                 {loading ? <LoadingSpinner text="Resetting..." /> : 'Reset Password'}
               </button>

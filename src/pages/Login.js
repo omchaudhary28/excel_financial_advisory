@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { LoadingSpinner } from "../components/Notifications";
+import { FiMail, FiLock } from "react-icons/fi";
 
 function Login() {
   const { login } = useAuth();
@@ -36,10 +37,8 @@ function Login() {
         return;
       }
 
-      // ✅ Save auth
       login(res.data);
 
-      // ✅ Redirect to HOME
       navigate("/", { replace: true });
     } catch (err) {
       setError("Unable to login. Please try again.");
@@ -49,59 +48,48 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 form-container">
-      <div className="w-full max-w-md animate-fade-in-up" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
-          <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md" data-aos="fade-up">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
           <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-text dark:text-text-inverted mb-2">
-              Welcome Back!
+            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
+              Welcome Back
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
-              Sign in to continue to your account.
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+              Sign in to access your account.
             </p>
 
             {error && (
-              <div className="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 dark:border-red-700 text-red-700 dark:text-red-300 p-4 mb-6 rounded-md">
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-                >
-                  📧 Email Address
-                </label>
+              <div className="relative">
+                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-                >
-                  🔐 Password
-                </label>
+              <div className="relative">
+                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
                 <input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light transition-all duration-300 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -114,7 +102,7 @@ function Login() {
                     id="remember"
                     name="remember"
                     type="checkbox"
-                    className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                    className="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded"
                   />
                   <label
                     htmlFor="remember"
@@ -125,7 +113,7 @@ function Login() {
                 </div>
                 <Link
                   to="/forgot-password"
-                  className="text-sm text-primary hover:text-opacity-90 font-semibold"
+                  className="text-sm text-primary hover:underline font-semibold"
                 >
                   Forgot password?
                 </Link>
@@ -134,29 +122,20 @@ function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover-lift shadow-lg disabled:shadow-none disabled:cursor-not-allowed mt-6"
+                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
               >
                 {loading ? <LoadingSpinner text="Signing in..." /> : "Sign In"}
               </button>
             </form>
 
-            <div className="my-6 flex items-center gap-4">
-              <div className="flex-1 h-px bg-gray-200"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-300">
-                or
-              </span>
-              <div className="flex-1 h-px bg-gray-200"></div>
+            <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+              <p>
+                Don't have an account?{" "}
+                <Link to="/register" className="font-semibold text-primary hover:underline">
+                  Create one
+                </Link>
+              </p>
             </div>
-
-            <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
-              Don't have an account?{" "}
-              <Link
-                to="/register"
-                className="font-semibold text-primary hover:text-opacity-90"
-              >
-                Create one now
-              </Link>
-            </p>
           </div>
         </div>
       </div>
