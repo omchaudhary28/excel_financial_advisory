@@ -1,12 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Restore session safely
+  // Restore session on app load
   useEffect(() => {
     try {
       const token = localStorage.getItem("token");
@@ -20,18 +25,19 @@ export function AuthProvider({ children }) {
       ) {
         setUser(JSON.parse(storedUser));
       } else {
-        localStorage.removeItem("user");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
       }
-    } catch (err) {
-      console.error("Auth restore failed:", err);
-      localStorage.removeItem("user");
+    } catch (error) {
+      console.error("Auth restore failed:", error);
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, []);
 
+  // Login handler
   const login = (data) => {
     if (!data?.token || !data?.user) return;
 
@@ -40,14 +46,26 @@ export function AuthProvider({ children }) {
     setUser(data.user);
   };
 
+  // Logout handler
   const logout = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
   };
 
+  // Admin helper (important for admin panel)
+  const isAdmin = user?.role === "admin";
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAdmin,
+        login,
+        logout,
+        loading,
+      }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );

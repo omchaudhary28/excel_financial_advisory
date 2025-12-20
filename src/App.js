@@ -1,5 +1,11 @@
 import React, { useEffect, Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -7,7 +13,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ThemeProvider } from "./context/ThemeContext";
 import { LoadingSpinner } from "./components/Notifications";
 import PrivateRoute from "./components/PrivateRoute";
-// import Rating from "./pages/Rating";
+
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -47,7 +53,6 @@ function AppContent() {
         >
           <Routes>
             {/* Public routes */}
-            <Route path="/rating" element={<Rating />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -80,16 +85,26 @@ function AppContent() {
             />
 
             <Route
+              path="/rating"
+              element={
+                <PrivateRoute>
+                  <Rating />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Admin-only route */}
+            <Route
               path="/admin"
               element={
-                <PrivateRoute adminOnly={true}>
+                <PrivateRoute adminOnly>
                   <AdminDashboard />
                 </PrivateRoute>
               }
             />
 
             {/* Fallback */}
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </main>
