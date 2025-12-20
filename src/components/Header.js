@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { FiSun, FiMoon } from "react-icons/fi"; // Added import
 
 export default function Header() {
   const { user, logout } = useAuth();
-  const { toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const getInitials = (name) => {
     if (!name) return "";
@@ -59,7 +60,9 @@ export default function Header() {
           </>
         )}
 
-        <button onClick={toggleTheme} className="text-2xl hover:text-primary-light dark:hover:text-primary transition-colors transform hover:scale-110">🌙</button>
+        <button onClick={toggleTheme} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-110 shadow-md" aria-label="Toggle theme">
+          {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+        </button>
       </nav>
     </header>
   );

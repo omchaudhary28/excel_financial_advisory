@@ -60,7 +60,7 @@ function Login() {
             </p>
 
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
+              <div className="bg-danger-light dark:bg-danger-dark/20 border border-danger dark:border-danger-light/30 text-danger-dark dark:text-danger-light p-4 mb-6 rounded-lg">
                 {error}
               </div>
             )}
@@ -111,13 +111,12 @@ function Login() {
                     Remember me
                   </label>
                 </div>
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-primary hover:underline font-semibold"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+                                  <Link
+                                    to="/forgot-password"
+                                    className="text-sm text-primary hover:underline font-semibold transition-transform duration-200 hover:-translate-y-0.5"
+                                  >
+                                    Forgot password?
+                                  </Link>              </div>
 
               <button
                 type="submit"
@@ -131,7 +130,7 @@ function Login() {
             <div className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
               <p>
                 Don't have an account?{" "}
-                <Link to="/register" className="font-semibold text-primary hover:underline">
+                <Link to="/register" className="font-semibold text-primary hover:underline transition-transform duration-200 hover:-translate-y-0.5">
                   Create one
                 </Link>
               </p>

@@ -71,7 +71,7 @@ export default function Register() {
             </p>
 
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
+              <div className="bg-danger-light dark:bg-danger-dark/20 border border-danger dark:border-danger-light/30 text-danger-dark dark:text-danger-light p-4 mb-6 rounded-lg">
                 {error}
               </div>
             )}
@@ -164,7 +164,7 @@ export default function Register() {
             <div className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
               <p>
                 Already have an account?{" "}
-                <Link to="/login" className="font-semibold text-primary hover:underline">
+                <Link to="/login" className="font-semibold text-primary hover:underline transition-transform duration-200 hover:-translate-y-0.5">
                   Sign in
                 </Link>
               </p>
