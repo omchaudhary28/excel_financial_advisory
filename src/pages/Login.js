@@ -74,7 +74,7 @@ function Login() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -89,7 +89,7 @@ function Login() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -121,7 +121,7 @@ function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
+                className="w-full bg-primary hover:bg-primary/90 disabled:bg-text-muted text-text-inverted font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
               >
                 {loading ? <LoadingSpinner text="Signing in..." /> : "Sign In"}
               </button>

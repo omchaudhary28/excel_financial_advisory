@@ -80,12 +80,7 @@ export default function Register() {
               <div className="relative">
                 <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="John Doe"
                   value={form.name}
                   onChange={handleChange}
@@ -100,7 +95,7 @@ export default function Register() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="you@example.com"
                   value={form.email}
                   onChange={handleChange}
@@ -115,7 +110,7 @@ export default function Register() {
                   type="tel"
                   autoComplete="tel"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="+1 (555) 000-0000"
                   value={form.phone}
                   onChange={handleChange}
@@ -130,7 +125,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="••••••••"
                   value={form.password}
                   onChange={handleChange}
@@ -145,7 +140,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="••••••••"
                   value={form.confirm_password}
                   onChange={handleChange}
@@ -154,7 +149,7 @@ export default function Register() {
 
               <button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
+                className="w-full bg-primary hover:bg-primary/90 disabled:bg-text-muted text-text-inverted font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
                 disabled={loading}
               >
                 {loading ? <LoadingSpinner text="Creating Account..." /> : "Register"}

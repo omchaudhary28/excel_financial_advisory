@@ -58,7 +58,7 @@ function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="bg-primary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-1"
+              className="bg-primary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-2 hover:shadow-xl"
             >
               Get Started
             </Link>
@@ -66,7 +66,7 @@ function Home() {
             {!user && (
               <Link
                 to="/register"
-                className="bg-secondary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-1"
+                className="bg-secondary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-2 hover:shadow-xl"
               >
                 Sign Up
               </Link>
@@ -88,7 +88,7 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-black rounded-2xl shadow-lg p-8 text-center border dark:border-gray-800 hover:-translate-y-2 transition"
+              className="bg-white dark:bg-black rounded-2xl shadow-lg p-8 text-center border dark:border-gray-800 transition-all duration-200 hover:-translate-y-3 hover:shadow-xl"
             >
               <div className="flex justify-center mb-6">{feature.icon}</div>
               <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
@@ -108,7 +108,7 @@ function Home() {
             { number: '20+', label: 'Years of Expertise' },
             { number: '$5B+', label: 'Assets Under Management' },
           ].map((stat, index) => (
-            <div key={index} className="transition-transform duration-200 hover:scale-105">
+            <div key={index} className="transition-transform duration-200 hover:scale-110">
               <div className="text-5xl font-extrabold mb-2">{stat.number}</div>
               <div className="text-lg opacity-80">{stat.label}</div>
             </div>
@@ -130,7 +130,7 @@ function Home() {
           </p>
           <Link
             to="/contact"
-            className="bg-white text-primary font-bold py-4 px-10 rounded-full hover:scale-105 transition shadow-lg"
+            className="bg-white text-primary font-bold py-4 px-10 rounded-full transition-all duration-200 hover:scale-110 shadow-lg hover:shadow-xl"
           >
             Book a Consultation
           </Link>

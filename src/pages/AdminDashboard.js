@@ -82,8 +82,8 @@ function AdminDashboard() {
       onClick={() => setActiveTab(tabName)}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
         activeTab === tabName
-          ? "bg-primary text-text-inverted shadow-md"
-          : "text-text-muted dark:text-text-inverted hover:bg-gray-200 dark:hover:bg-gray-800 transform hover:-translate-y-1"
+          ? "bg-primary text-text-inverted shadow-lg"
+          : "text-text-muted dark:text-text-inverted hover:bg-gray-200 dark:hover:bg-gray-800 transform hover:-translate-y-2 hover:shadow-lg"
       }`}
     >
       {icon}
@@ -166,7 +166,7 @@ const UsersTable = ({ users, makeAdmin }) => (
             <td className="px-6 py-4"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${u.role === 'admin' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300'}`}>{u.role}</span></td>
             <td className="px-6 py-4">
               {u.role !== "admin" && (
-                <button onClick={() => makeAdmin(u.id)} className="bg-primary hover:bg-primary-light text-text-inverted font-bold py-2 px-3 rounded-lg text-sm transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                <button onClick={() => makeAdmin(u.id)} className="bg-primary hover:bg-primary-light text-text-inverted font-bold py-2 px-3 rounded-lg text-sm transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-1 hover:shadow-lg">
                   <FiCheckCircle /> Make Admin
                 </button>
               )}
