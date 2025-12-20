@@ -25,6 +25,16 @@ function Profile() {
     );
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      setAvatarPreview(URL.createObjectURL(file)); // Create a URL for local preview
+    } else {
+      setAvatarFile(null);
+      setAvatarPreview(user?.avatar || null);
+    }
+  };
 
   useEffect(() => {
     if (user) {

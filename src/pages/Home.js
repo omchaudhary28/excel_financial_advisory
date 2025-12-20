@@ -88,7 +88,7 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-black rounded-2xl shadow-lg p-8 text-center border dark:border-gray-800 transition-all duration-200 hover:-translate-y-3 hover:shadow-xl"
+              className="bg-background-light dark:bg-black rounded-2xl shadow-lg p-8 text-center border dark:border-gray-800 transition-all duration-200 hover:-translate-y-3 hover:shadow-xl"
             >
               <div className="flex justify-center mb-6">{feature.icon}</div>
               <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
