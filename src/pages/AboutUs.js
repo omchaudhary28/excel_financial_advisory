@@ -55,7 +55,7 @@ const values = [
 
 const AboutUs = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
+    <div className="bg-white dark:bg-background-dark text-gray-800 dark:text-text-inverted">
       <section className="py-24 text-center bg-gradient-to-r from-primary to-accent text-white">
         <h1 className="text-5xl font-extrabold mb-4" data-aos="fade-up">About Us</h1>
         <p className="max-w-3xl mx-auto text-lg opacity-90" data-aos="fade-up" data-aos-delay="100">

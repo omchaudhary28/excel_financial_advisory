@@ -50,12 +50,12 @@ function Home() {
   ];
 
   return (
-    <div className="space-y-24 pb-24 bg-background-light dark:bg-gray-900">
+    <div className="space-y-24 pb-24 bg-background-light dark:bg-background-dark">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden bg-background-light dark:bg-gray-900">
+      <section className="relative py-24 px-6 overflow-hidden bg-background-light dark:bg-background-dark">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 dark:from-primary/20 dark:via-transparent dark:to-secondary/20 blur-3xl pointer-events-none"></div>
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-text dark:text-white mb-6 leading-tight animate-fade-in-up gradient-text">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-text dark:text-text-inverted mb-6 leading-tight animate-fade-in-up gradient-text">
             Achieve Financial Freedom
           </h1>
           <p className="text-lg md:text-xl text-text-light dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
@@ -83,7 +83,7 @@ function Home() {
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-text dark:text-white mb-4">Our Services</h2>
+          <h2 className="text-4xl font-bold text-text dark:text-text-inverted mb-4">Our Services</h2>
           <p className="text-lg text-text-light dark:text-gray-400">Comprehensive solutions for your financial needs.</p>
         </div>
 
@@ -98,7 +98,7 @@ function Home() {
               <div className="flex justify-center text-primary text-5xl mb-6">
                 {feature.icon}
               </div>
-              <h3 className="text-2xl font-semibold text-text dark:text-white mb-4">{feature.title}</h3>
+              <h3 className="text-2xl font-semibold text-text dark:text-text-inverted mb-4">{feature.title}</h3>
               <p className="text-text-light dark:text-gray-400 leading-relaxed">{feature.description}</p>
             </div>
           ))}
@@ -124,7 +124,7 @@ function Home() {
       {/* Testimonials Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-text dark:text-white mb-4">What Our Clients Say</h2>
+          <h2 className="text-4xl font-bold text-text dark:text-text-inverted mb-4">What Our Clients Say</h2>
           <p className="text-lg text-text-light dark:text-gray-400">Real stories from people we've helped.</p>
         </div>
 
@@ -141,7 +141,7 @@ function Home() {
                   <img className="w-12 h-12 rounded-full" src={`https://i.pravatar.cc/150?u=${testimonial.name}`} alt={testimonial.name} />
                 </div>
                 <div className="ml-4">
-                  <p className="font-semibold text-text dark:text-white">{testimonial.name}</p>
+                  <p className="font-semibold text-text dark:text-text-inverted">{testimonial.name}</p>
                   <p className="text-sm text-text-light dark:text-gray-400">{testimonial.role}</p>
                 </div>
               </div>

@@ -15,7 +15,7 @@ function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background-light dark:bg-background-dark shadow-strong">
+    <header className="sticky top-0 z-50 bg-white dark:bg-background-dark shadow-md">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
         
         {/* Logo */}
@@ -23,7 +23,7 @@ function Header() {
           <img
             src="/excel_financial.png"
             alt="Excel Financial Advisory"
-            className="h-12"
+            className="h-12 dark:invert"
           />
         </Link>
 
@@ -52,7 +52,7 @@ function Header() {
         </div>
 
         {/* Desktop Right */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 text-text dark:text-text-inverted">
           {user ? (
             <button
               onClick={handleLogout}
@@ -87,7 +87,7 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-background-light dark:bg-background-dark border-t border-accent dark:border-accent-dark">
+        <div className="md:hidden bg-white dark:bg-background-dark border-t border-accent dark:border-accent-dark">
           <div className="px-4 py-4 space-y-2 text-text dark:text-text-inverted">
             <Link className="block py-2" to="/">Home</Link>
             <Link className="block py-2" to="/about">About Us</Link>

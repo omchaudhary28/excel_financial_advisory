@@ -19,11 +19,11 @@ module.exports = {
         },
         accent: {
           DEFAULT: '#E0E0E0', // Light Gray for borders/accents
-          dark: '#4A4A4A',    // Darker Gray for dark mode accents
+          dark: '#2A2A2A',    // Darker Gray for dark mode accents
         },
         background: {
           light: '#F8F9FA',   // Clean Off-White
-          dark: '#1A202C',    // Dark Slate
+          dark: '#121212',    // Very Dark Gray
         },
         text: {
           DEFAULT: '#212529', // Near Black for readability
@@ -72,7 +72,7 @@ module.exports = {
           '@apply bg-danger text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong hover:bg-danger-light transition': {},
         },
         '.card': {
-          '@apply bg-background-light dark:bg-background-dark p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},
+          '@apply bg-background-light dark:bg-gray-800 p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},
         },
         '.hero': {
           '@apply bg-gradient-primary-secondary text-text-inverted p-12 rounded-xl shadow-deeper flex items-center justify-center': {},
