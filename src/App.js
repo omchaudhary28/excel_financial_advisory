@@ -47,7 +47,7 @@ function AppContent() {
         >
           <Routes>
             {/* Public routes */}
-            <Route path="/Rating" element={<Rating />} />
+            <Route path="/rating" element={<Rating />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
