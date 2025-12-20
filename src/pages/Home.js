@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiTrendingUp, FiShield, FiBriefcase, FiBarChart2 } from 'react-icons/fi';
+import { FiTrendingUp, FiShield, FiBriefcase, FiBarChart2, FiStar } from 'react-icons/fi';
 
 function Home() {
   const { user } = useAuth();
@@ -50,10 +50,10 @@ function Home() {
   ];
 
   return (
-    <div className="space-y-24 pb-24">
+    <div className="space-y-24 pb-24 bg-background-light dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden bg-background dark:bg-gray-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 blur-3xl pointer-events-none"></div>
+      <section className="relative py-24 px-6 overflow-hidden bg-background-light dark:bg-gray-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 dark:from-primary/20 dark:via-transparent dark:to-secondary/20 blur-3xl pointer-events-none"></div>
         <div className="relative z-10 max-w-7xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-extrabold text-text dark:text-white mb-6 leading-tight animate-fade-in-up gradient-text">
             Achieve Financial Freedom
@@ -91,7 +91,7 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group bg-background dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200 dark:border-gray-700 text-center transform hover:-translate-y-2"
+              className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200 dark:border-gray-700 text-center transform hover:-translate-y-2"
               data-aos="zoom-in"
               data-aos-delay={index * 100}
             >
@@ -132,7 +132,7 @@ function Home() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-background dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700"
               data-aos="fade-up-right"
               data-aos-delay={index * 100}
             >
@@ -148,7 +148,7 @@ function Home() {
               <p className="text-text-light dark:text-gray-300 italic">"{testimonial.feedback}"</p>
               <div className="flex mt-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <span key={i} className="text-yellow-400">⭐</span>
+                  <FiStar key={i} className="text-yellow-400" fill="currentColor" />
                 ))}
               </div>
             </div>
