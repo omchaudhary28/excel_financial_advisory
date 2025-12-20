@@ -35,6 +35,11 @@ module.exports = {
           light: '#E74C3C',   // Lighter red for hover states
           dark: '#C0392B',    // Darker red for active states
         },
+        success: {
+          DEFAULT: '#28a745', // Standard green for success actions
+          light: '#218838',   // Lighter green for hover states
+          dark: '#1e7e34',    // Darker green for active states
+        },
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
@@ -48,6 +53,10 @@ module.exports = {
         'gradient-secondary-primary': 'linear-gradient(to right, #F26A2E, #005A9C)',
         'gradient-primary-light-secondary-light': 'linear-gradient(to right, #0078D4, #FF8C00)',
       },
+      spacing: {
+        '128': '32rem',
+        '144': '36rem',
+      }
     },
   },
   plugins: [
@@ -68,6 +77,9 @@ module.exports = {
         '.hero': {
           '@apply bg-gradient-primary-secondary text-text-inverted p-12 rounded-xl shadow-deeper flex items-center justify-center': {},
         },
+        '.container-fluid': {
+          '@apply px-4 sm:px-6 lg:px-8': {},
+        }
       });
     },
   ],

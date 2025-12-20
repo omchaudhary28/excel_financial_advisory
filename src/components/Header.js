@@ -27,16 +27,16 @@ function Header() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/">Home</Link>
-          <Link to="/about">About Us</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/rating">Rating</Link>
+        <div className="hidden md:flex items-center gap-8 text-gray-800 dark:text-white">
+          <Link to="/" className="hover:text-primary">Home</Link>
+          <Link to="/about" className="hover:text-primary">About Us</Link>
+          <Link to="/contact" className="hover:text-primary">Contact</Link>
+          <Link to="/rating" className="hover:text-primary">Rating</Link>
 
           {user && (
             <>
-              <Link to="/profile">Profile</Link>
-              <Link to="/query">Raise Query</Link>
+              <Link to="/profile" className="hover:text-primary">Profile</Link>
+              <Link to="/query" className="hover:text-primary">Raise Query</Link>
 
               {user.role === "admin" && (
                 <Link to="/admin" className="font-bold text-primary">
@@ -59,7 +59,7 @@ function Header() {
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link>
+              <Link to="/login" className="text-gray-800 dark:text-white hover:text-primary">Login</Link>
               <Link to="/register" className="btn-primary rounded-full">
                 Register
               </Link>
@@ -71,7 +71,7 @@ function Header() {
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <ThemeToggle />
-          <button onClick={toggleMenu} className="ml-4">
+          <button onClick={toggleMenu} className="ml-4 text-gray-800 dark:text-white">
             {isMenuOpen ? (
               <FiX className="h-6 w-6" />
             ) : (
@@ -83,20 +83,20 @@ function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900">
+        <div className="md:hidden bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium">Home</Link>
-            <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium">About Us</Link>
-            <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium">Contact</Link>
-            <Link to="/rating" className="block px-3 py-2 rounded-md text-base font-medium">Rating</Link>
+            <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Home</Link>
+            <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">About Us</Link>
+            <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Contact</Link>
+            <Link to="/rating" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Rating</Link>
 
             {user && (
               <>
-                <Link to="/profile" className="block px-3 py-2 rounded-md text-base font-medium">Profile</Link>
-                <Link to="/query" className="block px-3 py-2 rounded-md text-base font-medium">Raise Query</Link>
+                <Link to="/profile" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Profile</Link>
+                <Link to="/query" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Raise Query</Link>
 
                 {user.role === "admin" && (
-                  <Link to="/admin" className="block px-3 py-2 rounded-md text-base font-medium text-primary">Admin</Link>
+                  <Link to="/admin" className="block px-3 py-2 rounded-md text-base font-medium text-primary hover:bg-gray-100 dark:hover:bg-gray-800">Admin</Link>
                 )}
               </>
             )}
@@ -106,14 +106,14 @@ function Header() {
               <div className="px-5">
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-red-600"
+                  className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   Logout
                 </button>
               </div>
             ) : (
               <div className="px-5 space-y-2">
-                <Link to="/login" className="block px-3 py-2 rounded-md text-base font-medium">Login</Link>
+                <Link to="/login" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800">Login</Link>
                 <Link to="/register" className="block btn-primary rounded-full px-3 py-2 text-base font-medium">Register</Link>
               </div>
             )}
