@@ -18,7 +18,7 @@ export default function Testimonials() {
   return (
     <div className="card text-center max-w-xl mx-auto py-8 px-6">
       <div className="relative overflow-hidden min-h-[150px] flex items-center justify-center"> {/* Added min-h to prevent layout shift */}
-        <div className="absolute inset-0 transition-opacity duration-500 ease-in-out" key={i}> {/* Key change forces re-render and transition */}
+        <div className="absolute inset-0 transition-opacity duration-500 ease-in-out"> {/* Key change forces re-render and transition */}
           <img
             src={f.avatar || "/avatar.png"}
             className="w-16 h-16 mx-auto rounded-full mb-3 object-cover"
