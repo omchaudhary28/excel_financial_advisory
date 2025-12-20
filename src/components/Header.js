@@ -14,16 +14,16 @@ export default function Header() {
       </Link>
 
       <nav className="flex items-center gap-5">
-        <Link to="/">Home</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/rating">Rating</Link>
+        <Link to="/" className="text-text hover:text-primary-light transition-colors">Home</Link>
+        <Link to="/contact" className="text-text hover:text-primary-light transition-colors">Contact</Link>
+        <Link to="/rating" className="text-text hover:text-primary-light transition-colors">Rating</Link>
 
-        {user && <Link to="/profile">Profile</Link>}
+        {user && <Link to="/profile" className="text-text hover:text-primary-light transition-colors">Profile</Link>}
 
         {user?.role === "admin" && (
           <Link
             to="/admin"
-            className="bg-primary text-white px-3 py-1 rounded"
+            className="bg-primary text-text-inverted px-3 py-1 rounded hover:bg-primary-light transition-colors"
           >
             Admin
           </Link>
@@ -36,13 +36,13 @@ export default function Header() {
               alt="avatar"
               className="w-12 h-12 rounded-full object-cover"
             />
-            <button onClick={logout} className="text-red-500">
+            <button onClick={logout} className="text-danger hover:text-danger-light transition-colors">
               Logout
             </button>
           </>
         )}
 
-        <button onClick={toggleTheme}>🌙</button>
+        <button onClick={toggleTheme} className="text-2xl hover:text-primary-light dark:hover:text-primary transition-colors">🌙</button>
       </nav>
     </header>
   );
