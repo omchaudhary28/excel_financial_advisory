@@ -23,7 +23,7 @@ const Facebook = lazy(() => import("./pages/Facebook"));
 const Twitter = lazy(() => import("./pages/Twitter"));
 const LinkedIn = lazy(() => import("./pages/LinkedIn"));
 const Instagram = lazy(() => import("./pages/Instagram"));
-
+const Rating = lazy(() => import("./pages/Rating"));
 
 function AppContent() {
   const location = useLocation();
