@@ -58,7 +58,7 @@ function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="bg-primary text-white font-bold py-4 px-10 rounded-full hover:opacity-90 transition shadow-lg"
+              className="bg-primary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-1"
             >
               Get Started
             </Link>
@@ -66,7 +66,7 @@ function Home() {
             {!user && (
               <Link
                 to="/register"
-                className="bg-secondary text-white font-bold py-4 px-10 rounded-full hover:opacity-90 transition shadow-lg"
+                className="bg-secondary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-1"
               >
                 Sign Up
               </Link>
@@ -108,7 +108,7 @@ function Home() {
             { number: '20+', label: 'Years of Expertise' },
             { number: '$5B+', label: 'Assets Under Management' },
           ].map((stat, index) => (
-            <div key={index}>
+            <div key={index} className="transition-transform duration-200 hover:scale-105">
               <div className="text-5xl font-extrabold mb-2">{stat.number}</div>
               <div className="text-lg opacity-80">{stat.label}</div>
             </div>
