@@ -18,7 +18,18 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const res = await api.get("/admin_queries.php");
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          throw new Error("Missing auth token");
+        }
+
+        // 🔐 ADMIN QUERIES
+        const res = await api.get("/admin_queries.php", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!res.data?.success) {
           throw new Error("Invalid admin response");
@@ -27,11 +38,23 @@ function AdminDashboard() {
         setUsers(res.data.users || []);
         setQueries(res.data.queries || []);
 
-        // Fetch feedback
-        const feedbackRes = await api.get("/admin_feedback.php");
-        setFeedback(feedbackRes.data?.data || feedbackRes.data || []);
+        // 🔐 FEEDBACK (optional endpoint)
+        try {
+          const feedbackRes = await api.get("/admin_feedback.php", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          setFeedback(feedbackRes.data?.data || feedbackRes.data || []);
+        } catch {
+          // feedback endpoint may not exist yet — ignore safely
+          setFeedback([]);
+        }
       } catch (err) {
-        if (err.response?.status === 403) {
+        if (err.response?.status === 401) {
+          setError("Unauthorized. Please log in again.");
+        } else if (err.response?.status === 403) {
           setError("Forbidden: Admin access required.");
         } else {
           setError("Failed to load admin dashboard data.");
@@ -125,18 +148,20 @@ function AdminDashboard() {
         </div>
 
         {/* Feedback */}
-        <div className="mb-10">
-          <h3 className="text-xl font-bold mb-4">User Feedback</h3>
-          {feedback.map((f) => (
-            <div key={f.id} className="border p-4 rounded mb-3">
-              <p>
-                <strong>Rating:</strong> {f.rating} ⭐
-              </p>
-              <p>{f.message}</p>
-              <p className="text-sm text-gray-500">{f.created_at}</p>
-            </div>
-          ))}
-        </div>
+        {feedback.length > 0 && (
+          <div className="mb-10">
+            <h3 className="text-xl font-bold mb-4">User Feedback</h3>
+            {feedback.map((f) => (
+              <div key={f.id} className="border p-4 rounded mb-3">
+                <p>
+                  <strong>Rating:</strong> {f.rating} ⭐
+                </p>
+                <p>{f.message}</p>
+                <p className="text-sm text-gray-500">{f.created_at}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Search */}
         <input
