@@ -45,48 +45,63 @@ function Profile() {
   }, [user]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setSuccess("");
+  setLoading(true);
 
-    try {
-      const token = localStorage.getItem("token");
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("phone", phone);
-      if (avatarFile) {
-        formData.append("avatar", avatarFile);
-      }
+  try {
+    const token = localStorage.getItem("token");
 
-      const res = await axios.post(
-        "https://excel-financial-advisory-backend.onrender.com/update_profile.php",
-        formData, // Send FormData
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // Important for file uploads
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!res.data || !res.data.success) {
-        setError(res.data?.message || "Update failed");
-        setLoading(false);
-        return;
-      }
-
-      // Assuming the backend returns the updated user object with the new avatar URL
-      const updatedUser = { ...user, name, phone, avatar: res.data.user?.avatar || user.avatar };
-      login({ token, user: updatedUser });
-      setAvatarFile(null); // Clear the file input
-      setSuccess("Profile updated successfully");
-    } catch (err) {
-      setError("Unable to update profile");
-    } finally {
+    if (!token) {
+      setError("Unauthorized");
       setLoading(false);
+      return;
     }
-  };
+
+    const formData = new FormData();
+    formData.append("name", name.trim());
+    formData.append("phone", phone.trim());
+    formData.append("email", user?.email); // 🔑 REQUIRED by backend
+
+    if (avatarFile) {
+      formData.append("avatar", avatarFile);
+    }
+
+    const res = await axios.post(
+      "https://excel-financial-advisory-backend.onrender.com/update_profile.php",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // ❗ no Content-Type
+        },
+      }
+    );
+
+    if (!res.data || !res.data.success) {
+      setError(res.data?.message || "Update failed");
+      return;
+    }
+
+    const updatedUser = {
+      ...user,
+      name,
+      phone,
+      avatar: res.data.user?.avatar || user.avatar,
+    };
+
+    login({ token, user: updatedUser });
+    setAvatarFile(null);
+    setSuccess("Profile updated successfully");
+  } catch (err) {
+    setError(
+      err.response?.data?.message || "Unable to update profile"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
