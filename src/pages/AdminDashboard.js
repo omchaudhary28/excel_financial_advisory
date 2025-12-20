@@ -7,6 +7,7 @@ function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [queries, setQueries] = useState([]);
   const [ratings, setRatings] = useState([]);
+  const [feedback, setFeedback] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("queries");
