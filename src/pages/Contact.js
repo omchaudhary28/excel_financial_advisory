@@ -71,7 +71,7 @@ function Contact() {
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-black">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-black">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12" data-aos="fade-down">
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-5xl">
@@ -90,14 +90,14 @@ function Contact() {
                 href={method.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-6 rounded-xl bg-white dark:bg-black shadow-md hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-primary dark:hover:border-primary dark:border dark:border-gray-800"
+                className="card flex items-center shadow-md hover:shadow-strong transition-all duration-300 border-2 border-transparent hover:border-primary dark:hover:border-primary transform hover:-translate-y-1"
               >
                 <div className="text-3xl text-primary mr-5">{method.icon}</div>
                 <div>
-                  <p className="font-semibold text-lg text-slate-900 dark:text-white">
+                  <p className="font-semibold text-lg text-text dark:text-text-inverted">
                     {method.label}
                   </p>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <p className="text-text-muted dark:text-gray-400">
                     {method.value}
                   </p>
                 </div>
@@ -106,19 +106,19 @@ function Contact() {
           </div>
 
           <div className="w-full" data-aos="fade-left" data-aos-delay="100">
-            <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden dark:border dark:border-gray-800">
+            <div className="bg-background-light dark:bg-black rounded-2xl shadow-xl overflow-hidden dark:border dark:border-gray-800">
               <div className="px-8 pt-8 pb-6">
                 <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-6">
                   Send Us a Message
                 </h2>
 
                 {status && (
-                  <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 px-4 py-3 rounded-lg mb-6">
+                  <div className="bg-success-light dark:bg-success-dark/20 border border-success dark:border-success-light/30 text-success-dark dark:text-success-light px-4 py-3 rounded-lg mb-6">
                     {status}
                   </div>
                 )}
                 {error && (
-                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-6">
+                  <div className="bg-danger-light dark:bg-danger-dark/20 border border-danger dark:border-danger-light/30 text-danger-dark dark:text-danger-light p-4 mb-6 rounded-lg">
                     {error}
                   </div>
                 )}
@@ -131,7 +131,7 @@ function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                       placeholder="Your Name"
                       value={form.name}
                       onChange={handleChange}
@@ -146,7 +146,7 @@ function Contact() {
                       type="email"
                       autoComplete="email"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                       placeholder="Your Email"
                       value={form.email}
                       onChange={handleChange}
@@ -160,7 +160,7 @@ function Contact() {
                       name="subject"
                       type="text"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                       placeholder="Subject"
                       value={form.subject}
                       onChange={handleChange}
@@ -172,7 +172,7 @@ function Contact() {
                     name="message"
                     rows="5"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
+                    className="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                     placeholder="Your message..."
                     value={form.message}
                     onChange={handleChange}
@@ -181,7 +181,7 @@ function Contact() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                    className="w-full bg-primary hover:bg-primary/90 disabled:bg-text-muted text-text-inverted font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
                   >
                     {loading ? <LoadingSpinner text="Sending..." /> : "Send Message"}
                   </button>
