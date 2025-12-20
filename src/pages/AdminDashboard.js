@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { LoadingSpinner } from "../components/Notifications";
+import { FiUsers, FiMessageSquare, FiStar, FiMail, FiPhone, FiCheckCircle } from "react-icons/fi";
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -61,117 +62,130 @@ function AdminDashboard() {
     );
   }
 
+  const TabButton = ({ tabName, label, icon }) => (
+    <button
+      onClick={() => setActiveTab(tabName)}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
+        activeTab === tabName
+          ? "bg-primary text-white"
+          : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+      }`}
+    >
+      {icon}
+      {label}
+    </button>
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Admin Dashboard</h1>
 
-      {/* Tabs */}
-      <div className="flex gap-6 border-b mb-6">
-        <button onClick={() => setActiveTab("queries")}>Queries</button>
-        <button onClick={() => setActiveTab("users")}>Users</button>
-        <button onClick={() => setActiveTab("ratings")}>Ratings</button>
+      <div className="flex flex-wrap gap-4 mb-8 border-b border-gray-200 dark:border-gray-700 pb-4">
+        <TabButton tabName="queries" label="Queries" icon={<FiMessageSquare />} />
+        <TabButton tabName="users" label="Users" icon={<FiUsers />} />
+        <TabButton tabName="ratings" label="Ratings" icon={<FiStar />} />
       </div>
 
-      {/* ================= QUERIES ================= */}
-      {activeTab === "queries" && (
-        <table className="w-full border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2">Name</th>
-              <th className="p-2">Email</th>
-              <th className="p-2">Subject</th>
-              <th className="p-2">Message</th>
-              <th className="p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {queries.map((q) => (
-              <tr key={q.id} className="border-t">
-                <td className="p-2">{q.query_name}</td>
-                <td className="p-2">{q.query_email}</td>
-                <td className="p-2">{q.subject}</td>
-                <td className="p-2">{q.message}</td>
-                <td className="p-2 space-x-2">
-                  <a href={`mailto:${q.query_email}`}>📧</a>
-                  {q.user_phone && (
-                    <>
-                      <a href={`tel:${q.user_phone}`}>📞</a>
-                      <a href={whatsappLink(q.user_phone)}>💬</a>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      {/* ================= USERS ================= */}
-      {activeTab === "users" && (
-        <table className="w-full border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2">Name</th>
-              <th className="p-2">Email</th>
-              <th className="p-2">Phone</th>
-              <th className="p-2">Role</th>
-              <th className="p-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u.id} className="border-t">
-                <td className="p-2">{u.name}</td>
-                <td className="p-2">{u.email}</td>
-                <td className="p-2">{u.phone || "-"}</td>
-                <td className="p-2 font-semibold">{u.role}</td>
-                <td className="p-2">
-                  {u.role !== "admin" && (
-                    <button
-                      onClick={() => makeAdmin(u.id)}
-                      className="text-blue-600 hover:underline"
-                    >
-                      Make Admin
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      {/* ================= RATINGS ================= */}
-      {activeTab === "ratings" && (
-        <table className="w-full border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2">User</th>
-              <th className="p-2">Email</th>
-              <th className="p-2">Phone</th>
-              <th className="p-2">Rating</th>
-              <th className="p-2">Feedback</th>
-              <th className="p-2">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ratings.map((r) => (
-              <tr key={r.id} className="border-t">
-                <td className="p-2">{r.name || "User"}</td>
-                <td className="p-2">{r.email}</td>
-                <td className="p-2">{r.phone || "-"}</td>
-                <td className="p-2">{r.rating} ⭐</td>
-                <td className="p-2">{r.message}</td>
-                <td className="p-2">
-                  {new Date(r.created_at).toLocaleString()}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+        {activeTab === "queries" && <QueriesTable queries={queries} whatsappLink={whatsappLink} />}
+        {activeTab === "users" && <UsersTable users={users} makeAdmin={makeAdmin} />}
+        {activeTab === "ratings" && <RatingsTable ratings={ratings} />}
+      </div>
     </div>
   );
 }
+
+const QueriesTable = ({ queries, whatsappLink }) => (
+  <div className="overflow-x-auto">
+    <table className="w-full text-left table-auto">
+      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+        <tr>
+          <th className="px-6 py-3">Name</th>
+          <th className="px-6 py-3">Subject</th>
+          <th className="px-6 py-3 hidden md:table-cell">Message</th>
+          <th className="px-6 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody className="text-gray-700 dark:text-gray-200">
+        {queries.map((q) => (
+          <tr key={q.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td className="px-6 py-4 font-medium">{q.query_name}<br/><span className="text-xs text-gray-500 dark:text-gray-400">{q.query_email}</span></td>
+            <td className="px-6 py-4">{q.subject}</td>
+            <td className="px-6 py-4 hidden md:table-cell max-w-sm truncate">{q.message}</td>
+            <td className="px-6 py-4 flex items-center gap-4">
+              <a href={`mailto:${q.query_email}`} className="text-blue-500 hover:text-blue-600"><FiMail /></a>
+              {q.user_phone && (
+                <>
+                  <a href={`tel:${q.user_phone}`} className="text-green-500 hover:text-green-600"><FiPhone /></a>
+                  <a href={whatsappLink(q.user_phone)} className="text-green-500 hover:text-green-600">💬</a>
+                </>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+const UsersTable = ({ users, makeAdmin }) => (
+  <div className="overflow-x-auto">
+    <table className="w-full text-left table-auto">
+      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+        <tr>
+          <th className="px-6 py-3">Name</th>
+          <th className="px-6 py-3">Email</th>
+          <th className="px-6 py-3 hidden md:table-cell">Phone</th>
+          <th className="px-6 py-3">Role</th>
+          <th className="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody className="text-gray-700 dark:text-gray-200">
+        {users.map((u) => (
+          <tr key={u.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td className="px-6 py-4 font-medium">{u.name}</td>
+            <td className="px-6 py-4">{u.email}</td>
+            <td className="px-6 py-4 hidden md:table-cell">{u.phone || "-"}</td>
+            <td className="px-6 py-4"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${u.role === 'admin' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'bg-gray-100 dark:bg-gray-600/50 text-gray-800 dark:text-gray-300'}`}>{u.role}</span></td>
+            <td className="px-6 py-4">
+              {u.role !== "admin" && (
+                <button onClick={() => makeAdmin(u.id)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg text-sm transition-colors flex items-center gap-2">
+                  <FiCheckCircle /> Make Admin
+                </button>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+const RatingsTable = ({ ratings }) => (
+  <div className="overflow-x-auto">
+    <table className="w-full text-left table-auto">
+      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+        <tr>
+          <th className="px-6 py-3">User</th>
+          <th className="px-6 py-3 hidden md:table-cell">Email</th>
+          <th className="px-6 py-3">Rating</th>
+          <th className="px-6 py-3">Feedback</th>
+          <th className="px-6 py-3 hidden sm:table-cell">Date</th>
+        </tr>
+      </thead>
+      <tbody className="text-gray-700 dark:text-gray-200">
+        {ratings.map((r) => (
+          <tr key={r.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td className="px-6 py-4 font-medium">{r.name || "User"}</td>
+            <td className="px-6 py-4 hidden md:table-cell">{r.email}</td>
+            <td className="px-6 py-4 flex items-center gap-1">{r.rating} <FiStar className="text-yellow-400" fill="currentColor"/></td>
+            <td className="px-6 py-4 max-w-sm truncate">{r.message}</td>
+            <td className="px-6 py-4 hidden sm:table-cell text-sm text-gray-500 dark:text-gray-400">{new Date(r.created_at).toLocaleString()}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
 
 export default AdminDashboard;
