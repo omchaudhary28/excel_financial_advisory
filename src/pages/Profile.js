@@ -61,7 +61,7 @@ function Profile() {
 
     const formData = new FormData();
 formData.append("full_name", name.trim());
-    formData.append("phone", phone.trim());
+formData.append("mobile", phone.trim());
     formData.append("email", user?.email); // 🔑 REQUIRED by backend
 
     if (avatarFile) {
