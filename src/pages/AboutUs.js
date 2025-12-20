@@ -55,7 +55,7 @@ const values = [
 
 const AboutUs = () => {
   return (
-    <div className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <div className="bg-white dark:bg-black text-slate-800 dark:text-slate-200">
       <section className="py-24 text-center bg-gradient-to-r from-primary to-accent text-white">
         <h1 className="text-5xl font-extrabold mb-4" data-aos="fade-up">About Us</h1>
         <p className="max-w-3xl mx-auto text-lg opacity-90" data-aos="fade-up" data-aos-delay="100">
@@ -80,7 +80,7 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-slate-50 dark:bg-slate-800 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-slate-50 dark:bg-black px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Our Core Values</h2>
@@ -90,7 +90,7 @@ const AboutUs = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center p-8 bg-white dark:bg-slate-700 rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay={index * 100}>
+              <div key={index} className="text-center p-8 bg-white dark:bg-gray-900 rounded-xl shadow-lg dark:border dark:border-gray-800" data-aos="zoom-in" data-aos-delay={index * 100}>
                 <div className="flex justify-center text-5xl mb-4 text-primary">{value.icon}</div>
                 <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">{value.title}</h3>
                 <p className="text-slate-600 dark:text-slate-400">{value.description}</p>
@@ -112,7 +112,7 @@ const AboutUs = () => {
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 dark:border dark:border-slate-700"
+                className="bg-white dark:bg-black rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 dark:border dark:border-gray-800"
                 data-aos="fade-up"
                 data-aos-delay={100 + index * 100}
               >

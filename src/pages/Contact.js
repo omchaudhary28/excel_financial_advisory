@@ -71,7 +71,7 @@ function Contact() {
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-black">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12" data-aos="fade-down">
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-5xl">
@@ -90,7 +90,7 @@ function Contact() {
                 href={method.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-6 rounded-xl bg-white dark:bg-slate-800 shadow-md hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-primary dark:hover:border-primary dark:border dark:border-slate-700"
+                className="flex items-center p-6 rounded-xl bg-white dark:bg-black shadow-md hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-primary dark:hover:border-primary dark:border dark:border-gray-800"
               >
                 <div className="text-3xl text-primary mr-5">{method.icon}</div>
                 <div>
@@ -106,7 +106,7 @@ function Contact() {
           </div>
 
           <div className="w-full" data-aos="fade-left" data-aos-delay="100">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden dark:border dark:border-slate-700">
+            <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden dark:border dark:border-gray-800">
               <div className="px-8 pt-8 pb-6">
                 <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-6">
                   Send Us a Message
@@ -131,7 +131,7 @@ function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                       placeholder="Your Name"
                       value={form.name}
                       onChange={handleChange}
@@ -146,7 +146,7 @@ function Contact() {
                       type="email"
                       autoComplete="email"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                       placeholder="Your Email"
                       value={form.email}
                       onChange={handleChange}
@@ -160,7 +160,7 @@ function Contact() {
                       name="subject"
                       type="text"
                       required
-                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                       placeholder="Subject"
                       value={form.subject}
                       onChange={handleChange}
@@ -172,7 +172,7 @@ function Contact() {
                     name="message"
                     rows="5"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                     placeholder="Your message..."
                     value={form.message}
                     onChange={handleChange}

@@ -56,9 +56,9 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden">
           <div className="px-8 pt-8 pb-6">
             <div className="text-center mb-8">
               <div className="relative w-32 h-32 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center ring-4 ring-primary/20">
@@ -91,7 +91,7 @@ function Profile() {
                   name="name"
                   type="text"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary-light"
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -104,7 +104,7 @@ function Profile() {
                   name="phone"
                   type="tel"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary-light"
                   placeholder="1234567890"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -117,7 +117,7 @@ function Profile() {
                   name="email"
                   type="email"
                   disabled
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 cursor-not-allowed text-gray-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 cursor-not-allowed text-gray-500"
                   value={user?.email || ""}
                 />
               </div>

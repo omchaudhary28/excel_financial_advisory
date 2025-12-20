@@ -10,16 +10,26 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("queries");
-
+  
+  const toggleApproval = async (id, approved) => {
+    await api.post("/admin_feedback_toggle.php", {
+      id,
+      approved
+    });
+    setFeedback(f =>
+      f.map(x => x.id === id ? { ...x, approved } : x)
+    );
+  };
+  
   const fetchAdminData = async () => {
     try {
       const [qRes, rRes] = await Promise.all([
         api.get("/admin_queries.php"),
         api.get("/admin_feedback.php"),
       ]);
-
+      
       if (!qRes.data.success) throw new Error();
-
+      
       setUsers(qRes.data.users || []);
       setQueries(qRes.data.queries || []);
       setRatings(rRes.data.data || rRes.data || []);
@@ -61,14 +71,14 @@ function AdminDashboard() {
       </div>
     );
   }
-
+  
   const TabButton = ({ tabName, label, icon }) => (
     <button
       onClick={() => setActiveTab(tabName)}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
         activeTab === tabName
           ? "bg-primary text-white"
-          : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+          : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
       }`}
     >
       {icon}
@@ -86,7 +96,7 @@ function AdminDashboard() {
         <TabButton tabName="ratings" label="Ratings" icon={<FiStar />} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden">
         {activeTab === "queries" && <QueriesTable queries={queries} whatsappLink={whatsappLink} />}
         {activeTab === "users" && <UsersTable users={users} makeAdmin={makeAdmin} />}
         {activeTab === "ratings" && <RatingsTable ratings={ratings} />}
@@ -95,10 +105,12 @@ function AdminDashboard() {
   );
 }
 
+
+
 const QueriesTable = ({ queries, whatsappLink }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-left table-auto">
-      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+      <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm">
         <tr>
           <th className="px-6 py-3">Name</th>
           <th className="px-6 py-3">Subject</th>
@@ -108,7 +120,7 @@ const QueriesTable = ({ queries, whatsappLink }) => (
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
         {queries.map((q) => (
-          <tr key={q.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <tr key={q.id} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
             <td className="px-6 py-4 font-medium">{q.query_name}<br/><span className="text-xs text-gray-500 dark:text-gray-400">{q.query_email}</span></td>
             <td className="px-6 py-4">{q.subject}</td>
             <td className="px-6 py-4 hidden md:table-cell max-w-sm truncate">{q.message}</td>
@@ -131,7 +143,7 @@ const QueriesTable = ({ queries, whatsappLink }) => (
 const UsersTable = ({ users, makeAdmin }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-left table-auto">
-      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+      <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm">
         <tr>
           <th className="px-6 py-3">Name</th>
           <th className="px-6 py-3">Email</th>
@@ -142,11 +154,11 @@ const UsersTable = ({ users, makeAdmin }) => (
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
         {users.map((u) => (
-          <tr key={u.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <tr key={u.id} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
             <td className="px-6 py-4 font-medium">{u.name}</td>
             <td className="px-6 py-4">{u.email}</td>
             <td className="px-6 py-4 hidden md:table-cell">{u.phone || "-"}</td>
-            <td className="px-6 py-4"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${u.role === 'admin' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'bg-gray-100 dark:bg-gray-600/50 text-gray-800 dark:text-gray-300'}`}>{u.role}</span></td>
+            <td className="px-6 py-4"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${u.role === 'admin' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300'}`}>{u.role}</span></td>
             <td className="px-6 py-4">
               {u.role !== "admin" && (
                 <button onClick={() => makeAdmin(u.id)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg text-sm transition-colors flex items-center gap-2">
@@ -164,7 +176,7 @@ const UsersTable = ({ users, makeAdmin }) => (
 const RatingsTable = ({ ratings }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-left table-auto">
-      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+      <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm">
         <tr>
           <th className="px-6 py-3">User</th>
           <th className="px-6 py-3 hidden md:table-cell">Email</th>
@@ -175,7 +187,7 @@ const RatingsTable = ({ ratings }) => (
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
         {ratings.map((r) => (
-          <tr key={r.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <tr key={r.id} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
             <td className="px-6 py-4 font-medium">{r.name || "User"}</td>
             <td className="px-6 py-4 hidden md:table-cell">{r.email}</td>
             <td className="px-6 py-4 flex items-center gap-1">{r.rating} <FiStar className="text-yellow-400" fill="currentColor"/></td>

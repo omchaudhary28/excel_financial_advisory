@@ -40,7 +40,7 @@ function AppContent() {
   }, [location]);
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-text dark:text-text-inverted min-h-screen flex flex-col">
+    <div className="bg-background-light dark:bg-black text-text dark:text-text-inverted min-h-screen flex flex-col">
       <Header />
 
       <main className="flex-grow container mx-auto px-6 py-8 max-w-7xl w-full">

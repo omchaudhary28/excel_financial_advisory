@@ -1,46 +1,35 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import api from "../services/api";
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setLoading(false);
-      return;
+    const stored = localStorage.getItem("user");
+    if (stored && stored !== "undefined") {
+      setUser(JSON.parse(stored));
     }
-
-    api
-      .get("/get_profile.php", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        if (res.data.success) setUser(res.data.user);
-        else logout();
-      })
-      .catch(logout)
-      .finally(() => setLoading(false));
+    setLoading(false);
   }, []);
 
-  const login = ({ token }) => {
-    localStorage.setItem("token", token);
-    window.location.reload(); // reload to fetch profile
+  const login = (data) => {
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    setUser(data.user);
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);

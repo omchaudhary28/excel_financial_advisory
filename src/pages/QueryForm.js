@@ -43,9 +43,9 @@ const QueryForm = () => {
   };
 
   return (
-<div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+<div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg" data-aos="fade-up">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden dark:border dark:border-slate-700">
+        <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden dark:border dark:border-gray-800">
           <div className="px-8 pt-8 pb-6">
             <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-2">
               Raise a Query
@@ -70,7 +70,7 @@ const QueryForm = () => {
                 <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="name"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -82,7 +82,7 @@ const QueryForm = () => {
                 <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="email"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="Your Email"
                   type="email"
                   value={email}
@@ -95,7 +95,7 @@ const QueryForm = () => {
                 <FiMessageSquare className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
                 <input
                   id="subject"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="Subject"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -105,7 +105,7 @@ const QueryForm = () => {
 
               <textarea
                 id="message"
-                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                 placeholder="Your message..."
                 rows="5"
                 value={message}

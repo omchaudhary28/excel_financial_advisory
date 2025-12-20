@@ -59,9 +59,9 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md" data-aos="fade-up">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden dark:border dark:border-slate-700">
+        <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden dark:border dark:border-gray-800">
           <div className="px-8 pt-8 pb-6">
             <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-2">
               Create Your Account
@@ -85,7 +85,7 @@ export default function Register() {
                   type="text"
                   autoComplete="name"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="John Doe"
                   value={form.name}
                   onChange={handleChange}
@@ -100,7 +100,7 @@ export default function Register() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="you@example.com"
                   value={form.email}
                   onChange={handleChange}
@@ -115,7 +115,7 @@ export default function Register() {
                   type="tel"
                   autoComplete="tel"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="+1 (555) 000-0000"
                   value={form.phone}
                   onChange={handleChange}
@@ -130,7 +130,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="••••••••"
                   value={form.password}
                   onChange={handleChange}
@@ -145,7 +145,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
                   placeholder="••••••••"
                   value={form.confirm_password}
                   onChange={handleChange}

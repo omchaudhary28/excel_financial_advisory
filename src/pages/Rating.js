@@ -1,44 +1,32 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import api from "../services/api";
 
-const Rating = () => {
+export default function Rating() {
   const [rating, setRating] = useState(5);
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState("");
 
   const submit = async (e) => {
     e.preventDefault();
-    setStatus(null);
-
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.post(
-        "https://excel-financial-advisory-backend.onrender.com/submit_rating.php",
-        { rating, message },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
+      const res = await api.post("/submit_rating.php", { rating, message });
       if (res.data.success) {
-        setStatus("success");
-        setMessage("");
-        setRating(5);
+        setStatus("Thank you! Your feedback is submitted.");
       }
     } catch (err) {
-      setStatus(err.response?.data?.message || "error");
+      if (err.response?.status === 409) {
+        setStatus("You have already submitted feedback.");
+      } else {
+        setStatus("Something went wrong.");
+      }
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 card">
+    <div className="max-w-lg mx-auto card">
       <h2 className="text-2xl font-bold mb-4">Rate Our Service</h2>
 
-      {status === "success" && (
-        <p className="text-green-600">Thanks for your feedback!</p>
-      )}
-      {status && status !== "success" && (
-        <p className="text-red-600">{status}</p>
-      )}
+      {status && <p className="mb-4">{status}</p>}
 
       <form onSubmit={submit} className="space-y-4">
         <select
@@ -46,10 +34,8 @@ const Rating = () => {
           onChange={(e) => setRating(+e.target.value)}
           className="w-full border p-2 rounded"
         >
-          {[5, 4, 3, 2, 1].map((n) => (
-            <option key={n} value={n}>
-              {n} ⭐
-            </option>
+          {[5,4,3,2,1].map(n => (
+            <option key={n}>{n} ⭐</option>
           ))}
         </select>
 
@@ -58,13 +44,10 @@ const Rating = () => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className="w-full border p-2 rounded"
-          rows={4}
         />
 
         <button className="btn-primary w-full">Submit</button>
       </form>
     </div>
   );
-};
-
-export default Rating;
+}
