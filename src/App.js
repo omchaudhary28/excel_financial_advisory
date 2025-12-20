@@ -7,7 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ThemeProvider } from "./context/ThemeContext";
 import { LoadingSpinner } from "./components/Notifications";
 import PrivateRoute from "./components/PrivateRoute";
-import Rating from "./pages/Rating";
+// import Rating from "./pages/Rating";
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
