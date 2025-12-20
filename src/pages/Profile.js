@@ -60,7 +60,7 @@ function Profile() {
     }
 
     const formData = new FormData();
-    formData.append("name", name.trim());
+formData.append("full_name", name.trim());
     formData.append("phone", phone.trim());
     formData.append("email", user?.email); // 🔑 REQUIRED by backend
 
