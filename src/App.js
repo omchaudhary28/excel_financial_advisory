@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, lazy, useRef } from "react";
+import React, { useEffect, Suspense, lazy, useRef, useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,7 +11,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeContext, ThemeProvider } from "./context/ThemeContext";
 import { LoadingSpinner } from "./components/Notifications";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -35,13 +35,14 @@ const Rating = lazy(() => import("./pages/Rating"));
 function AppContent() {
   const location = useLocation();
   const nodeRef = useRef(null);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    <div className="bg-background-light dark:bg-black text-text dark:text-text-inverted min-h-screen flex flex-col">
+    <div className={`bg-background-light dark:bg-black text-text dark:text-text-inverted min-h-screen flex flex-col ${theme === 'dark' ? 'dark-glow-border' : ''}`}>
       <Header />
 
       <main className="flex-grow container mx-auto px-6 py-8 max-w-7xl w-full">
