@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { FiShield, FiTarget, FiZap } from 'react-icons/fi';
+import { Link } from "react-router-dom";
+
 
 const teamMembers = [
   {
