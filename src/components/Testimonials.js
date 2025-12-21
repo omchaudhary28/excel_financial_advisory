@@ -7,7 +7,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     api
-      .get("/feedback_public.php")
+      .get("/public_feedback.php")
       .then((res) => {
         if (res.data?.success && Array.isArray(res.data.data)) {
           setList(res.data.data);
