@@ -191,18 +191,37 @@ const RatingsTable = ({ ratings }) => (
         </tr>
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
-        {ratings.map((r) => (
-          <tr key={r.id} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <td className="px-6 py-4 font-medium">{r.name || "User"}</td>
-            <td className="px-6 py-4 hidden md:table-cell">{r.email}</td>
-            <td className="px-6 py-4 flex items-center gap-1">{r.rating} <FiStar className="text-yellow-400" fill="currentColor"/></td>
-            <td className="px-6 py-4 max-w-sm truncate">{r.message}</td>
-            <td className="px-6 py-4 hidden sm:table-cell text-sm text-gray-500 dark:text-gray-400">{new Date(r.created_at).toLocaleString()}</td>
-          </tr>
-        ))}
+       {(r.ratings || []).map(item => (
+  <tr
+    key={item.id}
+    className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900"
+  >
+    <td className="px-6 py-4 font-medium">
+      {item.name || "User"}
+    </td>
+
+    <td className="px-6 py-4 hidden md:table-cell">
+      {item.email}
+    </td>
+
+    <td className="px-6 py-4 flex items-center gap-1">
+      {item.rating}
+      <FiStar className="text-yellow-400" fill="currentColor" />
+    </td>
+
+    <td className="px-6 py-4 max-w-sm truncate">
+      {item.message}
+    </td>
+
+    <td className="px-6 py-4 hidden sm:table-cell text-sm text-gray-500 dark:text-gray-400">
+      {new Date(item.created_at).toLocaleString()}
+    </td>
+  </tr>
+))}
       </tbody>
     </table>
   </div>
 );
+
 
 export default AdminDashboard;
