@@ -46,6 +46,7 @@ export default function Header() {
     <>
       <Link to="/" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
       <Link to="/contact" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
+      <Link to="/about" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>About Us</Link>
       <Link to="/rating" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
 
       {user && <Link to="/profile" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
