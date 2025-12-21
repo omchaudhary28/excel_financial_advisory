@@ -67,7 +67,7 @@ export default function Header() {
   );
 
   return (
-    <header className="bg-white dark:bg-background-dark shadow px-4 sm:px-6 py-4 flex justify-between items-center relative z-50">
+    <header className="bg-white dark:bg-background-dark shadow-md px-4 sm:px-6 py-4 flex justify-between items-center relative z-50">
       <Link to="/" className="flex items-center transform transition-transform duration-200 hover:scale-110">
         <img src="/excel_financial.png" alt="Financial App Logo" className="w-28 sm:w-32 h-auto mr-2" />
       </Link>
@@ -93,7 +93,7 @@ export default function Header() {
       {/* Mobile Navigation Overlay */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-white dark:bg-background-dark z-40 flex flex-col items-center justify-center text-text dark:text-text-inverted transition-transform duration-300 ease-in-out">
-          <div className="flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center space-y-6 p-8"> {/* Increased padding and spacing */}
             <NavLinks isMobile={true} />
           </div>
         </div>
