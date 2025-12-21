@@ -3,34 +3,27 @@
   These styles define the entry and exit animations for pages.
 */
 
-/* Initial state for entering components */
+/* Fade transition */
 .page-slide-enter {
   opacity: 0;
-  transform: translateX(100%); /* Start from right */
-  position: absolute; /* Ensures elements don't push each other during transition */
-  width: 100%; /* Important for absolute positioning */
+  position: absolute;
+  width: 100%;
 }
 
-/* Active state for entering components */
 .page-slide-enter-active {
   opacity: 1;
-  transform: translateX(0%); /* End at natural position */
-  transition: opacity 300ms ease-in, transform 300ms ease-in;
+  transition: opacity 300ms ease-in;
 }
 
-/* Initial state for exiting components */
 .page-slide-exit {
   opacity: 1;
-  transform: translateX(0%);
-  position: absolute; /* Ensures elements don't push each other during transition */
-  width: 100%; /* Important for absolute positioning */
+  position: absolute;
+  width: 100%;
 }
 
-/* Active state for exiting components */
 .page-slide-exit-active {
   opacity: 0;
-  transform: translateX(-100%); /* Exit to left */
-  transition: opacity 300ms ease-in, transform 300ms ease-in;
+  transition: opacity 300ms ease-in;
 }
 
 /* Ensure that content within main is relatively positioned to contain absolute children */
