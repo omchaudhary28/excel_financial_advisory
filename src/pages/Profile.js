@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { LoadingSpinner } from "../components/Notifications";
-import { FiUser, FiPhone, FiMail } from "react-icons/fi";
+import { FiUser, FiPhone, FiMail, FiUpload } from "react-icons/fi"; // Added FiUpload
+import { API_BASE_URL } from "../config"; // Import API_BASE_URL
 
 function Profile() {
   const { user, login } = useAuth();
@@ -45,80 +46,77 @@ function Profile() {
   }, [user]);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
-  setSuccess("");
-  setLoading(true);
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    setLoading(true);
 
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    if (!token) {
-      setError("Unauthorized");
-      setLoading(false);
-      return;
-    }
-
-    
-const formData = new FormData();
-formData.append("name", name.trim());          // ✅ backend check
-formData.append("full_name", name.trim());     // ✅ DB update
-formData.append("phone", phone.trim());
-formData.append("mobile", phone.trim());
-formData.append("email", user?.email);
- // 🔑 REQUIRED by backend
-
-    if (avatarFile) {
-      formData.append("avatar", avatarFile);
-    }
-
-    const res = await axios.post(
-      "https://excel-financial-advisory-backend.onrender.com/update_profile.php",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // ❗ no Content-Type
-        },
+      if (!token) {
+        setError("Unauthorized");
+        setLoading(false);
+        return;
       }
-    );
 
-    if (!res.data || !res.data.success) {
-      setError(res.data?.message || "Update failed");
-      return;
+      const formData = new FormData();
+      formData.append("name", name.trim());
+      formData.append("full_name", name.trim());
+      formData.append("phone", phone.trim());
+      formData.append("mobile", phone.trim());
+      formData.append("email", user?.email);
+
+      if (avatarFile) {
+        formData.append("avatar", avatarFile);
+      }
+
+      const res = await axios.post(
+        `${API_BASE_URL}/update_profile.php`, // Use API_BASE_URL
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.data || !res.data.success) {
+        setError(res.data?.message || "Update failed");
+        return;
+      }
+
+      const updatedUser = {
+        ...user,
+        name,
+        phone,
+        avatar: res.data.user?.avatar || user.avatar,
+      };
+
+      login({ token, user: updatedUser });
+      setAvatarFile(null);
+      setSuccess("Profile updated successfully");
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Unable to update profile"
+      );
+    } finally {
+      setLoading(false);
     }
-
-    const updatedUser = {
-      ...user,
-      name,
-      phone,
-      avatar: res.data.user?.avatar || user.avatar,
-    };
-
-    login({ token, user: updatedUser });
-    setAvatarFile(null);
-    setSuccess("Profile updated successfully");
-  } catch (err) {
-    setError(
-      err.response?.data?.message || "Unable to update profile"
-    );
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg" data-aos="fade-up">
-        <div className="bg-background-light dark:bg-black rounded-2xl shadow-xl overflow-hidden">
+        <div className="card overflow-hidden"> {/* Using card utility class */}
           <div className="px-8 pt-8 pb-6">
             <div className="text-center mb-8">
               <div className="relative w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center ring-4 ring-primary/20 overflow-hidden">
                 {avatarPreview ? (
                   <img src={avatarPreview} alt="User Avatar" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full bg-primary flex items-center justify-center">
-                    <span className="text-5xl font-bold text-text-inverted">
+                  <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"> {/* Theme-aware background */}
+                    <span className="text-5xl font-bold text-gray-800 dark:text-gray-200"> {/* Theme-aware text */}
                       {getInitials(user?.name)}
                     </span>
                   </div>
@@ -128,67 +126,67 @@ formData.append("email", user?.email);
                 type="file"
                 id="avatar-upload"
                 accept="image/*"
-                className="hidden" // Hide the default input
+                className="hidden"
                 onChange={handleAvatarChange}
               />
               <label
                 htmlFor="avatar-upload"
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-text-inverted bg-primary hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light cursor-pointer transition-all duration-200 transform hover:scale-105"
+                className="btn-primary inline-flex items-center" // Using btn-primary utility class
               >
-                Change Avatar
+                <FiUpload className="mr-2" /> Change Avatar
               </label>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-6">
+              <h2 className="text-3xl font-bold text-text dark:text-white mt-6">
                 {name}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">{user?.email}</p>
+              <p className="text-text-muted dark:text-gray-400">{user?.email}</p>
             </div>
 
             {error && (
-              <div className="bg-danger-light dark:bg-danger-dark/20 border border-danger dark:border-danger-light/30 text-danger-dark dark:text-danger-light p-4 mb-6 rounded-lg">
+              <div className="bg-danger/10 border border-danger text-danger p-4 mb-6 rounded-lg">
                 {error}
               </div>
             )}
             {success && (
-              <div className="bg-success-light dark:bg-success-dark/20 border border-success dark:border-success-light/30 text-success-dark dark:text-success-light p-4 mb-6 rounded-lg">
+              <div className="bg-success/10 border border-success text-success-dark p-4 mb-6 rounded-lg">
                 {success}
               </div>
             )}
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="relative">
-                <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" />
                 <input
                   id="name"
                   name="name"
                   type="text"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary-light"
+                  className="pl-12" // Apply global input style, only need pl-12
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="relative">
-                <FiPhone className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiPhone className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" />
                 <input
                   id="phone"
                   name="phone"
                   type="tel"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary-light"
+                  className="pl-12" // Apply global input style, only need pl-12
                   placeholder="1234567890"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   disabled
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-background-light dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 cursor-not-allowed text-gray-500"
+                  className="pl-12 cursor-not-allowed bg-gray-100 dark:bg-gray-700 text-text-muted dark:text-gray-500" // Refined disabled styling
                   value={user?.email || ""}
                 />
               </div>
@@ -196,7 +194,7 @@ formData.append("email", user?.email);
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-text-muted text-text-inverted font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                className="btn-primary w-full flex items-center justify-center" // Using btn-primary utility
               >
                 {loading ? <LoadingSpinner text="Saving..." /> : "Save Changes"}
               </button>
