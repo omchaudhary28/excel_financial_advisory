@@ -1,66 +1,104 @@
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
 
 export default function Header() {
-  const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
+  const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const getInitials = (name) => {
+    if (!name) return "";
+    const parts = name.split(" ");
+    if (parts.length === 1) {
+      return parts[0].charAt(0).toUpperCase();
+    }
+    return (
+      parts[0].charAt(0).toUpperCase() + parts[parts.length - 1].charAt(0).toUpperCase()
+    );
+  };
 
-  const isHome = location.pathname === "/";
+  const handleLogoutConfirmation = () => {
+    if (window.confirm("Are you sure you want to log out?")) {
+      logout();
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const NavLinks = ({ isMobile = false }) => (
+    <>
+      <Link to="/" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
+      <Link to="/contact" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
+      <Link to="/rating" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
+
+      {user && <Link to="/profile" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
+
+      {user?.role === "admin" && (
+        <Link
+          to="/admin"
+          className={`btn-primary ${isMobile ? 'w-auto' : ''}`} // Apply btn-primary for consistent look
+          onClick={() => isMobile && setIsMobileMenuOpen(false)}
+        >
+          Admin
+        </Link>
+      )}
+
+      {user && (
+        <div className={`flex items-center ${isMobile ? 'flex-col space-y-4' : 'space-x-4'}`}>
+          {user.avatar ? (
+            <img
+              src={user.avatar}
+              alt="avatar"
+              className={`w-10 h-10 rounded-full object-cover transform transition-transform duration-200 ${isMobile ? 'w-16 h-16' : 'hover:scale-115'}`}
+            />
+          ) : (
+            <div className={`w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-800 dark:text-gray-200 text-lg font-semibold transform transition-transform duration-200 ${isMobile ? 'w-16 h-16 text-2xl' : 'hover:scale-115'}`}>
+              {getInitials(user.name)}
+            </div>
+          )}
+          <button onClick={handleLogoutConfirmation} className={`text-danger hover:text-danger-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:scale-105'}`}>
+            Logout
+          </button>
+        </div>
+      )}
+    </>
+  );
 
   return (
-    <header
-      className={`
-        fixed top-0 left-0 w-full z-50 transition-colors duration-300
-        ${
-          scrolled || !isHome
-            ? "bg-white dark:bg-gray-900 shadow"
-            : "bg-transparent"
-        }
-      `}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-          <span className="text-primary">EXCEL</span>
-          <span className="text-gray-800 dark:text-white">
-            Financial Advisory
-          </span>
-        </Link>
+    <header className="bg-white dark:bg-background-dark shadow-md px-4 sm:px-6 py-4 flex justify-between items-center relative z-50">
+      <Link to="/" className="flex items-center transform transition-transform duration-200 hover:scale-110">
+        <img src="/excel_financial.png" alt="Financial App Logo" className="w-28 sm:w-32 h-auto mr-2" />
+      </Link>
 
-        {/* Navigation */}
-        <nav className="flex items-center gap-6">
-          {["/", "/contact", "/rating"].map((path, i) => {
-            const label = ["Home", "Contact", "Rating"][i];
-            const active = location.pathname === path;
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center gap-6 text-text dark:text-text-inverted">
+        <NavLinks />
+        <button onClick={toggleTheme} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
+          {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+        </button>
+      </nav>
 
-            return (
-              <Link
-                key={path}
-                to={path}
-                className={`
-                  font-medium transition-colors
-                  ${
-                    scrolled || !isHome
-                      ? "text-gray-700 dark:text-gray-200 hover:text-primary"
-                      : "text-white hover:text-primary"
-                  }
-                  ${active ? "text-primary" : ""}
-                `}
-              >
-                {label}
-              </Link>
-            );
-          })}
-        </nav>
+      {/* Mobile Menu Button and Theme Toggle */}
+      <div className="md:hidden flex items-center gap-4">
+        <button onClick={toggleTheme} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
+          {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+        </button>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-text dark:text-text-inverted focus:outline-none" aria-label="Toggle mobile menu">
+          {isMobileMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
+        </button>
       </div>
+
+      {/* Mobile Navigation Overlay */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-white dark:bg-background-dark z-40 flex flex-col items-center justify-center text-text dark:text-text-inverted transition-transform duration-300 ease-in-out">
+          <div className="flex flex-col items-center space-y-6 p-8"> {/* Increased padding and spacing */}
+            <NavLinks isMobile={true} />
+          </div>
+        </div>
+      )}
     </header>
   );
 }
+
