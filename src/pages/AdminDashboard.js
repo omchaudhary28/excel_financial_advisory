@@ -122,9 +122,7 @@ function AdminDashboard() {
               {queries.map((q, index) => (
                 <tr
                   key={q.id}
-                  className={`border-b border-gray-200 dark:border-gray-700 ${
-                    index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-900"
-                  } hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 ease-in-out`}
+                  className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 ease-in-out"
                 >
                   <td className="py-3 px-6 text-left whitespace-nowrap">
                     {q.query_name}
@@ -176,9 +174,7 @@ function AdminDashboard() {
               {users.map((u, index) => (
                 <tr
                   key={u.id}
-                  className={`border-b border-gray-200 dark:border-gray-700 ${
-                    index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-900"
-                  } hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 ease-in-out`}
+                  className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 ease-in-out"
                 >
                   <td className="py-3 px-6 text-left whitespace-nowrap">
                     {u.name}
@@ -220,11 +216,7 @@ function AdminDashboard() {
               {ratings.map((r, index) => (
                 <tr
                   key={r.id}
-                  className={`border-b border-gray-200 dark:border-gray-700 ${
-                    index % 2 === 0
-                      ? "bg-white dark:bg-gray-800"
-                      : "bg-gray-50 dark:bg-gray-800"
-                  } hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 ease-in-out`}
+                  className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 ease-in-out"
                 >
                   <td className="py-3 px-6 text-left whitespace-nowrap">
                     {r.name}
