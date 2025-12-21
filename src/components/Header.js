@@ -29,11 +29,11 @@ export default function Header() {
 
   const NavLinks = ({ isMobile = false }) => (
     <>
-      <Link to="/" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
-      <Link to="/contact" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
-      <Link to="/rating" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
+      <Link to="/" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
+      <Link to="/contact" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
+      <Link to="/rating" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
 
-      {user && <Link to="/profile" className={`text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
+      {user && <Link to="/profile" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
 
       {user?.role === "admin" && (
         <Link
@@ -73,7 +73,7 @@ export default function Header() {
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-6 text-text dark:text-text-inverted">
+      <nav className="hidden md:flex items-center gap-6 text-text dark:text-text">
         <NavLinks />
         <button onClick={toggleTheme} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
           {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
@@ -92,7 +92,7 @@ export default function Header() {
 
       {/* Mobile Navigation Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-white dark:bg-background-dark z-40 flex flex-col items-center justify-center text-text dark:text-text-inverted transition-transform duration-300 ease-in-out">
+        <div className="md:hidden fixed inset-0 bg-white dark:bg-background-dark z-40 flex flex-col items-center justify-center text-text dark:text-text transition-transform duration-300 ease-in-out">
           <div className="flex flex-col items-center space-y-6 p-8"> {/* Increased padding and spacing */}
             <NavLinks isMobile={true} />
           </div>
