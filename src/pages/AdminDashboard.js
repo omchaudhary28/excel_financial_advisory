@@ -19,23 +19,26 @@ function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("queries");
 
   const fetchAdminData = async () => {
-    try {
-      const [qRes, rRes] = await Promise.all([
-        api.get("/admin_queries.php"),
-        api.get("/admin_feedback.php"),
-      ]);
+  try {
+    const [queriesRes, usersRes, ratingsRes] = await Promise.all([
+      api.get("/admin_queries.php"),
+      api.get("/admin_users.php"),
+      api.get("/admin_feedback.php"),
+    ]);
 
-      if (!qRes.data.success) throw new Error();
-
-      setUsers(qRes.data.users || []);
-      setQueries(qRes.data.queries || []);
-      setRatings(rRes.data.data || []);
-    } catch (err) {
-      setError("Failed to load admin dashboard data.");
-    } finally {
-      setLoading(false);
+    if (!queriesRes.data.success || !usersRes.data.success) {
+      throw new Error();
     }
-  };
+
+    setQueries(queriesRes.data.data || queriesRes.data.queries || []);
+    setUsers(usersRes.data.data || usersRes.data.users || []);
+    setRatings(ratingsRes.data.data || []);
+  } catch (err) {
+    setError("Failed to load admin dashboard data.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchAdminData();
