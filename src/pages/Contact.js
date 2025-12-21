@@ -52,7 +52,7 @@ function Contact() {
   const contactMethods = [
     {
       icon: <FaPhone />,
-      // label: "Phone",
+      label: "Phone",
       value: "+917499953708",
       href: "tel:+917499953708",
     },
