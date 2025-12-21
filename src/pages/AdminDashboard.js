@@ -191,7 +191,7 @@ const RatingsTable = ({ ratings }) => (
         </tr>
       </thead>
       <tbody className="text-gray-700 dark:text-gray-200">
-       {(r.ratings || []).map(item => (
+       {(ratings || []).map(item => (
   <tr
     key={item.id}
     className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900"
