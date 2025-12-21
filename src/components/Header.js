@@ -54,7 +54,7 @@ export default function Header() {
               className={`w-10 h-10 rounded-full object-cover transform transition-transform duration-200 ${isMobile ? 'w-16 h-16' : 'hover:scale-115'}`}
             />
           ) : (
-            <div className={`w-10 h-10 rounded-full bg-primary flex items-center justify-center text-text-inverted text-lg font-semibold transform transition-transform duration-200 ${isMobile ? 'w-16 h-16 text-2xl' : 'hover:scale-115'}`}>
+            <div className={`w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-800 dark:text-gray-200 text-lg font-semibold transform transition-transform duration-200 ${isMobile ? 'w-16 h-16 text-2xl' : 'hover:scale-115'}`}>
               {getInitials(user.name)}
             </div>
           )}

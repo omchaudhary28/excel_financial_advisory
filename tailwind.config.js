@@ -63,16 +63,19 @@ module.exports = {
     function ({ addComponents }) {
       addComponents({
         '.btn-primary': {
-          '@apply bg-primary text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong hover:bg-primary-light transition': {},
+          '@apply bg-primary text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong transition duration-200': {},
+          '@apply hover:bg-primary-light dark:hover:bg-primary-dark': {},
         },
         '.btn-secondary': {
-          '@apply bg-secondary text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong hover:bg-secondary-light transition': {},
+          '@apply bg-secondary text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong transition duration-200': {},
+          '@apply hover:bg-secondary-light dark:hover:bg-secondary-dark': {},
         },
         '.btn-danger': {
-          '@apply bg-danger text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong hover:bg-danger-light transition': {},
+          '@apply bg-danger text-text-inverted px-6 py-3 rounded-lg font-semibold shadow-strong transition duration-200': {},
+          '@apply hover:bg-danger-light dark:hover:bg-danger-dark': {},
         },
         '.card': {
-          '@apply bg-background-light dark:bg-black dark:border dark:border-gray-800 p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},
+          '@apply bg-background-light dark:bg-gray-800 dark:border dark:border-gray-700 p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},
         },
         '.hero': {
           '@apply bg-gradient-primary-secondary text-text-inverted p-12 rounded-xl shadow-deeper flex items-center justify-center': {},
