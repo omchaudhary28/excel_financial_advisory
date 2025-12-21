@@ -43,22 +43,22 @@ function Home() {
     <div className="space-y-24 pb-24 bg-background-light dark:bg-background-dark">
 
       {/* ================= HERO ================= */}
-      <section className="relative py-24 px-6 overflow-hidden">
+      <section className="relative py-24 px-6 md:px-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 dark:from-primary/20 blur-3xl pointer-events-none"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 gradient-text">
-            Achieve Financial Freedom
+        <div className="relative z-10 max-w-7xl mx-auto text-center" data-aos="fade-up">
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 gradient-text leading-tight">
+            Achieve Financial Freedom with Expert Guidance
           </h1>
 
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
-            Expert financial guidance to help you build, manage, and protect your wealth.
+          <p className="text-lg md:text-xl text-text-muted dark:text-text-inverted mb-10 max-w-3xl mx-auto leading-relaxed">
+            Personalized strategies to help you build, manage, and protect your wealth for a secure future.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
             <Link
               to="/contact"
-              className="bg-primary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-2 hover:shadow-xl"
+              className="btn-primary" // Using utility class
             >
               Get Started
             </Link>
@@ -66,7 +66,7 @@ function Home() {
             {!user && (
               <Link
                 to="/register"
-                className="bg-secondary text-text-inverted font-bold py-4 px-10 rounded-full transition-all duration-200 shadow-lg transform hover:-translate-y-2 hover:shadow-xl"
+                className="btn-secondary" // Using utility class
               >
                 Sign Up
               </Link>
@@ -76,11 +76,11 @@ function Home() {
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="py-20 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Our Services</h2>
-          <p className="text-slate-600 dark:text-slate-400">
-            Comprehensive solutions for your financial needs.
+      <section className="py-20 max-w-7xl mx-auto px-6 md:px-10">
+        <div className="text-center mb-16" data-aos="fade-up">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-text dark:text-white">Our Services</h2>
+          <p className="text-lg text-text-muted dark:text-gray-400 max-w-2xl mx-auto">
+            Comprehensive financial solutions tailored to meet your unique goals and aspirations.
           </p>
         </div>
 
@@ -88,11 +88,13 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-background-light dark:bg-black rounded-2xl shadow-lg p-8 text-center border dark:border-gray-800 transition-all duration-200 hover:-translate-y-3 hover:shadow-xl"
+              className="card flex flex-col items-center justify-center p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-deeper" // Using utility class
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
             >
-              <div className="flex justify-center mb-6">{feature.icon}</div>
-              <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
-              <p className="text-slate-600 dark:text-slate-400">
+              <div className="flex justify-center mb-6 text-primary">{feature.icon}</div>
+              <h3 className="text-xl font-semibold mb-3 text-text dark:text-white">{feature.title}</h3>
+              <p className="text-center text-text-muted dark:text-gray-400 text-sm">
                 {feature.description}
               </p>
             </div>
@@ -101,16 +103,16 @@ function Home() {
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="py-20 bg-primary text-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-6">
+      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-6 md:px-10">
           {[
             { number: '1,200+', label: 'Clients Served' },
             { number: '20+', label: 'Years of Expertise' },
             { number: '$5B+', label: 'Assets Under Management' },
           ].map((stat, index) => (
-            <div key={index} className="transition-transform duration-200 hover:scale-110">
-              <div className="text-5xl font-extrabold mb-2">{stat.number}</div>
-              <div className="text-lg opacity-80">{stat.label}</div>
+            <div key={index} className="transition-transform duration-300 hover:scale-105" data-aos="zoom-in" data-aos-delay={index * 150}>
+              <div className="text-6xl font-extrabold mb-2 text-text-inverted">{stat.number}</div>
+              <div className="text-lg opacity-90 text-text-inverted">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -121,16 +123,16 @@ function Home() {
 
       {/* ================= CTA ================= */}
       <section className="py-20 bg-gradient-to-r from-primary to-accent text-white text-center">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-extrabold mb-4">
-            Ready to Take the Next Step?
+        <div className="max-w-7xl mx-auto px-6 md:px-10" data-aos="fade-up">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+            Ready to Take the Next Step Towards Financial Clarity?
           </h2>
-          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-            Schedule a free consultation with one of our expert advisors.
+          <p className="text-lg md:text-xl opacity-90 mb-10 max-w-3xl mx-auto leading-relaxed">
+            Schedule a free, no-obligation consultation with one of our expert financial advisors today.
           </p>
           <Link
             to="/contact"
-            className="bg-white text-primary font-bold py-4 px-10 rounded-full transition-all duration-200 hover:scale-110 shadow-lg hover:shadow-xl"
+            className="btn-primary bg-white text-primary hover:bg-gray-100 hover:text-primary-dark shadow-lg hover:shadow-xl transform hover:-translate-y-1" // Custom styling for white button
           >
             Book a Consultation
           </Link>
