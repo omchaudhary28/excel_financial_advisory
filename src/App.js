@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { useEffect, Suspense, lazy, useRef } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,7 +6,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -34,11 +34,11 @@ const Rating = lazy(() => import("./pages/Rating"));
 
 function AppContent() {
   const location = useLocation();
+  const nodeRef = useRef(null);
 
-  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [location.pathname]);
 
   return (
     <div className="bg-background-light dark:bg-black text-text dark:text-text-inverted min-h-screen flex flex-col">
@@ -52,63 +52,71 @@ function AppContent() {
             </div>
           }
         >
-          <TransitionGroup>
-            <CSSTransition key={location.pathname} classNames="page-slide" timeout={300}>
-              <Routes location={location}>
-                {/* Public routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/about" element={<AboutUs />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/terms-of-service" element={<TermsOfService />} />
-                <Route path="/facebook" element={<Facebook />} />
-                <Route path="/twitter" element={<Twitter />} />
-                <Route path="/linkedin" element={<LinkedIn />} />
-                <Route path="/instagram" element={<Instagram />} />
+          <TransitionGroup component={null}>
+            <CSSTransition
+              key={location.pathname}
+              nodeRef={nodeRef}
+              classNames="page-slide"
+              timeout={300}
+              unmountOnExit
+            >
+              <div ref={nodeRef}>
+                <Routes location={location}>
+                  {/* Public */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<AboutUs />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms-of-service" element={<TermsOfService />} />
+                  <Route path="/facebook" element={<Facebook />} />
+                  <Route path="/twitter" element={<Twitter />} />
+                  <Route path="/linkedin" element={<LinkedIn />} />
+                  <Route path="/instagram" element={<Instagram />} />
 
-                {/* Protected routes */}
-                <Route
-                  path="/profile"
-                  element={
-                    <PrivateRoute>
-                      <Profile />
-                    </PrivateRoute>
-                  }
-                />
+                  {/* Protected */}
+                  <Route
+                    path="/profile"
+                    element={
+                      <PrivateRoute>
+                        <Profile />
+                      </PrivateRoute>
+                    }
+                  />
 
-                <Route
-                  path="/query"
-                  element={
-                    <PrivateRoute>
-                      <QueryForm />
-                    </PrivateRoute>
-                  }
-                />
+                  <Route
+                    path="/query"
+                    element={
+                      <PrivateRoute>
+                        <QueryForm />
+                      </PrivateRoute>
+                    }
+                  />
 
-                <Route
-                  path="/rating"
-                  element={
-                    <PrivateRoute>
-                      <Rating />
-                    </PrivateRoute>
-                  }
-                />
+                  <Route
+                    path="/rating"
+                    element={
+                      <PrivateRoute>
+                        <Rating />
+                      </PrivateRoute>
+                    }
+                  />
 
-                {/* Admin-only route */}
-                <Route
-                  path="/admin"
-                  element={
-                    <PrivateRoute adminOnly>
-                      <AdminDashboard />
-                    </PrivateRoute>
-                  }
-                />
+                  {/* Admin */}
+                  <Route
+                    path="/admin"
+                    element={
+                      <PrivateRoute adminOnly>
+                        <AdminDashboard />
+                      </PrivateRoute>
+                    }
+                  />
 
-                {/* Fallback */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
+                  {/* Fallback */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </div>
             </CSSTransition>
           </TransitionGroup>
         </Suspense>

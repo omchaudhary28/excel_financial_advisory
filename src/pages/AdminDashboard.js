@@ -263,7 +263,8 @@ function AdminDashboard() {
             </tbody>
           </table>
         </div>
-      )}
+    )}
+      </div>
     </div>
   );
 }
