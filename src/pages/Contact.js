@@ -134,7 +134,7 @@ function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="pl-12" // Apply global input style, only need pl-12
+                      className="pl-14" // Apply global input style, only need pl-14
                       placeholder="Your Name"
                       value={form.name}
                       onChange={handleChange}
@@ -149,7 +149,7 @@ function Contact() {
                       type="email"
                       autoComplete="email"
                       required
-                      className="pl-12" // Apply global input style, only need pl-12
+                      className="pl-14" // Apply global input style, only need pl-14
                       placeholder="Your Email"
                       value={form.email}
                       onChange={handleChange}
@@ -163,7 +163,7 @@ function Contact() {
                       name="subject"
                       type="text"
                       required
-                      className="pl-12" // Apply global input style, only need pl-12
+                      className="pl-14" // Apply global input style, only need pl-14
                       placeholder="Subject"
                       value={form.subject}
                       onChange={handleChange}

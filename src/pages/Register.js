@@ -82,7 +82,7 @@ export default function Register() {
                 <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" /> {/* Consistent icon color */}
                 <input
                   name="name" // Added name attribute
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="John Doe"
                   value={form.name}
                   onChange={handleChange}
@@ -97,7 +97,7 @@ export default function Register() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="you@example.com"
                   value={form.email}
                   onChange={handleChange}
@@ -112,7 +112,7 @@ export default function Register() {
                   type="tel"
                   autoComplete="tel"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="+1 (555) 000-0000"
                   value={form.phone}
                   onChange={handleChange}
@@ -127,7 +127,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="••••••••"
                   value={form.password}
                   onChange={handleChange}
@@ -142,7 +142,7 @@ export default function Register() {
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="••••••••"
                   value={form.confirm_password}
                   onChange={handleChange}

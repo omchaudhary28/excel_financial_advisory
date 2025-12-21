@@ -159,7 +159,7 @@ function Profile() {
                   name="name"
                   type="text"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -172,7 +172,7 @@ function Profile() {
                   name="phone"
                   type="tel"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="1234567890"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -185,7 +185,7 @@ function Profile() {
                   name="email"
                   type="email"
                   disabled
-                  className="pl-12 cursor-not-allowed bg-gray-100 dark:bg-gray-700 text-text-muted dark:text-gray-500" // Refined disabled styling
+                  className="pl-14 cursor-not-allowed bg-gray-100 dark:bg-gray-700 text-text-muted dark:text-gray-500" // Refined disabled styling
                   value={user?.email || ""}
                 />
               </div>

@@ -75,7 +75,7 @@ function Login() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -90,7 +90,7 @@ function Login() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="pl-12" // Apply global input style, only need pl-12
+                  className="pl-14" // Apply global input style, only need pl-14
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
