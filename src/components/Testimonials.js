@@ -9,8 +9,9 @@ const Testimonials = () => {
     api
       .get("/feedback_public.php")
       .then((res) => {
-        if (res.data && res.data.success) {
+        if (res.data?.success && Array.isArray(res.data.data)) {
           setList(res.data.data);
+          setIndex(0);
         }
       })
       .catch(() => {});
