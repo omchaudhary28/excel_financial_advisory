@@ -1,2 +1,2 @@
 // react-app/src/config.js
-export const API_BASE_URL = 'http://localhost:8000/backend-render';
+export const API_BASE_URL = 'https://excel-financial-advisory-backend.onrender.com';
