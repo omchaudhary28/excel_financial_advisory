@@ -106,8 +106,7 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-lg" data-aos="fade-up">
+    <div className="w-full max-w-lg mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="card overflow-hidden"> {/* Using card utility class */}
           <div className="px-8 pt-8 pb-6">
             <div className="text-center mb-8">
@@ -201,7 +200,6 @@ function Profile() {
             </form>
           </div>
         </div>
-      </div>
     </div>
   );
 }
