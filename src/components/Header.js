@@ -8,6 +8,7 @@ export default function Header() {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [ripple, setRipple] = useState(null); // State for ripple effect
 
   const getInitials = (name) => {
     if (!name) return "";
@@ -27,13 +28,27 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleThemeToggle = (event) => {
+    const button = event.currentTarget;
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    setRipple({
+      size: diameter,
+      x: event.clientX - button.getBoundingClientRect().left - radius,
+      y: event.clientY - button.getBoundingClientRect().top - radius,
+    });
+
+    toggleTheme();
+  };
+
   const NavLinks = ({ isMobile = false }) => (
     <>
-      <Link to="/" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
-      <Link to="/contact" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
-      <Link to="/rating" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
+      <Link to="/" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
+      <Link to="/contact" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
+      <Link to="/rating" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
 
-      {user && <Link to="/profile" className={`text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
+      {user && <Link to="/profile" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
 
       {user?.role === "admin" && (
         <Link
@@ -75,15 +90,39 @@ export default function Header() {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-6 text-text dark:text-text">
         <NavLinks />
-        <button onClick={toggleTheme} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
+        <button onClick={handleThemeToggle} className="theme-toggle-button p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
           {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+          {ripple && (
+            <span
+              className="theme-ripple"
+              style={{
+                left: ripple.x,
+                top: ripple.y,
+                width: ripple.size,
+                height: ripple.size,
+              }}
+              onAnimationEnd={() => setRipple(null)}
+            />
+          )}
         </button>
       </nav>
 
       {/* Mobile Menu Button and Theme Toggle */}
       <div className="md:hidden flex items-center gap-4">
-        <button onClick={toggleTheme} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
+        <button onClick={handleThemeToggle} className="theme-toggle-button p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
           {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+          {ripple && (
+            <span
+              className="theme-ripple"
+              style={{
+                left: ripple.x,
+                top: ripple.y,
+                width: ripple.size,
+                height: ripple.size,
+              }}
+              onAnimationEnd={() => setRipple(null)}
+            />
+          )}
         </button>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-text dark:text-text-inverted focus:outline-none" aria-label="Toggle mobile menu">
           {isMobileMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -101,4 +140,7 @@ export default function Header() {
     </header>
   );
 }
+
+
+
 

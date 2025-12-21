@@ -6,6 +6,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -51,61 +52,65 @@ function AppContent() {
             </div>
           }
         >
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/facebook" element={<Facebook />} />
-            <Route path="/twitter" element={<Twitter />} />
-            <Route path="/linkedin" element={<LinkedIn />} />
-            <Route path="/instagram" element={<Instagram />} />
+          <TransitionGroup>
+            <CSSTransition key={location.pathname} classNames="page-slide" timeout={300}>
+              <Routes location={location}>
+                {/* Public routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/facebook" element={<Facebook />} />
+                <Route path="/twitter" element={<Twitter />} />
+                <Route path="/linkedin" element={<LinkedIn />} />
+                <Route path="/instagram" element={<Instagram />} />
 
-            {/* Protected routes */}
-            <Route
-              path="/profile"
-              element={
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
-              }
-            />
+                {/* Protected routes */}
+                <Route
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <Profile />
+                    </PrivateRoute>
+                  }
+                />
 
-            <Route
-              path="/query"
-              element={
-                <PrivateRoute>
-                  <QueryForm />
-                </PrivateRoute>
-              }
-            />
+                <Route
+                  path="/query"
+                  element={
+                    <PrivateRoute>
+                      <QueryForm />
+                    </PrivateRoute>
+                  }
+                />
 
-            <Route
-              path="/rating"
-              element={
-                <PrivateRoute>
-                  <Rating />
-                </PrivateRoute>
-              }
-            />
+                <Route
+                  path="/rating"
+                  element={
+                    <PrivateRoute>
+                      <Rating />
+                    </PrivateRoute>
+                  }
+                />
 
-            {/* Admin-only route */}
-            <Route
-              path="/admin"
-              element={
-                <PrivateRoute adminOnly>
-                  <AdminDashboard />
-                </PrivateRoute>
-              }
-            />
+                {/* Admin-only route */}
+                <Route
+                  path="/admin"
+                  element={
+                    <PrivateRoute adminOnly>
+                      <AdminDashboard />
+                    </PrivateRoute>
+                  }
+                />
 
-            {/* Fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+                {/* Fallback */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </CSSTransition>
+          </TransitionGroup>
         </Suspense>
       </main>
 
