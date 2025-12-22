@@ -53,19 +53,19 @@ function Contact() {
   const contactMethods = [
     {
       icon: <FaPhone />,
-      label: "Call Us", // Added label
+      // label: "Call Us", // Added label
       value: "+917499953708",
       href: "tel:+917499953708",
     },
     {
       icon: <FaEnvelope />,
-      label: "Email Us", // Added label
+      // label: "Email Us", // Added label
       value: "omchaudhary2111@gmail.com",
       href: "mailto:omchaudhary2111@gmail.com",
     },
     {
       icon: <FaWhatsapp />,
-      label: "WhatsApp", // Added label
+      // label: "WhatsApp", // Added label
       value: "+7499953708",
       href: "https://wa.me/7499953708",
     },
