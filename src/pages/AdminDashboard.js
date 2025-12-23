@@ -3,8 +3,9 @@ import axios from "axios";
 
 const API_BASE =
   process.env.NODE_ENV === "production"
-    ? "https://https://excel-financial-advisory-backend.onrender.com/api"
+    ? "excel-financial-advisory-backend.onrender.com/api"
     : "http://localhost/FINANCIAL-project/api";
+
 
 const AdminDashboard = () => {
   const [testimonials, setTestimonials] = useState([]);
