@@ -3,9 +3,8 @@ import axios from "axios";
 
 const API_BASE =
   process.env.NODE_ENV === "production"
-    ? "excel-financial-advisory-backend.onrender.com/api"
+    ? "https://excel-financial-advisory-backend.onrender.com/api"
     : "http://localhost/FINANCIAL-project/api";
-
 
 const AdminDashboard = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -28,7 +27,7 @@ const AdminDashboard = () => {
         setError("Failed to load testimonials");
       }
     } catch (err) {
-      setError("Server error");
+      setError("Failed to load testimonials");
     } finally {
       setLoading(false);
     }
