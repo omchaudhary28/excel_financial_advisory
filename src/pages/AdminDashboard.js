@@ -10,6 +10,8 @@ const AdminDashboard = () => {
   const [ratings, setRatings] = useState([]);
   const [error, setError] = useState("");
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     fetchRatings();
   }, []);
@@ -17,11 +19,13 @@ const AdminDashboard = () => {
   const fetchRatings = async () => {
     try {
       const res = await axios.get(`${API_BASE}/admin_feedback.php`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       setRatings(res.data.data || res.data);
     } catch (err) {
-      setError("Failed to load ratings");
+      setError("Unauthorized or failed to load ratings");
     }
   };
 
@@ -30,11 +34,15 @@ const AdminDashboard = () => {
       await axios.post(
         `${API_BASE}/admin_feedback_toggle.php`,
         { id, approved },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       fetchRatings();
     } catch {
-      alert("Failed to update status");
+      alert("Failed to update approval");
     }
   };
 
