@@ -3,47 +3,37 @@ import axios from "axios";
 
 const API_BASE =
   process.env.NODE_ENV === "production"
-    ? "https://excel-financial-advisory-backend.onrender.com/api"
-    : "http://localhost/FINANCIAL-project/api";
+    ? "https://excel-financial-advisory-backend.onrender.com"
+    : "http://localhost/FINANCIAL-project/backend-render";
 
 const AdminDashboard = () => {
-  const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [ratings, setRatings] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchTestimonials();
+    fetchRatings();
   }, []);
 
-  const fetchTestimonials = async () => {
+  const fetchRatings = async () => {
     try {
-      const res = await axios.get(
-        `${API_BASE}/get_testimonials.php`
-      );
-
-      if (res.data.success) {
-        setTestimonials(res.data.data);
-      } else {
-        setError("Failed to load testimonials");
-      }
+      const res = await axios.get(`${API_BASE}/admin_feedback.php`, {
+        withCredentials: true,
+      });
+      setRatings(res.data.data || res.data);
     } catch (err) {
-      setError("Failed to load testimonials");
-    } finally {
-      setLoading(false);
+      setError("Failed to load ratings");
     }
   };
 
-  const updateStatus = async (id, approved) => {
+  const toggleApproval = async (id, approved) => {
     try {
       await axios.post(
-        `${API_BASE}/update_testimonial_status.php`,
-        {
-          id,
-          approved,
-        }
+        `${API_BASE}/admin_feedback_toggle.php`,
+        { id, approved },
+        { withCredentials: true }
       );
-      fetchTestimonials();
-    } catch (err) {
+      fetchRatings();
+    } catch {
       alert("Failed to update status");
     }
   };
@@ -52,57 +42,47 @@ const AdminDashboard = () => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
 
-      {loading && <p>Loading...</p>}
-
       {error && <p className="text-red-500">{error}</p>}
 
-      {!loading && !error && (
-        <table className="min-w-full border">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border p-2">Name</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Rating</th>
-              <th className="border p-2">Message</th>
-              <th className="border p-2">Status</th>
-              <th className="border p-2">Action</th>
+      <table className="min-w-full border">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border p-2">Name</th>
+            <th className="border p-2">Rating</th>
+            <th className="border p-2">Status</th>
+            <th className="border p-2">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {ratings.map((r) => (
+            <tr key={r.id}>
+              <td className="border p-2">{r.name}</td>
+              <td className="border p-2">{r.rating}</td>
+              <td className="border p-2">
+                {r.approved ? "Approved" : "Pending"}
+              </td>
+              <td className="border p-2">
+                {r.approved ? (
+                  <button
+                    onClick={() => toggleApproval(r.id, 0)}
+                    className="bg-red-600 text-white px-3 py-1 rounded"
+                  >
+                    Hide
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => toggleApproval(r.id, 1)}
+                    className="bg-green-600 text-white px-3 py-1 rounded"
+                  >
+                    Approve
+                  </button>
+                )}
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
-            {testimonials.map((item) => (
-              <tr key={item.id}>
-                <td className="border p-2">{item.name}</td>
-                <td className="border p-2">{item.email}</td>
-                <td className="border p-2">{item.rating}</td>
-                <td className="border p-2">{item.message}</td>
-                <td className="border p-2">
-                  {item.approved ? "Approved" : "Pending"}
-                </td>
-                <td className="border p-2 space-x-2">
-                  {!item.approved && (
-                    <button
-                      onClick={() => updateStatus(item.id, true)}
-                      className="px-3 py-1 bg-green-600 text-white rounded"
-                    >
-                      Approve
-                    </button>
-                  )}
-
-                  {item.approved && (
-                    <button
-                      onClick={() => updateStatus(item.id, false)}
-                      className="px-3 py-1 bg-red-600 text-white rounded"
-                    >
-                      Hide
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
