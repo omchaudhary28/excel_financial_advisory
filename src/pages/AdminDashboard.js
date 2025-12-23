@@ -7,51 +7,143 @@ const API_BASE =
     : "http://localhost/FINANCIAL-project/backend-render";
 
 const AdminDashboard = () => {
+  const [stats, setStats] = useState({});
+  const [users, setUsers] = useState([]);
+  const [queries, setQueries] = useState([]);
   const [ratings, setRatings] = useState([]);
   const [error, setError] = useState("");
 
   const token = localStorage.getItem("token");
 
+  const authConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   useEffect(() => {
-    fetchRatings();
+    fetchAll();
+    // eslint-disable-next-line
   }, []);
 
-  const fetchRatings = async () => {
+  const fetchAll = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/admin_feedback.php`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setRatings(res.data.data || res.data);
-    } catch (err) {
-      setError("Unauthorized or failed to load ratings");
+      await Promise.all([
+        fetchStats(),
+        fetchUsers(),
+        fetchQueries(),
+        fetchRatings(),
+      ]);
+    } catch {
+      setError("Failed to load admin data");
     }
   };
 
+  const fetchStats = async () => {
+    const res = await axios.get(
+      `${API_BASE}/admin_stats.php`,
+      authConfig
+    );
+    setStats(res.data || {});
+  };
+
+  const fetchUsers = async () => {
+    const res = await axios.get(
+      `${API_BASE}/admin_users.php`,
+      authConfig
+    );
+    setUsers(res.data.data || res.data || []);
+  };
+
+  const fetchQueries = async () => {
+    const res = await axios.get(
+      `${API_BASE}/admin_queries.php`,
+      authConfig
+    );
+    setQueries(res.data.data || res.data || []);
+  };
+
+  const fetchRatings = async () => {
+    const res = await axios.get(
+      `${API_BASE}/admin_feedback.php`,
+      authConfig
+    );
+    setRatings(res.data.data || res.data || []);
+  };
+
   const toggleApproval = async (id, approved) => {
-    try {
-      await axios.post(
-        `${API_BASE}/admin_feedback_toggle.php`,
-        { id, approved },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      fetchRatings();
-    } catch {
-      alert("Failed to update approval");
-    }
+    await axios.post(
+      `${API_BASE}/admin_feedback_toggle.php`,
+      { id, approved },
+      authConfig
+    );
+    fetchRatings();
   };
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
 
+      {/* ===== STATS ===== */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="border p-4 rounded">
+          <p className="text-sm text-gray-500">Total Users</p>
+          <p className="text-xl font-bold">{stats.total_users ?? "-"}</p>
+        </div>
+        <div className="border p-4 rounded">
+          <p className="text-sm text-gray-500">Total Queries</p>
+          <p className="text-xl font-bold">{stats.total_queries ?? "-"}</p>
+        </div>
+        <div className="border p-4 rounded">
+          <p className="text-sm text-gray-500">Total Ratings</p>
+          <p className="text-xl font-bold">{stats.total_ratings ?? "-"}</p>
+        </div>
+      </div>
+
+      {/* ===== USERS ===== */}
+      <h2 className="text-xl font-bold mb-2">Users</h2>
+      <table className="min-w-full border mb-8">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border p-2">Name</th>
+            <th className="border p-2">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((u) => (
+            <tr key={u.id}>
+              <td className="border p-2">{u.name}</td>
+              <td className="border p-2">{u.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* ===== QUERIES ===== */}
+      <h2 className="text-xl font-bold mb-2">Queries</h2>
+      <table className="min-w-full border mb-8">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border p-2">Name</th>
+            <th className="border p-2">Email</th>
+            <th className="border p-2">Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          {queries.map((q) => (
+            <tr key={q.id}>
+              <td className="border p-2">{q.name}</td>
+              <td className="border p-2">{q.email}</td>
+              <td className="border p-2">{q.message}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* ===== RATINGS (APPROVALS) ===== */}
+      <h2 className="text-xl font-bold mb-2">Ratings</h2>
       <table className="min-w-full border">
         <thead>
           <tr className="bg-gray-200">
@@ -61,7 +153,6 @@ const AdminDashboard = () => {
             <th className="border p-2">Action</th>
           </tr>
         </thead>
-
         <tbody>
           {ratings.map((r) => (
             <tr key={r.id}>
