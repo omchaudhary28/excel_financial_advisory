@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE =
+  process.env.NODE_ENV === "production"
+    ? "https://https://excel-financial-advisory-backend.onrender.com/api"
+    : "http://localhost/FINANCIAL-project/api";
+
 const AdminDashboard = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +18,7 @@ const AdminDashboard = () => {
   const fetchTestimonials = async () => {
     try {
       const res = await axios.get(
-        "http://localhost/FINANCIAL-project/api/get_testimonials.php"
+        `${API_BASE}/get_testimonials.php`
       );
 
       if (res.data.success) {
@@ -31,7 +36,7 @@ const AdminDashboard = () => {
   const updateStatus = async (id, approved) => {
     try {
       await axios.post(
-        "http://localhost/FINANCIAL-project/api/update_testimonial_status.php",
+        `${API_BASE}/update_testimonial_status.php`,
         {
           id,
           approved,
