@@ -22,62 +22,109 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    fetchAll();
+    fetchStats();
+    fetchUsers();
+    fetchQueries();
+    fetchRatings();
     // eslint-disable-next-line
   }, []);
 
-  const fetchAll = async () => {
+  /* ================= STATS ================= */
+  const fetchStats = async () => {
     try {
-      await Promise.all([
-        fetchStats(),
-        fetchUsers(),
-        fetchQueries(),
-        fetchRatings(),
-      ]);
-    } catch {
-      setError("Failed to load admin data");
+      const res = await axios.get(
+        `${API_BASE}/admin_stats.php`,
+        authConfig
+      );
+      setStats(res.data || {});
+    } catch (err) {
+      console.error("Stats API failed");
+      setStats({});
     }
   };
 
-  const fetchStats = async () => {
-    const res = await axios.get(
-      `${API_BASE}/admin_stats.php`,
-      authConfig
-    );
-    setStats(res.data || {});
-  };
-
+  /* ================= USERS ================= */
   const fetchUsers = async () => {
-    const res = await axios.get(
-      `${API_BASE}/admin_users.php`,
-      authConfig
-    );
-    setUsers(res.data.data || res.data || []);
+    try {
+      const res = await axios.get(
+        `${API_BASE}/admin_users.php`,
+        authConfig
+      );
+
+      const data = Array.isArray(res.data)
+        ? res.data
+        : Array.isArray(res.data.data)
+        ? res.data.data
+        : [];
+
+      setUsers(data);
+    } catch (err) {
+      console.error("Users API failed");
+      setUsers([]);
+    }
   };
 
+  /* ================= QUERIES ================= */
   const fetchQueries = async () => {
-    const res = await axios.get(
-      `${API_BASE}/admin_queries.php`,
-      authConfig
-    );
-    setQueries(res.data.data || res.data || []);
+    try {
+      const res = await axios.get(
+        `${API_BASE}/admin_queries.php`,
+        authConfig
+      );
+
+      const data = Array.isArray(res.data)
+        ? res.data
+        : Array.isArray(res.data.data)
+        ? res.data.data
+        : [];
+
+      setQueries(data);
+    } catch (err) {
+      console.error("Queries API failed");
+      setQueries([]);
+    }
   };
 
+  /* ================= RATINGS ================= */
   const fetchRatings = async () => {
-    const res = await axios.get(
-      `${API_BASE}/admin_feedback.php`,
-      authConfig
-    );
-    setRatings(res.data.data || res.data || []);
+    try {
+      const res = await axios.get(
+        `${API_BASE}/admin_feedback.php`,
+        authConfig
+      );
+
+      const data = Array.isArray(res.data)
+        ? res.data
+        : Array.isArray(res.data.data)
+        ? res.data.data
+        : [];
+
+      setRatings(data);
+    } catch (err) {
+      console.error("Ratings API failed");
+      setRatings([]);
+      setError("Failed to load ratings");
+    }
   };
 
+  /* ================= APPROVE / HIDE ================= */
   const toggleApproval = async (id, approved) => {
-    await axios.post(
-      `${API_BASE}/admin_feedback_toggle.php`,
-      { id, approved },
-      authConfig
-    );
-    fetchRatings();
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("approved", approved);
+
+      await axios.post(
+        `${API_BASE}/admin_feedback_toggle.php`,
+        formData,
+        authConfig
+      );
+
+      fetchRatings();
+    } catch (err) {
+      console.error("Approval toggle failed");
+      alert("Failed to update approval");
+    }
   };
 
   return (
@@ -90,15 +137,21 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="border p-4 rounded">
           <p className="text-sm text-gray-500">Total Users</p>
-          <p className="text-xl font-bold">{stats.total_users ?? "-"}</p>
+          <p className="text-xl font-bold">
+            {stats.total_users ?? "-"}
+          </p>
         </div>
         <div className="border p-4 rounded">
           <p className="text-sm text-gray-500">Total Queries</p>
-          <p className="text-xl font-bold">{stats.total_queries ?? "-"}</p>
+          <p className="text-xl font-bold">
+            {stats.total_queries ?? "-"}
+          </p>
         </div>
         <div className="border p-4 rounded">
           <p className="text-sm text-gray-500">Total Ratings</p>
-          <p className="text-xl font-bold">{stats.total_ratings ?? "-"}</p>
+          <p className="text-xl font-bold">
+            {stats.total_ratings ?? "-"}
+          </p>
         </div>
       </div>
 
@@ -142,7 +195,7 @@ const AdminDashboard = () => {
         </tbody>
       </table>
 
-      {/* ===== RATINGS (APPROVALS) ===== */}
+      {/* ===== RATINGS ===== */}
       <h2 className="text-xl font-bold mb-2">Ratings</h2>
       <table className="min-w-full border">
         <thead>
