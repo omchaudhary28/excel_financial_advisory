@@ -16,6 +16,7 @@ const AdminDashboard = () => {
 
   const [userPage, setUserPage] = useState(1);
   const [queryPage, setQueryPage] = useState(1);
+  const [ratingPage, setRatingPage] = useState(1);
 
   const token = localStorage.getItem("token");
 
@@ -25,6 +26,7 @@ const AdminDashboard = () => {
     },
   };
 
+  /* ================= LOAD DATA ================= */
   useEffect(() => {
     fetchStats();
     fetchUsers();
@@ -33,7 +35,7 @@ const AdminDashboard = () => {
     // eslint-disable-next-line
   }, []);
 
-  /* ---------- STATS ---------- */
+  /* ================= STATS ================= */
   const fetchStats = async () => {
     try {
       const res = await axios.get(`${API_BASE}/admin_stats.php`, authConfig);
@@ -43,7 +45,7 @@ const AdminDashboard = () => {
     }
   };
 
-  /* ---------- USERS ---------- */
+  /* ================= USERS ================= */
   const fetchUsers = async () => {
     const res = await axios.get(`${API_BASE}/admin_users.php`, authConfig);
     const data = Array.isArray(res.data)
@@ -54,7 +56,7 @@ const AdminDashboard = () => {
     setUsers(data);
   };
 
-  /* ---------- QUERIES ---------- */
+  /* ================= QUERIES ================= */
   const fetchQueries = async () => {
     const res = await axios.get(`${API_BASE}/admin_queries.php`, authConfig);
     const data = Array.isArray(res.data)
@@ -65,7 +67,7 @@ const AdminDashboard = () => {
     setQueries(data);
   };
 
-  /* ---------- RATINGS ---------- */
+  /* ================= RATINGS ================= */
   const fetchRatings = async () => {
     const res = await axios.get(`${API_BASE}/admin_feedback.php`, authConfig);
     const data = Array.isArray(res.data)
@@ -76,12 +78,50 @@ const AdminDashboard = () => {
     setRatings(data);
   };
 
-  /* ---------- PAGINATION ---------- */
-  const paginate = (data, page) =>
-    data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  /* ================= ROOT FIX: PAGE RESET ================= */
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(users.length / PAGE_SIZE));
+    if (userPage > totalPages) setUserPage(1);
+  }, [users, userPage]);
 
-  const totalUserPages = Math.ceil(users.length / PAGE_SIZE);
-  const totalQueryPages = Math.ceil(queries.length / PAGE_SIZE);
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(queries.length / PAGE_SIZE));
+    if (queryPage > totalPages) setQueryPage(1);
+  }, [queries, queryPage]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(ratings.length / PAGE_SIZE));
+    if (ratingPage > totalPages) setRatingPage(1);
+  }, [ratings, ratingPage]);
+
+  /* ================= SAFE PAGINATION ================= */
+  const paginate = (data, page) => {
+    const start = (page - 1) * PAGE_SIZE;
+    return data.slice(start, start + PAGE_SIZE);
+  };
+
+  const totalUserPages = Math.max(1, Math.ceil(users.length / PAGE_SIZE));
+  const totalQueryPages = Math.max(1, Math.ceil(queries.length / PAGE_SIZE));
+  const totalRatingPages = Math.max(1, Math.ceil(ratings.length / PAGE_SIZE));
+
+  /* ================= APPROVE / HIDE ================= */
+  const toggleApproval = async (id, approved) => {
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("approved", approved);
+
+      await axios.post(
+        `${API_BASE}/admin_feedback_toggle.php`,
+        formData,
+        authConfig
+      );
+
+      fetchRatings();
+    } catch {
+      alert("Failed to update approval");
+    }
+  };
 
   return (
     <div className="p-6">
@@ -123,21 +163,9 @@ const AdminDashboard = () => {
       </table>
 
       <div className="mb-8">
-        <button
-          disabled={userPage === 1}
-          onClick={() => setUserPage((p) => p - 1)}
-        >
-          Prev
-        </button>
-        <span className="mx-2">
-          {userPage} / {totalUserPages || 1}
-        </span>
-        <button
-          disabled={userPage === totalUserPages}
-          onClick={() => setUserPage((p) => p + 1)}
-        >
-          Next
-        </button>
+        <button disabled={userPage <= 1} onClick={() => setUserPage(p => p - 1)}>Prev</button>
+        <span className="mx-2">{userPage} / {totalUserPages}</span>
+        <button disabled={userPage >= totalUserPages} onClick={() => setUserPage(p => p + 1)}>Next</button>
       </div>
 
       {/* ===== QUERIES ===== */}
@@ -162,21 +190,56 @@ const AdminDashboard = () => {
       </table>
 
       <div className="mb-8">
-        <button
-          disabled={queryPage === 1}
-          onClick={() => setQueryPage((p) => p - 1)}
-        >
-          Prev
-        </button>
-        <span className="mx-2">
-          {queryPage} / {totalQueryPages || 1}
-        </span>
-        <button
-          disabled={queryPage === totalQueryPages}
-          onClick={() => setQueryPage((p) => p + 1)}
-        >
-          Next
-        </button>
+        <button disabled={queryPage <= 1} onClick={() => setQueryPage(p => p - 1)}>Prev</button>
+        <span className="mx-2">{queryPage} / {totalQueryPages}</span>
+        <button disabled={queryPage >= totalQueryPages} onClick={() => setQueryPage(p => p + 1)}>Next</button>
+      </div>
+
+      {/* ===== RATINGS (RESTORED) ===== */}
+      <h2 className="text-xl font-bold mb-2">Ratings</h2>
+      <table className="min-w-full border mb-2">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border p-2">Name</th>
+            <th className="border p-2">Rating</th>
+            <th className="border p-2">Status</th>
+            <th className="border p-2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {paginate(ratings, ratingPage).map((r) => (
+            <tr key={r.id}>
+              <td className="border p-2">{r.name}</td>
+              <td className="border p-2">{r.rating}</td>
+              <td className="border p-2">
+                {r.approved ? "Approved" : "Pending"}
+              </td>
+              <td className="border p-2">
+                {r.approved ? (
+                  <button
+                    className="bg-red-600 text-white px-3 py-1 rounded"
+                    onClick={() => toggleApproval(r.id, 0)}
+                  >
+                    Hide
+                  </button>
+                ) : (
+                  <button
+                    className="bg-green-600 text-white px-3 py-1 rounded"
+                    onClick={() => toggleApproval(r.id, 1)}
+                  >
+                    Approve
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div>
+        <button disabled={ratingPage <= 1} onClick={() => setRatingPage(p => p - 1)}>Prev</button>
+        <span className="mx-2">{ratingPage} / {totalRatingPages}</span>
+        <button disabled={ratingPage >= totalRatingPages} onClick={() => setRatingPage(p => p + 1)}>Next</button>
       </div>
     </div>
   );
