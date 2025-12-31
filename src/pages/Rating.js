@@ -92,7 +92,7 @@ export default function Rating() {
                         required
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        className="input"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
                         placeholder="Tell us about your experience..."
                     />
                 </div>

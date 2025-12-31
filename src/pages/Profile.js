@@ -142,11 +142,11 @@ function Profile() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="relative">
                   <FiUser className="absolute top-3 left-3 text-gray-400" />
-                  <input id="name" type="text" required className="input pl-10" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input id="name" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="relative">
                   <FiPhone className="absolute top-3 left-3 text-gray-400" />
-                  <input id="phone" type="tel" required className="input pl-10" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <input id="phone" type="tel" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
                 <div className="relative">
                   <FiMail className="absolute top-3 left-3 text-gray-400" />
@@ -166,15 +166,15 @@ function Profile() {
               <form onSubmit={handlePasswordChange} className="space-y-6">
                  <div className="relative">
                     <FiLock className="absolute top-3 left-3 text-gray-400" />
-                    <input id="current-password" type="password" required className="input pl-10" placeholder="Current Password" value={passwordData.currentPassword} onChange={(e) => setPasswordData({...passwordData, currentPassword: e.target.value})} />
+                    <input id="current-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Current Password" value={passwordData.currentPassword} onChange={(e) => setPasswordData({...passwordData, currentPassword: e.target.value})} />
                 </div>
                  <div className="relative">
                     <FiLock className="absolute top-3 left-3 text-gray-400" />
-                    <input id="new-password" type="password" required className="input pl-10" placeholder="New Password" value={passwordData.newPassword} onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}/>
+                    <input id="new-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="New Password" value={passwordData.newPassword} onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}/>
                 </div>
                  <div className="relative">
                     <FiLock className="absolute top-3 left-3 text-gray-400" />
-                    <input id="confirm-password" type="password" required className="input pl-10" placeholder="Confirm New Password" value={passwordData.confirmPassword} onChange={(e) => setPasswordData({...passwordData, confirmPassword: e.target.value})}/>
+                    <input id="confirm-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Confirm New Password" value={passwordData.confirmPassword} onChange={(e) => setPasswordData({...passwordData, confirmPassword: e.target.value})}/>
                 </div>
                 <button type="submit" disabled={passwordLoading} className="btn-secondary w-full flex items-center justify-center">
                   {passwordLoading ? <LoadingSpinner text="Updating..." /> : <><FiLock className="mr-2"/>Update Password</>}

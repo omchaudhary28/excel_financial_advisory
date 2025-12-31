@@ -110,19 +110,19 @@ function Contact() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="relative">
                   <FiUser className="absolute top-3 left-3 text-gray-400" />
-                  <input id="name" name="name" type="text" required className="input pl-10" placeholder="Your Name" value={form.name} onChange={handleChange} />
+                  <input id="name" name="name" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Your Name" value={form.name} onChange={handleChange} />
                 </div>
                 <div className="relative">
                   <FiMail className="absolute top-3 left-3 text-gray-400" />
-                  <input id="email" name="email" type="email" required className="input pl-10" placeholder="Your Email" value={form.email} onChange={handleChange} />
+                  <input id="email" name="email" type="email" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Your Email" value={form.email} onChange={handleChange} />
                 </div>
               </div>
               <div className="relative">
                 <FiMessageSquare className="absolute top-3 left-3 text-gray-400" />
-                <input id="subject" name="subject" type="text" required className="input pl-10" placeholder="Subject" value={form.subject} onChange={handleChange} />
+                <input id="subject" name="subject" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Subject" value={form.subject} onChange={handleChange} />
               </div>
               <div>
-                <textarea id="message" name="message" rows="5" required className="input" placeholder="Your message..." value={form.message} onChange={handleChange}></textarea>
+                <textarea id="message" name="message" rows="5" required className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Your message..." value={form.message} onChange={handleChange}></textarea>
               </div>
               <div>
                 <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center">
