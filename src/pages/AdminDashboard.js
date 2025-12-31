@@ -111,11 +111,12 @@ const AdminDashboard = () => {
       formData.append("id", id);
       formData.append("approved", approved);
 
-      await axios.post(
-        `${API_BASE}/admin_feedback_toggle.php`,
-        formData,
-        authConfig
-      );
+     await axios.post(
+  `${API_BASE}/admin_feedback_toggle.php`,
+  formData,
+  { ...authConfig, withCredentials: true }
+);
+
 
       fetchRatings();
     } catch {
