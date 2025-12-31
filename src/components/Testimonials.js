@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "../services/api";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const Testimonials = () => {
   const [list, setList] = useState([]);
@@ -17,9 +18,24 @@ const Testimonials = () => {
       .catch(() => {});
   }, []);
 
+  const next = useCallback(() => {
+    setIndex((prevIndex) => (prevIndex + 1) % list.length);
+  }, [list.length]);
+
+  const prev = () => {
+    setIndex((prevIndex) => (prevIndex - 1 + list.length) % list.length);
+  };
+
+  useEffect(() => {
+    if (list.length > 1) {
+      const timer = setTimeout(next, 5000); // Change testimonial every 5 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [index, list.length, next]);
+
   if (!list.length) {
     return (
-      <section className="py-16 text-center text-text-muted">
+      <section className="py-16 text-center text-text-muted dark:text-gray-400">
         No feedback available yet.
       </section>
     );
@@ -28,52 +44,59 @@ const Testimonials = () => {
   const current = list[index];
 
   return (
-    <section className="py-20">
-      <h2 className="text-4xl font-bold text-center mb-4">
-        What Our Clients Say
-      </h2>
-
-      <p className="text-center text-text-muted mb-10">
-        Real stories from people we’ve helped.
-      </p>
-
-      <div className="max-w-xl mx-auto card text-center">
-        <img
-          src={current.avatar || "/avatar.png"}
-          alt="Client Avatar"
-          className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
-        />
-
-        <h4 className="font-semibold text-lg">{current.name}</h4>
-
-        <div className="text-yellow-400 my-2">
-          {"★".repeat(current.rating)}
-          {"☆".repeat(5 - current.rating)}
+    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-4xl mx-auto px-6 md:px-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-text dark:text-white">What Our Clients Say</h2>
+          <p className="text-lg text-text-muted dark:text-gray-400 max-w-2xl mx-auto">
+            Real stories from people we’ve helped achieve their financial goals.
+          </p>
         </div>
 
-        <p className="italic text-text-muted">
-          “{current.message}”
-        </p>
-      </div>
+        <div className="relative">
+          <div className="overflow-hidden relative h-64">
+            {list.map((testimonial, i) => (
+              <div
+                key={i}
+                className="absolute w-full transition-opacity duration-500 ease-in-out"
+                style={{ opacity: i === index ? 1 : 0 }}
+              >
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
+                  <img
+                    src={testimonial.avatar || "/avatar.png"}
+                    alt="Client Avatar"
+                    className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-4 border-primary"
+                  />
+                  <h4 className="font-semibold text-xl mb-1 text-text dark:text-white">{testimonial.name}</h4>
+                  <div className="text-yellow-400 my-2 text-2xl">
+                    {"★".repeat(testimonial.rating)}
+                    {"☆".repeat(5 - testimonial.rating)}
+                  </div>
+                  <p className="italic text-text-muted dark:text-gray-300 text-lg">
+                    “{testimonial.message}”
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-      <div className="flex justify-center gap-6 mt-6">
-        <button
-          onClick={() =>
-            setIndex((index - 1 + list.length) % list.length)
-          }
-          className="px-4 py-2 rounded border"
-        >
-          ◀
-        </button>
-
-        <button
-          onClick={() =>
-            setIndex((index + 1) % list.length)
-          }
-          className="px-4 py-2 rounded border"
-        >
-          ▶
-        </button>
+          {list.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-8 bg-white dark:bg-gray-700 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none"
+              >
+                <FiChevronLeft className="h-6 w-6 text-primary" />
+              </button>
+              <button
+                onClick={next}
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-8 bg-white dark:bg-gray-700 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none"
+              >
+                <FiChevronRight className="h-6 w-6 text-primary" />
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </section>
   );
