@@ -64,7 +64,7 @@ const history = [
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div className="bg-background-light dark:bg-background-dark text-text dark:text-text-inverted">
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-br from-primary to-secondary">
         <div className="absolute inset-0 bg-black opacity-30"></div>
         <div className="relative max-w-4xl mx-auto">
@@ -80,11 +80,11 @@ const AboutUs = () => {
       <section className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div data-aos="fade-right">
-            <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">Our Mission</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+            <h2 className="text-4xl font-bold mb-6 text-text dark:text-text-inverted">Our Mission</h2>
+            <p className="text-lg text-text-muted mb-4 leading-relaxed">
               To deliver transparent, client-focused financial advice that simplifies complexity and creates lasting value. We believe in building long-term relationships based on trust, integrity, and mutual respect.
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg text-text-muted leading-relaxed">
                 Our goal is to provide you with the clarity and confidence to make informed financial decisions that align with your aspirations.
             </p>
           </div>
@@ -94,20 +94,20 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-white dark:bg-gray-800 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-background-light dark:bg-background-dark px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Core Values</h2>
-            <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <h2 className="text-4xl font-bold mb-4 text-text dark:text-text-inverted">Our Core Values</h2>
+            <p className="max-w-2xl mx-auto text-lg text-text-muted leading-relaxed">
               The principles that define our culture and guide our daily actions.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-10">
             {values.map((value, index) => (
-              <div key={index} className="text-center p-8 bg-gray-50 dark:bg-gray-700/50 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl" data-aos="zoom-in" data-aos-delay={index * 100}>
+              <div key={index} className="card text-center p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl" data-aos="zoom-in" data-aos-delay={index * 100}>
                 <div className="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-primary/10 text-primary rounded-full">{value.icon}</div>
-                <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">{value.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{value.description}</p>
+                <h3 className="text-2xl font-bold mb-3 text-text dark:text-text-inverted">{value.title}</h3>
+                <p className="text-text-muted leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>
@@ -117,8 +117,8 @@ const AboutUs = () => {
       <section className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
-                <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Journey</h2>
-                <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <h2 className="text-4xl font-bold mb-4 text-text dark:text-text-inverted">Our Journey</h2>
+                <p className="max-w-2xl mx-auto text-lg text-text-muted leading-relaxed">
                 A brief history of our milestones and achievements.
                 </p>
             </div>
@@ -127,18 +127,18 @@ const AboutUs = () => {
                 {history.map((item, index) => (
                     <div key={index} className="md:flex items-center md:w-full mb-8" data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}>
                         <div className="md:w-1/2 md:pr-8">
-                           {index % 2 === 0 && <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                           {index % 2 === 0 && <div className="card p-6">
                                 <h3 className="text-2xl font-bold text-primary">{item.year}</h3>
-                                <p className="mt-2 text-gray-600 dark:text-gray-300">{item.event}</p>
+                                <p className="mt-2 text-text-muted">{item.event}</p>
                             </div>}
                         </div>
                         <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 bg-primary rounded-full flex items-center justify-center text-white">
                            {item.icon}
                         </div>
                          <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
-                           {index % 2 !== 0 && <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                           {index % 2 !== 0 && <div className="card p-6">
                                 <h3 className="text-2xl font-bold text-primary">{item.year}</h3>
-                                <p className="mt-2 text-gray-600 dark:text-gray-300">{item.event}</p>
+                                <p className="mt-2 text-text-muted">{item.event}</p>
                             </div>}
                         </div>
                     </div>
@@ -147,11 +147,11 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-white dark:bg-gray-800 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-background-light dark:bg-background-dark px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Meet Our Leadership Team</h2>
-            <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <h2 className="text-4xl font-bold mb-4 text-text dark:text-text-inverted">Meet Our Leadership Team</h2>
+            <p className="max-w-2xl mx-auto text-lg text-text-muted leading-relaxed">
               The driving force behind our success is our team of dedicated and experienced professionals.
             </p>
           </div>
@@ -159,20 +159,20 @@ const AboutUs = () => {
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-gray-700/50 rounded-lg shadow-lg overflow-hidden text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl"
+                className="card overflow-hidden text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl"
                 data-aos="fade-up"
                 data-aos-delay={100 + index * 100}
               >
                 <img src={member.imageUrl} alt={member.name} className="w-full h-72 object-cover" />
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-1 text-gray-900 dark:text-white">{member.name}</h3>
+                  <h3 className="text-2xl font-bold mb-1 text-text dark:text-text-inverted">{member.name}</h3>
                   <p className="text-primary font-semibold mb-4">{member.role}</p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-5 leading-relaxed">{member.bio}</p>
+                  <p className="text-text-muted text-sm mb-5 leading-relaxed">{member.bio}</p>
                   <div className="flex justify-center space-x-5">
-                    <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors transform hover:scale-110">
+                    <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors transform hover:scale-110">
                       <FaLinkedin className="w-6 h-6" />
                     </a>
-                    <a href={member.social.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors transform hover:scale-110">
+                    <a href={member.social.twitter} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors transform hover:scale-110">
                       <FaTwitter className="w-6 h-6" />
                     </a>
                   </div>
