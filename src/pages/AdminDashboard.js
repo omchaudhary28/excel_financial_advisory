@@ -59,45 +59,50 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     const res = await axios.get(`${API_BASE}/admin_users.php`, authConfig);
-    const data = Array.isArray(res.data) ? res.data : Array.isArray(res.data.data) ? res.data.data : [];
+    const data = Array.isArray(res.data.data) ? res.data.data : [];
     setUsers(data);
   };
 
   const fetchQueries = async () => {
     const res = await axios.get(`${API_BASE}/admin_queries.php`, authConfig);
-    const data = Array.isArray(res.data) ? res.data : Array.isArray(res.data.data) ? res.data.data : [];
+    const data = Array.isArray(res.data.data) ? res.data.data : [];
     setQueries(data);
   };
 
   const fetchRatings = async () => {
     const res = await axios.get(`${API_BASE}/admin_feedback.php`, authConfig);
-    const data = Array.isArray(res.data) ? res.data : Array.isArray(res.data.data) ? res.data.data : [];
+    const data = Array.isArray(res.data.data) ? res.data.data : [];
     setRatings(data);
   };
 
-  useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(users.length / PAGE_SIZE));
-    if (userPage > totalPages) setUserPage(1);
-  }, [users, userPage]);
+  const totalUserPages = Math.max(1, Math.ceil(users.length / PAGE_SIZE));
+  const safeUserPage = Math.min(userPage, totalUserPages);
+
+  const totalQueryPages = Math.max(1, Math.ceil(queries.length / PAGE_SIZE));
+  const safeQueryPage = Math.min(queryPage, totalQueryPages);
+
+  const totalRatingPages = Math.max(1, Math.ceil(ratings.length / PAGE_SIZE));
+  const safeRatingPage = Math.min(ratingPage, totalRatingPages);
 
   useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(queries.length / PAGE_SIZE));
-    if (queryPage > totalPages) setQueryPage(1);
-  }, [queries, queryPage]);
-
-  useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(ratings.length / PAGE_SIZE));
-    if (ratingPage > totalPages) setRatingPage(1);
-  }, [ratings, ratingPage]);
+    // Clamp userPage
+    if (userPage > totalUserPages) {
+      setUserPage(Math.max(1, totalUserPages));
+    }
+    // Clamp queryPage
+    if (queryPage > totalQueryPages) {
+      setQueryPage(Math.max(1, totalQueryPages));
+    }
+    // Clamp ratingPage
+    if (ratingPage > totalRatingPages) {
+      setRatingPage(Math.max(1, totalRatingPages));
+    }
+  }, [users, userPage, totalUserPages, queries, queryPage, totalQueryPages, ratings, ratingPage, totalRatingPages]);
 
   const paginate = (data, page) => {
     const start = (page - 1) * PAGE_SIZE;
     return data.slice(start, start + PAGE_SIZE);
   };
-
-  const totalUserPages = Math.max(1, Math.ceil(users.length / PAGE_SIZE));
-  const totalQueryPages = Math.max(1, Math.ceil(queries.length / PAGE_SIZE));
-  const totalRatingPages = Math.max(1, Math.ceil(ratings.length / PAGE_SIZE));
 
   const toggleApproval = async (id, approved) => {
     try {
@@ -127,9 +132,9 @@ const AdminDashboard = () => {
 
         {/* ===== STATS ===== */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          <StatCard icon={<FiUsers className="text-blue-500" />} title="Total Users" value={stats.total_users} color="blue" />
-          <StatCard icon={<FiMessageSquare className="text-green-500" />} title="Total Queries" value={stats.total_queries} color="green" />
-          <StatCard icon={<FiStar className="text-yellow-500" />} title="Total Ratings" value={stats.total_ratings} color="yellow" />
+          <StatCard icon={<FiUsers className="text-blue-500" />} title="Total Users" value={stats.data?.total_users ?? "-"} color="blue" />
+          <StatCard icon={<FiMessageSquare className="text-green-500" />} title="Total Queries" value={stats.data?.total_queries ?? "-"} color="green" />
+          <StatCard icon={<FiStar className="text-yellow-500" />} title="Total Ratings" value={stats.data?.total_ratings ?? "-"} color="yellow" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -145,7 +150,7 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginate(users, userPage).map((u) => (
+                  {paginate(users, safeUserPage).map((u) => (
                     <tr key={u.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                       <td className="p-3 text-text dark:text-text-inverted">{u.name}</td>
                       <td className="p-3 text-text dark:text-text-inverted">{u.email}</td>
@@ -155,9 +160,9 @@ const AdminDashboard = () => {
               </table>
             </div>
             <div className="flex justify-between items-center mt-4">
-              <button className="btn-secondary" disabled={userPage <= 1} onClick={() => setUserPage(p => p - 1)}>Prev</button>
-              <span className="text-sm text-text-muted">{userPage} / {totalUserPages}</span>
-              <button className="btn-secondary" disabled={userPage >= totalUserPages} onClick={() => setUserPage(p => p + 1)}>Next</button>
+              <button className="btn-secondary" disabled={safeUserPage <= 1} onClick={() => setUserPage(p => p - 1)}>Prev</button>
+              <span className="text-sm text-text-muted">{safeUserPage} / {totalUserPages}</span>
+              <button className="btn-secondary" disabled={safeUserPage >= totalUserPages} onClick={() => setUserPage(p => p + 1)}>Next</button>
             </div>
           </div>
 
@@ -173,7 +178,7 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginate(queries, queryPage).map((q) => (
+                  {paginate(queries, safeQueryPage).map((q) => (
                     <tr key={q.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                       <td className="p-3 text-text dark:text-text-inverted">{q.name}</td>
                       <td className="p-3 text-text dark:text-text-inverted truncate max-w-xs">{q.message}</td>
@@ -183,9 +188,9 @@ const AdminDashboard = () => {
               </table>
             </div>
             <div className="flex justify-between items-center mt-4">
-              <button className="btn-secondary" disabled={queryPage <= 1} onClick={() => setQueryPage(p => p - 1)}>Prev</button>
-              <span className="text-sm text-text-muted">{queryPage} / {totalQueryPages}</span>
-              <button className="btn-secondary" disabled={queryPage >= totalQueryPages} onClick={() => setQueryPage(p => p + 1)}>Next</button>
+              <button className="btn-secondary" disabled={safeQueryPage <= 1} onClick={() => setQueryPage(p => p - 1)}>Prev</button>
+              <span className="text-sm text-text-muted">{safeQueryPage} / {totalQueryPages}</span>
+              <button className="btn-secondary" disabled={safeQueryPage >= totalQueryPages} onClick={() => setQueryPage(p => p + 1)}>Next</button>
             </div>
           </div>
         </div>
@@ -204,7 +209,7 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginate(ratings, ratingPage).map((r) => (
+                {paginate(ratings, safeRatingPage).map((r) => (
                   <tr key={r.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                     <td className="p-3 text-text dark:text-text-inverted">{r.name}</td>
                     <td className="p-3 text-yellow-500 font-bold">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</td>
@@ -226,9 +231,9 @@ const AdminDashboard = () => {
             </table>
           </div>
           <div className="flex justify-between items-center mt-4">
-            <button className="btn-secondary" disabled={ratingPage <= 1} onClick={() => setRatingPage(p => p - 1)}>Prev</button>
-            <span className="text-sm text-text-muted">{ratingPage} / {totalRatingPages}</span>
-            <button className="btn-secondary" disabled={ratingPage >= totalRatingPages} onClick={() => setRatingPage(p => p + 1)}>Next</button>
+            <button className="btn-secondary" disabled={safeRatingPage <= 1} onClick={() => setRatingPage(p => p - 1)}>Prev</button>
+            <span className="text-sm text-text-muted">{safeRatingPage} / {totalRatingPages}</span>
+            <button className="btn-secondary" disabled={safeRatingPage >= totalRatingPages} onClick={() => setRatingPage(p => p + 1)}>Next</button>
           </div>
         </div>
       </div>
