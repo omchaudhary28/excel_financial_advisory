@@ -4,7 +4,7 @@ export function LoadingSpinner({ text = 'Loading...' }) {
   return (
     <div className="flex flex-col items-center justify-center py-12">
       <div className="spinner mb-4"></div>
-      <p className="text-gray-600 dark:text-gray-300 text-sm animate-pulse">{text}</p>
+      <p className="text-text-muted animate-pulse">{text}</p>
     </div>
   );
 }
@@ -17,12 +17,12 @@ export function Toast({ message, type = 'info', onClose }) {
 
   const bgColor =
     type === 'success'
-      ? 'bg-green-500 dark:bg-green-600'
+      ? 'bg-success'
       : type === 'error'
-      ? 'bg-red-500 dark:bg-red-600'
+      ? 'bg-danger'
       : type === 'warning'
-      ? 'bg-yellow-500 dark:bg-yellow-600'
-      : 'bg-blue-500 dark:bg-blue-600';
+      ? 'bg-yellow-500'
+      : 'bg-primary';
 
   return (
     <div
@@ -53,6 +53,6 @@ export function Toast({ message, type = 'info', onClose }) {
 
 export function LoadingBar() {
   return (
-    <div className="h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 animate-pulse fixed top-0 left-0 right-0 z-50"></div>
+    <div className="h-1 bg-gradient-to-r from-primary via-primary-light to-primary-dark animate-pulse fixed top-0 left-0 right-0 z-50"></div>
   );
 }

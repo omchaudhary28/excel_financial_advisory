@@ -35,7 +35,7 @@ const Testimonials = () => {
 
   if (!list.length) {
     return (
-      <section className="py-16 text-center text-text-muted dark:text-gray-400">
+      <section className="py-16 text-center text-text-muted">
         No feedback available yet.
       </section>
     );
@@ -44,11 +44,11 @@ const Testimonials = () => {
   const current = list[index];
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section className="py-20 bg-background-light dark:bg-background-dark">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-text dark:text-white">What Our Clients Say</h2>
-          <p className="text-lg text-text-muted dark:text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-text dark:text-text-inverted">What Our Clients Say</h2>
+          <p className="text-lg text-text-muted max-w-2xl mx-auto">
             Real stories from people we’ve helped achieve their financial goals.
           </p>
         </div>
@@ -61,18 +61,18 @@ const Testimonials = () => {
                 className="absolute w-full transition-opacity duration-500 ease-in-out"
                 style={{ opacity: i === index ? 1 : 0 }}
               >
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
+                <div className="card p-8 text-center">
                   <img
                     src={testimonial.avatar || "/avatar.png"}
                     alt="Client Avatar"
                     className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-4 border-primary"
                   />
-                  <h4 className="font-semibold text-xl mb-1 text-text dark:text-white">{testimonial.name}</h4>
+                  <h4 className="font-semibold text-xl mb-1 text-text dark:text-text-inverted">{testimonial.name}</h4>
                   <div className="text-yellow-400 my-2 text-2xl">
                     {"★".repeat(testimonial.rating)}
                     {"☆".repeat(5 - testimonial.rating)}
                   </div>
-                  <p className="italic text-text-muted dark:text-gray-300 text-lg">
+                  <p className="italic text-text-muted text-lg">
                     “{testimonial.message}”
                   </p>
                 </div>
@@ -84,13 +84,13 @@ const Testimonials = () => {
             <>
               <button
                 onClick={prev}
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-8 bg-white dark:bg-gray-700 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none"
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-8 card rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
               >
                 <FiChevronLeft className="h-6 w-6 text-primary" />
               </button>
               <button
                 onClick={next}
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-8 bg-white dark:bg-gray-700 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none"
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-8 card rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
               >
                 <FiChevronRight className="h-6 w-6 text-primary" />
               </button>

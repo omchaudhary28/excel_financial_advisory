@@ -15,7 +15,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 text-text-muted dark:text-gray-400 pt-16">
+    <footer className="bg-background-light dark:bg-background-dark text-text-muted pt-16">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
@@ -26,7 +26,7 @@ function Footer() {
             </p>
             <div className="mt-6 flex space-x-4">
               {socialLinks.map((social) => (
-                <a key={social.name} href={social.href} className="text-text-muted dark:text-gray-400 hover:text-primary transition-all duration-200 transform hover:scale-125" aria-label={social.name}>
+                <a key={social.name} href={social.href} className="text-text-muted hover:text-primary transition-all duration-200 transform hover:scale-125" aria-label={social.name}>
                   <div className="w-7 h-7">{social.icon}</div>
                 </a>
               ))}
@@ -35,7 +35,7 @@ function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-text dark:text-text-inverted mb-4">Quick Links</h4>
             <ul className="space-y-3">
               <li><Link to="/" className="hover:text-primary transition-colors duration-200">Home</Link></li>
               <li><Link to="/about" className="hover:text-primary transition-colors duration-200">About Us</Link></li>
@@ -46,7 +46,7 @@ function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Legal</h4>
+            <h4 className="text-lg font-semibold text-text dark:text-text-inverted mb-4">Legal</h4>
             <ul className="space-y-3">
               <li><Link to="/privacy-policy" className="hover:text-primary transition-colors duration-200">Privacy Policy</Link></li>
               <li><Link to="/terms-of-service" className="hover:text-primary transition-colors duration-200">Terms of Service</Link></li>
@@ -55,14 +55,14 @@ function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Stay Updated</h4>
+            <h4 className="text-lg font-semibold text-text dark:text-text-inverted mb-4">Stay Updated</h4>
             <p className="text-base mb-4 leading-relaxed">Subscribe to our newsletter for exclusive insights and financial tips.</p>
             <form>
               <div className="flex">
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="w-full px-4 py-2 rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text dark:text-text-inverted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  className="form-input rounded-r-none"
                 />
                 <button type="submit" className="btn-primary rounded-l-none">
                   Subscribe

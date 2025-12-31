@@ -44,12 +44,12 @@ export default function Header() {
 
   const NavLinks = ({ isMobile = false }) => (
     <>
-      <Link to="/" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
-      <Link to="/contact" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
-      <Link to="/about" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>About Us</Link>
-      <Link to="/rating" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
+      <Link to="/" className={`link-underline-grow text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Home</Link>
+      <Link to="/contact" className={`link-underline-grow text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Contact</Link>
+      <Link to="/about" className={`link-underline-grow text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>About Us</Link>
+      <Link to="/rating" className={`link-underline-grow text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Rating</Link>
 
-      {user && <Link to="/profile" className={`link-underline-grow text-text dark:text-text hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
+      {user && <Link to="/profile" className={`link-underline-grow text-text dark:text-text-inverted hover:text-primary-light transition-colors transform ${isMobile ? 'text-xl py-3' : 'hover:-translate-y-1'}`} onClick={() => isMobile && setIsMobileMenuOpen(false)}>Profile</Link>}
 
       {user?.role === "admin" && (
         <Link
@@ -70,7 +70,7 @@ export default function Header() {
               className={`w-10 h-10 rounded-full object-cover transform transition-transform duration-200 ${isMobile ? 'w-16 h-16' : 'hover:scale-115'}`}
             />
           ) : (
-            <div className={`w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-800 dark:text-gray-200 text-lg font-semibold transform transition-transform duration-200 ${isMobile ? 'w-16 h-16 text-2xl' : 'hover:scale-115'}`}>
+            <div className={`w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-text dark:text-text-inverted text-lg font-semibold transform transition-transform duration-200 ${isMobile ? 'w-16 h-16 text-2xl' : 'hover:scale-115'}`}>
               {getInitials(user.name)}
             </div>
           )}
@@ -83,15 +83,15 @@ export default function Header() {
   );
 
   return (
-    <header className="bg-white dark:bg-background-dark shadow-md px-4 sm:px-6 py-4 flex justify-between items-center relative z-50">
+    <header className="bg-background-light dark:bg-background-dark shadow-md px-4 sm:px-6 py-4 flex justify-between items-center relative z-50">
       <Link to="/" className="flex items-center transform transition-transform duration-200 hover:scale-110">
         <img src="/excel_financial.png" alt="Financial App Logo" className="w-28 sm:w-32 h-auto mr-2" />
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-6 text-text dark:text-text">
+      <nav className="hidden md:flex items-center gap-6">
         <NavLinks />
-        <button onClick={handleThemeToggle} className="theme-toggle-button p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
+        <button onClick={handleThemeToggle} className="theme-toggle-button p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-text dark:text-text-inverted hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
           {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
           {ripple && (
             <span
@@ -110,7 +110,7 @@ export default function Header() {
 
       {/* Mobile Menu Button and Theme Toggle */}
       <div className="md:hidden flex items-center gap-4">
-        <button onClick={handleThemeToggle} className="theme-toggle-button p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
+        <button onClick={handleThemeToggle} className="theme-toggle-button p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-text dark:text-text-inverted hover:bg-primary-light dark:hover:bg-primary hover:text-text-inverted transition-all duration-200 transform hover:scale-115 shadow-md" aria-label="Toggle theme">
           {theme === 'dark' ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
           {ripple && (
             <span
@@ -132,7 +132,7 @@ export default function Header() {
 
       {/* Mobile Navigation Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-white dark:bg-background-dark z-40 flex flex-col items-center justify-center text-text dark:text-text transition-transform duration-300 ease-in-out">
+        <div className="md:hidden fixed inset-0 bg-background-light dark:bg-background-dark z-40 flex flex-col items-center justify-center transition-transform duration-300 ease-in-out">
           <div className="flex flex-col items-center space-y-6 p-8"> {/* Increased padding and spacing */}
             <NavLinks isMobile={true} />
           </div>
