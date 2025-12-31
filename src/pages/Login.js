@@ -3,8 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { LoadingSpinner } from "../components/Notifications";
-import { FiMail, FiLock } from "react-icons/fi";
-import { API_BASE_URL } from "../config"; // Import API_BASE_URL
+import { FiMail, FiLock, FiLogIn, FiUserPlus } from "react-icons/fi";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { API_BASE_URL } from "../config";
 
 function Login() {
   const { login } = useAuth();
@@ -22,7 +23,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        `${API_BASE_URL}/login.php`, // Use API_BASE_URL
+        `${API_BASE_URL}/login.php`,
         {
           email: email.trim(),
           password: password,
@@ -49,93 +50,137 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-black">
-      <div className="w-full max-w-md" data-aos="fade-up">
-        <div className="card overflow-hidden"> {/* Using card utility class */}
-          <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-text dark:text-white mb-2">
-              Welcome Back
-            </h2>
-            <p className="text-center text-text-muted dark:text-gray-400 mb-8">
-              Sign in to access your account.
-            </p>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <FiLogIn className="mx-auto h-12 w-auto text-primary" />
+          <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 dark:text-white">
+            Welcome Back
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            Sign in to access your financial dashboard.
+          </p>
+        </div>
+      </div>
 
-            {error && (
-              <div className="bg-danger/10 border border-danger text-danger p-4 mb-6 rounded-lg"> {/* Refined error styling */}
-                {error}
-              </div>
-            )}
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+              <span className="block sm:inline">{error}</span>
+            </div>
+          )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" /> {/* Consistent icon color */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Email address
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiMail className="h-5 w-5 text-gray-400" />
+                </div>
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="pl-14" // Apply global input style, only need pl-14
+                  className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+            </div>
 
-              <div className="relative">
-                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" /> {/* Consistent icon color */}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Password
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiLock className="h-5 w-5 text-gray-400" />
+                </div>
                 <input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="pl-14" // Apply global input style, only need pl-14
+                  className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+            </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center custom-checkbox">
-                  <input
-                    id="remember"
-                    name="remember"
-                    type="checkbox"
-                    className="form-checkbox"
-                  />
-                  <label
-                    htmlFor="remember"
-                    className="ml-2 block text-sm text-text dark:text-gray-200"
-                  >
-                    Remember me
-                  </label>
-                </div>
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-primary hover:underline font-semibold transition-transform duration-200 hover:-translate-y-0.5"
-                >
-                  Forgot password?
-                </Link>              </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input id="remember" name="remember" type="checkbox" className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                <label htmlFor="remember" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                  Remember me
+                </label>
+              </div>
+              <Link to="/forgot-password" className="text-sm font-medium text-primary hover:text-primary-dark">
+                Forgot your password?
+              </Link>
+            </div>
 
+            <div>
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full flex items-center justify-center" // Using btn-primary utility
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
               >
                 {loading ? <LoadingSpinner text="Signing in..." /> : "Sign In"}
               </button>
-            </form>
-
-            <div className="mt-8 text-center text-sm text-text-muted dark:text-gray-400">
-              <p>
-                Don't have an account?{" "}
-                <Link to="/register" className="font-semibold text-primary hover:underline transition-transform duration-200 hover:-translate-y-0.5">
-                  Create one
-                </Link>
-              </p>
             </div>
+          </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <div>
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  <FaGoogle className="w-5 h-5 mr-2" />
+                  Google
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  <FaFacebook className="w-5 h-5 mr-2 text-blue-600" />
+                  Facebook
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+            <p>
+              Not a member?{" "}
+              <Link to="/register" className="font-medium text-primary hover:text-primary-dark flex items-center justify-center">
+                <FiUserPlus className="mr-1" />
+                Create an account
+              </Link>
+            </p>
           </div>
         </div>
       </div>

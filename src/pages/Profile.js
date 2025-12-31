@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { LoadingSpinner } from "../components/Notifications";
-import { FiUser, FiPhone, FiMail, FiUpload } from "react-icons/fi"; // Added FiUpload
-import { API_BASE_URL } from "../config"; // Import API_BASE_URL
+import { FiUser, FiPhone, FiMail, FiUpload, FiLock, FiSave } from "react-icons/fi";
+import { API_BASE_URL } from "../config";
 
 function Profile() {
   const { user, login } = useAuth();
@@ -14,26 +14,23 @@ function Profile() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordData, setPasswordData] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [passwordLoading, setPasswordLoading] = useState(false);
 
   const getInitials = (name) => {
     if (!name) return "";
     const parts = name.split(" ");
-    if (parts.length === 1) {
-      return parts[0].charAt(0).toUpperCase();
-    }
-    return (
-      parts[0].charAt(0).toUpperCase() + parts[parts.length - 1].charAt(0).toUpperCase()
-    );
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
   };
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
-      setAvatarPreview(URL.createObjectURL(file)); // Create a URL for local preview
-    } else {
-      setAvatarFile(null);
-      setAvatarPreview(user?.avatar || null);
+      setAvatarPreview(URL.createObjectURL(file));
     }
   };
 
@@ -53,153 +50,140 @@ function Profile() {
 
     try {
       const token = localStorage.getItem("token");
-
-      if (!token) {
-        setError("Unauthorized");
-        setLoading(false);
-        return;
-      }
+      if (!token) throw new Error("Unauthorized");
 
       const formData = new FormData();
       formData.append("name", name.trim());
-      formData.append("full_name", name.trim());
       formData.append("phone", phone.trim());
-      formData.append("mobile", phone.trim());
       formData.append("email", user?.email);
 
       if (avatarFile) {
         formData.append("avatar", avatarFile);
       }
 
-      const res = await axios.post(
-        `${API_BASE_URL}/update_profile.php`, // Use API_BASE_URL
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.post(`${API_BASE_URL}/update_profile.php`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-      if (!res.data || !res.data.success) {
-        setError(res.data?.message || "Update failed");
-        return;
-      }
+      if (!res.data || !res.data.success) throw new Error(res.data?.message || "Update failed");
 
-      const updatedUser = {
-        ...user,
-        name,
-        phone,
-        avatar: res.data.user?.avatar || user.avatar,
-      };
-
+      const updatedUser = { ...user, name, phone, avatar: res.data.user?.avatar || user.avatar };
       login({ token, user: updatedUser });
       setAvatarFile(null);
       setSuccess("Profile updated successfully");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Unable to update profile"
-      );
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordSuccess("");
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError("New passwords do not match.");
+      return;
+    }
+    setPasswordLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Unauthorized");
+      
+      const res = await axios.post(`${API_BASE_URL}/change_password.php`, {
+        current_password: passwordData.currentPassword,
+        new_password: passwordData.newPassword,
+      }, { headers: { Authorization: `Bearer ${token}` } });
+
+      if (!res.data || !res.data.success) throw new Error(res.data?.message || "Password change failed");
+      
+      setPasswordSuccess("Password changed successfully.");
+      setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+
+    } catch (err) {
+      setPasswordError(err.response?.data?.message || err.message || "Unable to change password.");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
   return (
-    <div className="w-full max-w-lg mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="card overflow-hidden"> {/* Using card utility class */}
-          <div className="px-8 pt-8 pb-6">
-            <div className="text-center mb-8">
-              <div className="relative w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center ring-4 ring-primary/20 overflow-hidden">
-                {avatarPreview ? (
-                  <img src={avatarPreview} alt="User Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"> {/* Theme-aware background */}
-                    <span className="text-5xl font-bold text-gray-800 dark:text-gray-200"> {/* Theme-aware text */}
-                      {getInitials(user?.name)}
-                    </span>
-                  </div>
-                )}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden">
+          <div className="md:grid md:grid-cols-3">
+            <div className="md:col-span-1 p-8 bg-gray-100 dark:bg-gray-800/50 flex flex-col items-center justify-center text-center">
+              <div className="relative w-40 h-40 mb-4">
+                <div className="w-full h-full rounded-full ring-4 ring-primary ring-offset-4 ring-offset-gray-100 dark:ring-offset-gray-800 overflow-hidden flex items-center justify-center">
+                  {avatarPreview ? (
+                    <img src={avatarPreview} alt="User Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <span className="text-6xl font-bold text-gray-800 dark:text-gray-200">{getInitials(user?.name)}</span>
+                    </div>
+                  )}
+                </div>
+                <label htmlFor="avatar-upload" className="absolute bottom-2 right-2 cursor-pointer bg-primary text-white rounded-full p-2 hover:bg-primary-dark transition-transform duration-300 transform hover:scale-110">
+                  <FiUpload className="w-5 h-5" />
+                  <input type="file" id="avatar-upload" accept="image/*" className="hidden" onChange={handleAvatarChange} />
+                </label>
               </div>
-              <input
-                type="file"
-                id="avatar-upload"
-                accept="image/*"
-                className="hidden"
-                onChange={handleAvatarChange}
-              />
-              <label
-                htmlFor="avatar-upload"
-                className="btn-primary inline-flex items-center" // Using btn-primary utility class
-              >
-                <FiUpload className="mr-2" /> Change Avatar
-              </label>
-              <h2 className="text-3xl font-bold text-text dark:text-white mt-6">
-                {name}
-              </h2>
-              <p className="text-text-muted dark:text-gray-400">{user?.email}</p>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">{name}</h2>
+              <p className="text-gray-600 dark:text-gray-400">{user?.email}</p>
             </div>
 
-            {error && (
-              <div className="bg-danger/10 border border-danger text-danger p-4 mb-6 rounded-lg">
-                {error}
-              </div>
-            )}
-            {success && (
-              <div className="bg-success/10 border border-success text-success-dark p-4 mb-6 rounded-lg">
-                {success}
-              </div>
-            )}
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="relative">
-                <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" />
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  className="pl-14" // Apply global input style, only need pl-14
-                  placeholder="John Doe"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="relative">
-                <FiPhone className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" />
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  required
-                  className="pl-14" // Apply global input style, only need pl-14
-                  placeholder="1234567890"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" />
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  disabled
-                  className="pl-14 cursor-not-allowed bg-gray-100 dark:bg-gray-700 text-text-muted dark:text-gray-500" // Refined disabled styling
-                  value={user?.email || ""}
-                />
-              </div>
+            <div className="md:col-span-2 p-8">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Profile Settings</h3>
+              {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">{error}</div>}
+              {success && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">{success}</div>}
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="relative">
+                  <FiUser className="absolute top-3 left-3 text-gray-400" />
+                  <input id="name" type="text" required className="input pl-10" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="relative">
+                  <FiPhone className="absolute top-3 left-3 text-gray-400" />
+                  <input id="phone" type="tel" required className="input pl-10" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                </div>
+                <div className="relative">
+                  <FiMail className="absolute top-3 left-3 text-gray-400" />
+                  <input id="email" type="email" disabled className="input pl-10 cursor-not-allowed bg-gray-100 dark:bg-gray-700 text-gray-500" value={user?.email || ""} />
+                </div>
+                <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center">
+                  {loading ? <LoadingSpinner text="Saving..." /> : <><FiSave className="mr-2"/>Save Changes</>}
+                </button>
+              </form>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn-primary w-full flex items-center justify-center" // Using btn-primary utility
-              >
-                {loading ? <LoadingSpinner text="Saving..." /> : "Save Changes"}
-              </button>
-            </form>
+              <hr className="my-8 border-gray-200 dark:border-gray-700" />
+
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Change Password</h3>
+              {passwordError && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">{passwordError}</div>}
+              {passwordSuccess && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">{passwordSuccess}</div>}
+
+              <form onSubmit={handlePasswordChange} className="space-y-6">
+                 <div className="relative">
+                    <FiLock className="absolute top-3 left-3 text-gray-400" />
+                    <input id="current-password" type="password" required className="input pl-10" placeholder="Current Password" value={passwordData.currentPassword} onChange={(e) => setPasswordData({...passwordData, currentPassword: e.target.value})} />
+                </div>
+                 <div className="relative">
+                    <FiLock className="absolute top-3 left-3 text-gray-400" />
+                    <input id="new-password" type="password" required className="input pl-10" placeholder="New Password" value={passwordData.newPassword} onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}/>
+                </div>
+                 <div className="relative">
+                    <FiLock className="absolute top-3 left-3 text-gray-400" />
+                    <input id="confirm-password" type="password" required className="input pl-10" placeholder="Confirm New Password" value={passwordData.confirmPassword} onChange={(e) => setPasswordData({...passwordData, confirmPassword: e.target.value})}/>
+                </div>
+                <button type="submit" disabled={passwordLoading} className="btn-secondary w-full flex items-center justify-center">
+                  {passwordLoading ? <LoadingSpinner text="Updating..." /> : <><FiLock className="mr-2"/>Update Password</>}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
+      </div>
     </div>
   );
 }

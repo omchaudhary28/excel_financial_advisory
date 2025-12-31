@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { LoadingSpinner } from '../components/Notifications';
-import { FiMail } from 'react-icons/fi';
+import { FiMail, FiArrowLeft } from 'react-icons/fi';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -40,60 +40,74 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-          <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
-              Forgot Your Password?
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-              Enter your email to get a reset link.
-            </p>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <FiMail className="mx-auto h-12 w-auto text-primary" />
+          <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 dark:text-white">
+            Forgot Your Password?
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            No worries! Enter your email below and we'll send you a link to reset it.
+          </p>
+        </div>
+      </div>
 
-            {message && (
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 p-4 mb-6 rounded-lg">
-                {message}
-              </div>
-            )}
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+          {message && (
+            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Success</p>
+              <p>{message}</p>
+            </div>
+          )}
 
-            {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
-                {error}
-              </div>
-            )}
+          {error && (
+            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Error</p>
+              <p>{error}</p>
+            </div>
+          )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Email address
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiMail className="h-5 w-5 text-gray-400" />
+                </div>
                 <input
                   id="email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
+                  required
+                  className="input pl-10"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
                 />
               </div>
+            </div>
 
+            <div>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                className="btn-primary w-full flex justify-center"
               >
-                {loading ? <LoadingSpinner text="Sending..." /> : 'Send Reset Link'}
+                {loading ? <LoadingSpinner text="Sending Link..." /> : 'Send Reset Link'}
               </button>
-            </form>
-
-            <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
-              <p>
-                Remembered your password?{' '}
-                <Link to="/login" className="font-semibold text-primary hover:underline">
-                  Sign in
-                </Link>
-              </p>
             </div>
+          </form>
+
+          <div className="mt-6 text-center">
+            <Link to="/login" className="text-sm font-medium text-primary hover:text-primary-dark flex items-center justify-center">
+              <FiArrowLeft className="mr-1" />
+              Back to Sign In
+            </Link>
           </div>
         </div>
       </div>

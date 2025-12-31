@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import { LoadingSpinner } from '../components/Notifications';
-import { FiLock } from 'react-icons/fi';
+import { FiLock, FiArrowLeft } from 'react-icons/fi';
 
 function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -60,64 +60,103 @@ function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md" data-aos="fade-up">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-          <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
-              Set a New Password
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-              Your new password must be different from previous used passwords.
-            </p>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <FiLock className="mx-auto h-12 w-auto text-primary" />
+          <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 dark:text-white">
+            Set a New Password
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            Create a new, strong password for your account.
+          </p>
+        </div>
+      </div>
 
-            {message && (
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 p-4 mb-6 rounded-lg">
-                {message}
-              </div>
-            )}
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+          {message && (
+            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Success</p>
+              <p>{message}</p>
+            </div>
+          )}
 
-            {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
-                {error}
-              </div>
-            )}
+          {error && (
+            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Error</p>
+              <p>{error}</p>
+            </div>
+          )}
 
+          {!token && (
+            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Invalid Link</p>
+              <p>The password reset link is missing or invalid. Please request a new one.</p>
+            </div>
+          )}
+
+          {token && (
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="relative">
-                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="New Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
-                />
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  New Password
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FiLock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    className="input pl-10"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <div className="relative">
-                <FiLock className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400" />
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="Confirm New Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-primary-light"
-                />
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Confirm New Password
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FiLock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    className="input pl-10"
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
-              >
-                {loading ? <LoadingSpinner text="Resetting..." /> : 'Reset Password'}
-              </button>
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-primary w-full flex justify-center"
+                >
+                  {loading ? <LoadingSpinner text="Resetting Password..." /> : 'Reset Password'}
+                </button>
+              </div>
             </form>
+          )}
+
+          <div className="mt-6 text-center">
+            <Link to="/login" className="text-sm font-medium text-primary hover:text-primary-dark flex items-center justify-center">
+              <FiArrowLeft className="mr-1" />
+              Back to Sign In
+            </Link>
           </div>
         </div>
       </div>

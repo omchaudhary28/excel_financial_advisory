@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../services/api";
 import { LoadingSpinner } from "../components/Notifications";
-import { FiUser, FiMail, FiMessageSquare } from "react-icons/fi";
+import { FiHelpCircle, FiUser, FiMail, FiMessageSquare, FiSend } from "react-icons/fi";
 
 const QueryForm = () => {
   const [name, setName] = useState("");
@@ -27,101 +27,78 @@ const QueryForm = () => {
       });
 
       if (res.data.success) {
-        setStatus("Query submitted successfully!");
+        setStatus("Query submitted successfully! We will get back to you as soon as possible.");
         setName("");
         setEmail("");
         setSubject("");
         setMessage("");
       } else {
-        setError(res.data.message || "Failed to submit query");
+        setError(res.data.message || "Failed to submit query. Please try again.");
       }
     } catch (err) {
-      setError("Server error. Try again.");
+      setError("Server error. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-<div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-lg" data-aos="fade-up">
-        <div className="bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden dark:border dark:border-gray-800">
-          <div className="px-8 pt-8 pb-6">
-            <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-2">
-              Raise a Query
-            </h2>
-            <p className="text-center text-slate-600 dark:text-slate-400 mb-8">
-              Have a question or need assistance? Let us know.
-            </p>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-xl">
+        <div className="text-center">
+          <FiHelpCircle className="mx-auto h-12 w-auto text-primary" />
+          <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 dark:text-white">
+            Submit a Query
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            Have a question, concern, or feedback? Fill out the form below to let us know.
+          </p>
+        </div>
+      </div>
 
-            {status && (
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30 text-green-700 dark:text-green-300 p-4 mb-6 rounded-lg">
-                {status}
-              </div>
-            )}
-            {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400 p-4 mb-6 rounded-lg">
-                {error}
-              </div>
-            )}
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
+        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+          {status && (
+            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Success</p>
+              <p>{status}</p>
+            </div>
+          )}
+          {error && (
+            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+              <p className="font-bold">Error</p>
+              <p>{error}</p>
+            </div>
+          )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="relative">
-                <FiUser className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
-                <input
-                  id="name"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
-                  placeholder="Your Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <FiMail className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
-                <input
-                  id="email"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
-                  placeholder="Your Email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <FiMessageSquare className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
-                <input
-                  id="subject"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
-                  placeholder="Subject"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  required
-                />
-              </div>
-
-              <textarea
-                id="message"
-                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-gray-900 border border-slate-300 dark:border-gray-700 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 placeholder-slate-400 dark:placeholder-gray-500"
-                placeholder="Your message..."
-                rows="5"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                required
-              ></textarea>
-
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="relative">
+                    <FiUser className="absolute top-3 left-3 text-gray-400" />
+                    <input id="name" type="text" required className="input pl-10" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="relative">
+                    <FiMail className="absolute top-3 left-3 text-gray-400" />
+                    <input id="email" type="email" required className="input pl-10" placeholder="Your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+            </div>
+            <div className="relative">
+                <FiMessageSquare className="absolute top-3 left-3 text-gray-400" />
+                <input id="subject" type="text" required className="input pl-10" placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
+            </div>
+            <div>
+              <textarea id="message" name="message" rows="5" required className="input" placeholder="Please describe your query in detail..." value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+            </div>
+            <div>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                className="btn-primary w-full flex items-center justify-center"
               >
-                {loading ? <LoadingSpinner text="Submitting..." /> : "Submit Query"}
+                {loading ? <LoadingSpinner text="Submitting..." /> : <><FiSend className="mr-2"/>Submit Query</>}
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -1,10 +1,26 @@
 import React from 'react';
+import { FaFacebook } from 'react-icons/fa';
 
 function Facebook() {
   return (
-    <div className="container mx-auto px-6 py-8">
-      <h1 className="text-3xl font-bold mb-4">Facebook</h1>
-      <p>This is a placeholder for the Facebook page.</p>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center text-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md mx-auto">
+        <FaFacebook className="mx-auto h-24 w-24 text-blue-600" />
+        <h1 className="mt-8 text-4xl font-extrabold text-gray-900 dark:text-white">
+          Facebook Integration
+        </h1>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
+          This feature is coming soon. Stay tuned for updates on our Facebook integration, which will bring you more ways to connect and share.
+        </p>
+        <div className="mt-10">
+          <a
+            href="#"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+          >
+            Follow us on Facebook
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
