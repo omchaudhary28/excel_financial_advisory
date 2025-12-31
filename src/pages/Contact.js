@@ -52,25 +52,25 @@ function Contact() {
 
   const contactMethods = [
     {
-      icon: <FaPhone className="text-primary" />,
+      icon: <FaPhone />,
       label: "Call Us",
       value: "+91 74999 53708",
       href: "tel:+917499953708",
     },
     {
-      icon: <FaEnvelope className="text-primary" />,
+      icon: <FaEnvelope />,
       label: "Email Us",
       value: "omchaudhary2111@gmail.com",
       href: "mailto:omchaudhary2111@gmail.com",
     },
     {
-      icon: <FaWhatsapp className="text-primary" />,
+      icon: <FaWhatsapp />,
       label: "WhatsApp",
       value: "+91 74999 53708",
       href: "https://wa.me/7499953708",
     },
     {
-      icon: <FaMapMarkerAlt className="text-primary" />,
+      icon: <FaMapMarkerAlt />,
       label: "Our Location",
       value: "123 Financial Street, Pune, India",
       href: "#", // Link to a map can be added here
@@ -78,51 +78,61 @@ function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16" data-aos="fade-down">
-          <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <h1 className="text-5xl font-extrabold text-text dark:text-text-inverted tracking-tight">
             Contact Us
           </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-600 dark:text-gray-400">
+          <p className="mt-4 max-w-3xl mx-auto text-xl text-text-muted">
             Have questions? We'd love to hear from you.
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
+        <div className="card lg:grid lg:grid-cols-2 lg:gap-4">
           <div className="p-8 lg:p-12" data-aos="fade-right">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-3xl font-bold text-text dark:text-text-inverted mb-6">
               Send a Message
             </h2>
             {status && (
-              <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+              <div className="bg-success/10 border-l-4 border-success text-success p-4 mb-6" role="alert">
                 <p className="font-bold">Success</p>
                 <p>{status}</p>
               </div>
             )}
             {error && (
-              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+              <div className="bg-danger/10 border-l-4 border-danger text-danger p-4 mb-6" role="alert">
                 <p className="font-bold">Error</p>
                 <p>{error}</p>
               </div>
             )}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="relative">
-                  <FiUser className="absolute top-3 left-3 text-gray-400" />
-                  <input id="name" name="name" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Your Name" value={form.name} onChange={handleChange} />
+                <div>
+                  <label htmlFor="name" className="form-label">Your Name</label>
+                  <div className="relative mt-1">
+                    <FiUser className="absolute top-3 left-3 text-gray-400" />
+                    <input id="name" name="name" type="text" required className="form-input pl-10" placeholder="John Doe" value={form.name} onChange={handleChange} />
+                  </div>
                 </div>
-                <div className="relative">
-                  <FiMail className="absolute top-3 left-3 text-gray-400" />
-                  <input id="email" name="email" type="email" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Your Email" value={form.email} onChange={handleChange} />
+                <div>
+                  <label htmlFor="email" className="form-label">Your Email</label>
+                  <div className="relative mt-1">
+                    <FiMail className="absolute top-3 left-3 text-gray-400" />
+                    <input id="email" name="email" type="email" required className="form-input pl-10" placeholder="you@example.com" value={form.email} onChange={handleChange} />
+                  </div>
                 </div>
-              </div>
-              <div className="relative">
-                <FiMessageSquare className="absolute top-3 left-3 text-gray-400" />
-                <input id="subject" name="subject" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Subject" value={form.subject} onChange={handleChange} />
               </div>
               <div>
-                <textarea id="message" name="message" rows="5" required className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Your message..." value={form.message} onChange={handleChange}></textarea>
+                <label htmlFor="subject" className="form-label">Subject</label>
+                <div className="relative mt-1">
+                  <FiMessageSquare className="absolute top-3 left-3 text-gray-400" />
+                  <input id="subject" name="subject" type="text" required className="form-input pl-10" placeholder="Subject of your message" value={form.subject} onChange={handleChange} />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="message" className="form-label">Your message</label>
+                <textarea id="message" name="message" rows="5" required className="form-input mt-1" placeholder="Please enter your message here..." value={form.message} onChange={handleChange}></textarea>
               </div>
               <div>
                 <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center">
@@ -131,8 +141,8 @@ function Contact() {
               </div>
             </form>
           </div>
-          <div className="p-8 lg:p-12 bg-gray-100 dark:bg-gray-800/50" data-aos="fade-left">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="p-8 lg:p-12 bg-gray-100 dark:bg-black/50 rounded-r-lg" data-aos="fade-left">
+            <h2 className="text-3xl font-bold text-text dark:text-text-inverted mb-6">
               Contact Information
             </h2>
             <div className="space-y-6">
@@ -142,14 +152,14 @@ function Contact() {
                     {React.cloneElement(method.icon, { className: "h-6 w-6 text-primary group-hover:text-white transition-colors duration-300" })}
                   </div>
                   <div className="ml-4">
-                    <p className="text-lg font-semibold text-gray-900 dark:text-white">{method.label}</p>
-                    <p className="text-base text-gray-600 dark:text-gray-400">{method.value}</p>
+                    <p className="text-lg font-semibold text-text dark:text-text-inverted">{method.label}</p>
+                    <p className="text-base text-text-muted">{method.value}</p>
                   </div>
                 </a>
               ))}
             </div>
             <div className="mt-8">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Follow Us</h3>
+                <h3 className="text-2xl font-bold text-text dark:text-text-inverted mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
                     {/* Add social media links here */}
                 </div>

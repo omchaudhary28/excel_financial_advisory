@@ -35,7 +35,7 @@ export default function Rating() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <div className="text-center">
             <FiStar className="mx-auto h-12 w-auto text-primary" />
@@ -49,7 +49,7 @@ export default function Rating() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+        <div className="bg-white dark:bg-black py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
           {status.message && (
             <div className={`mb-6 p-4 rounded-lg text-center font-medium ${
               status.type === 'success'
@@ -92,7 +92,7 @@ export default function Rating() {
                         required
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-black dark:text-white"
                         placeholder="Tell us about your experience..."
                     />
                 </div>

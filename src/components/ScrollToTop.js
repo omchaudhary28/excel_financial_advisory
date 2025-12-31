@@ -30,7 +30,7 @@ function ScrollToTop() {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="animate-fade-in-up bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-full shadow-lg hover-lift transition-all duration-300 group"
+          className="animate-fade-in-up bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 dark:from-pink-500 dark:to-orange-500 dark:hover:from-pink-600 dark:hover:to-orange-600 text-white p-3 rounded-full shadow-lg hover-lift transition-all duration-300 group"
           title="Scroll to top"
         >
           <svg

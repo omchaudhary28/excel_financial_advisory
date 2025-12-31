@@ -19,7 +19,7 @@ module.exports = {
         },
         accent: {
           DEFAULT: '#E0E0E0', // Light Gray for borders/accents
-          dark: '#222222',    // Darker Gray for dark mode accents
+          dark: '#333333',    // Darker Gray for dark mode accents
         },
         background: {
           light: '#F8F9FA',   // Clean Off-White
@@ -40,6 +40,16 @@ module.exports = {
           light: '#218838',   // Lighter green for hover states
           dark: '#1e7e34',    // Darker green for active states
         },
+        form: {
+          background: '#FFFFFF',
+          background_dark: '#1A1A1A',
+          border: '#D1D5DB',
+          border_dark: '#4B5563',
+          focus_border: '#005A9C',
+          focus_border_dark: '#0078D4',
+          placeholder: '#9CA3AF',
+          placeholder_dark: '#6B7280',
+        }
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
@@ -75,14 +85,21 @@ module.exports = {
           '@apply hover:bg-danger-light dark:hover:bg-danger-dark': {},
         },
         '.card': {
-          '@apply bg-background-light dark:bg-gray-800 dark:border dark:border-gray-700 p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},
+          '@apply bg-background-light dark:bg-black dark:border dark:border-gray-700 p-6 rounded-xl shadow-strong text-text dark:text-text-inverted': {},
         },
         '.hero': {
           '@apply bg-gradient-primary-secondary text-text-inverted p-12 rounded-xl shadow-deeper flex items-center justify-center': {},
         },
         '.container-fluid': {
           '@apply px-4 sm:px-6 lg:px-8': {},
-        }
+        },
+        '.form-label': {
+          '@apply block text-sm font-medium text-text dark:text-text-inverted mb-1': {},
+        },
+        '.form-input': {
+          '@apply block w-full px-4 py-3 rounded-lg bg-form-background dark:bg-form-background_dark border border-form-border dark:border-form-border_dark placeholder-form-placeholder dark:placeholder-form-placeholder_dark text-text dark:text-text-inverted': {},
+          '@apply focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent': {},
+        },
       });
     },
   ],

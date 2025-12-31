@@ -40,7 +40,7 @@ function Home() {
   ];
 
   return (
-    <div className="space-y-24 pb-24 bg-background-light dark:bg-background-dark">
+    <div className="space-y-24 pb-24 bg-background-light dark:bg-background-dark text-text dark:text-text-inverted">
 
       {/* ================= HERO ================= */}
       <section className="relative py-24 px-6 md:px-10 overflow-hidden">
@@ -51,14 +51,14 @@ function Home() {
             Achieve Financial Freedom with Expert Guidance
           </h1>
 
-          <p className="text-lg md:text-xl text-text-muted dark:text-text-inverted mb-10 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-text-muted mb-10 max-w-3xl mx-auto leading-relaxed">
             Personalized strategies to help you build, manage, and protect your wealth for a secure future.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
             <Link
               to="/contact"
-              className="btn-primary" // Using utility class
+              className="btn-primary"
             >
               Get Started
             </Link>
@@ -66,7 +66,7 @@ function Home() {
             {!user && (
               <Link
                 to="/register"
-                className="btn-secondary" // Using utility class
+                className="btn-secondary"
               >
                 Sign Up
               </Link>
@@ -78,8 +78,8 @@ function Home() {
       {/* ================= SERVICES ================= */}
       <section className="py-20 max-w-7xl mx-auto px-6 md:px-10">
         <div className="text-center mb-16" data-aos="fade-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-text dark:text-white">Our Services</h2>
-          <p className="text-lg text-text-muted dark:text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-text dark:text-text-inverted">Our Services</h2>
+          <p className="text-lg text-text-muted max-w-2xl mx-auto">
             Comprehensive financial solutions tailored to meet your unique goals and aspirations.
           </p>
         </div>
@@ -88,13 +88,13 @@ function Home() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="card flex flex-col items-center justify-center p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-deeper" // Using utility class
+              className="card flex flex-col items-center justify-center p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-deeper"
               data-aos="fade-up"
               data-aos-delay={index * 100}
             >
               <div className="flex justify-center mb-6 text-primary">{feature.icon}</div>
-              <h3 className="text-xl font-semibold mb-3 text-text dark:text-white">{feature.title}</h3>
-              <p className="text-center text-text-muted dark:text-gray-400 text-sm">
+              <h3 className="text-xl font-semibold mb-3 text-text dark:text-text-inverted">{feature.title}</h3>
+              <p className="text-text-muted text-sm">
                 {feature.description}
               </p>
             </div>
@@ -111,8 +111,8 @@ function Home() {
             { number: '$5B+', label: 'Assets Under Management' },
           ].map((stat, index) => (
             <div key={index} className="transition-transform duration-300 hover:scale-105" data-aos="zoom-in" data-aos-delay={index * 150}>
-              <div className="text-6xl font-extrabold mb-2 text-text-inverted">{stat.number}</div>
-              <div className="text-lg opacity-90 text-text-inverted">{stat.label}</div>
+              <div className="text-6xl font-extrabold mb-2">{stat.number}</div>
+              <div className="text-lg opacity-90">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -132,7 +132,7 @@ function Home() {
           </p>
           <Link
             to="/contact"
-            className="btn-primary bg-white text-primary hover:bg-gray-100 hover:text-primary-dark shadow-lg hover:shadow-xl transform hover:-translate-y-1" // Custom styling for white button
+            className="btn-primary bg-white text-primary hover:bg-gray-100 hover:text-primary-dark shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Book a Consultation
           </Link>

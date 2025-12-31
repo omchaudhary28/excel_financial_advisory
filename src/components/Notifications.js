@@ -17,12 +17,12 @@ export function Toast({ message, type = 'info', onClose }) {
 
   const bgColor =
     type === 'success'
-      ? 'bg-green-500'
+      ? 'bg-green-500 dark:bg-green-600'
       : type === 'error'
-      ? 'bg-red-500'
+      ? 'bg-red-500 dark:bg-red-600'
       : type === 'warning'
-      ? 'bg-yellow-500'
-      : 'bg-blue-500';
+      ? 'bg-yellow-500 dark:bg-yellow-600'
+      : 'bg-blue-500 dark:bg-blue-600';
 
   return (
     <div

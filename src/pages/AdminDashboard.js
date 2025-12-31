@@ -10,18 +10,17 @@ const API_BASE =
 const PAGE_SIZE = 5;
 
 const StatCard = ({ icon, title, value, color }) => (
-  <div className={`p-6 rounded-lg shadow-lg bg-white dark:bg-gray-800 transition-transform transform hover:scale-105`}>
-    <div className="flex items-center">
+    <div className="card flex items-center p-6 transition-transform transform hover:scale-105">
       <div className={`p-3 rounded-full bg-${color}-100 dark:bg-${color}-900`}>
         {icon}
       </div>
       <div className="ml-4">
-        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{title}</p>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">{value ?? "-"}</p>
+        <p className="text-sm text-text-muted font-medium">{title}</p>
+        <p className="text-2xl font-bold text-text dark:text-text-inverted">{value ?? "-"}</p>
       </div>
     </div>
-  </div>
-);
+  );
+  
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({});
@@ -114,14 +113,14 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 bg-background-light dark:bg-background-dark min-h-screen">
       <div className="max-w-7xl mx-auto">
         <header className="mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white flex items-center">
+          <h1 className="text-4xl font-extrabold text-text dark:text-text-inverted flex items-center">
             <FiBarChart2 className="mr-3 text-primary" />
             Admin Dashboard
           </h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-lg text-text-muted mt-2">
             Welcome back, Admin. Here's a summary of your application's activity.
           </p>
         </header>
@@ -135,11 +134,11 @@ const AdminDashboard = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* ===== USERS ===== */}
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Users</h2>
+          <div className="card">
+            <h2 className="text-2xl font-bold mb-4 text-text dark:text-text-inverted">Users</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full">
-                <thead className="bg-gray-100 dark:bg-gray-700">
+                <thead className="bg-gray-100 dark:bg-gray-800">
                   <tr>
                     <th className="p-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Name</th>
                     <th className="p-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Email</th>
@@ -147,9 +146,9 @@ const AdminDashboard = () => {
                 </thead>
                 <tbody>
                   {paginate(users, userPage).map((u) => (
-                    <tr key={u.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-3 text-gray-800 dark:text-gray-200">{u.name}</td>
-                      <td className="p-3 text-gray-800 dark:text-gray-200">{u.email}</td>
+                    <tr key={u.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <td className="p-3 text-text dark:text-text-inverted">{u.name}</td>
+                      <td className="p-3 text-text dark:text-text-inverted">{u.email}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -157,17 +156,17 @@ const AdminDashboard = () => {
             </div>
             <div className="flex justify-between items-center mt-4">
               <button className="btn-secondary" disabled={userPage <= 1} onClick={() => setUserPage(p => p - 1)}>Prev</button>
-              <span className="text-sm text-gray-600 dark:text-gray-400">{userPage} / {totalUserPages}</span>
+              <span className="text-sm text-text-muted">{userPage} / {totalUserPages}</span>
               <button className="btn-secondary" disabled={userPage >= totalUserPages} onClick={() => setUserPage(p => p + 1)}>Next</button>
             </div>
           </div>
 
           {/* ===== QUERIES ===== */}
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Queries</h2>
+          <div className="card">
+            <h2 className="text-2xl font-bold mb-4 text-text dark:text-text-inverted">Queries</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full">
-                <thead className="bg-gray-100 dark:bg-gray-700">
+                <thead className="bg-gray-100 dark:bg-gray-800">
                   <tr>
                     <th className="p-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Name</th>
                     <th className="p-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Message</th>
@@ -175,9 +174,9 @@ const AdminDashboard = () => {
                 </thead>
                 <tbody>
                   {paginate(queries, queryPage).map((q) => (
-                    <tr key={q.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-3 text-gray-800 dark:text-gray-200">{q.name}</td>
-                      <td className="p-3 text-gray-800 dark:text-gray-200 truncate max-w-xs">{q.message}</td>
+                    <tr key={q.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <td className="p-3 text-text dark:text-text-inverted">{q.name}</td>
+                      <td className="p-3 text-text dark:text-text-inverted truncate max-w-xs">{q.message}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -185,18 +184,18 @@ const AdminDashboard = () => {
             </div>
             <div className="flex justify-between items-center mt-4">
               <button className="btn-secondary" disabled={queryPage <= 1} onClick={() => setQueryPage(p => p - 1)}>Prev</button>
-              <span className="text-sm text-gray-600 dark:text-gray-400">{queryPage} / {totalQueryPages}</span>
+              <span className="text-sm text-text-muted">{queryPage} / {totalQueryPages}</span>
               <button className="btn-secondary" disabled={queryPage >= totalQueryPages} onClick={() => setQueryPage(p => p + 1)}>Next</button>
             </div>
           </div>
         </div>
 
         {/* ===== RATINGS ===== */}
-        <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Ratings</h2>
+        <div className="mt-8 card">
+          <h2 className="text-2xl font-bold mb-4 text-text dark:text-text-inverted">Ratings</h2>
           <div className="overflow-x-auto">
             <table className="min-w-full">
-              <thead className="bg-gray-100 dark:bg-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-800">
                 <tr>
                   <th className="p-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Name</th>
                   <th className="p-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Rating</th>
@@ -206,11 +205,11 @@ const AdminDashboard = () => {
               </thead>
               <tbody>
                 {paginate(ratings, ratingPage).map((r) => (
-                  <tr key={r.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td className="p-3 text-gray-800 dark:text-gray-200">{r.name}</td>
+                  <tr key={r.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                    <td className="p-3 text-text dark:text-text-inverted">{r.name}</td>
                     <td className="p-3 text-yellow-500 font-bold">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</td>
                     <td className="p-3">
-                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${r.approved ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'}`}>
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${r.approved ? 'bg-success/10 text-success' : 'bg-yellow-500/10 text-yellow-500'}`}>
                         {r.approved ? "Approved" : "Pending"}
                       </span>
                     </td>
@@ -228,7 +227,7 @@ const AdminDashboard = () => {
           </div>
           <div className="flex justify-between items-center mt-4">
             <button className="btn-secondary" disabled={ratingPage <= 1} onClick={() => setRatingPage(p => p - 1)}>Prev</button>
-            <span className="text-sm text-gray-600 dark:text-gray-400">{ratingPage} / {totalRatingPages}</span>
+            <span className="text-sm text-text-muted">{ratingPage} / {totalRatingPages}</span>
             <button className="btn-secondary" disabled={ratingPage >= totalRatingPages} onClick={() => setRatingPage(p => p + 1)}>Next</button>
           </div>
         </div>
@@ -238,3 +237,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+

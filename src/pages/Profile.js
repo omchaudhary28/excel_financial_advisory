@@ -110,17 +110,17 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden">
+        <div className="bg-white dark:bg-black shadow-2xl rounded-lg overflow-hidden">
           <div className="md:grid md:grid-cols-3">
-            <div className="md:col-span-1 p-8 bg-gray-100 dark:bg-gray-800/50 flex flex-col items-center justify-center text-center">
+            <div className="md:col-span-1 p-8 bg-gray-100 dark:bg-black flex flex-col items-center justify-center text-center">
               <div className="relative w-40 h-40 mb-4">
                 <div className="w-full h-full rounded-full ring-4 ring-primary ring-offset-4 ring-offset-gray-100 dark:ring-offset-gray-800 overflow-hidden flex items-center justify-center">
                   {avatarPreview ? (
                     <img src={avatarPreview} alt="User Avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <div className="w-full h-full bg-gray-200 dark:bg-black flex items-center justify-center">
                       <span className="text-6xl font-bold text-gray-800 dark:text-gray-200">{getInitials(user?.name)}</span>
                     </div>
                   )}
@@ -142,15 +142,15 @@ function Profile() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="relative">
                   <FiUser className="absolute top-3 left-3 text-gray-400" />
-                  <input id="name" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input id="name" type="text" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-black dark:text-white" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="relative">
                   <FiPhone className="absolute top-3 left-3 text-gray-400" />
-                  <input id="phone" type="tel" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <input id="phone" type="tel" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-black dark:text-white" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
                 <div className="relative">
                   <FiMail className="absolute top-3 left-3 text-gray-400" />
-                  <input id="email" type="email" disabled className="input pl-10 cursor-not-allowed bg-gray-100 dark:bg-gray-700 text-gray-500" value={user?.email || ""} />
+                  <input id="email" type="email" disabled className="input pl-10 cursor-not-allowed bg-gray-100 dark:bg-black text-gray-500" value={user?.email || ""} />
                 </div>
                 <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center">
                   {loading ? <LoadingSpinner text="Saving..." /> : <><FiSave className="mr-2"/>Save Changes</>}
@@ -166,15 +166,15 @@ function Profile() {
               <form onSubmit={handlePasswordChange} className="space-y-6">
                  <div className="relative">
                     <FiLock className="absolute top-3 left-3 text-gray-400" />
-                    <input id="current-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Current Password" value={passwordData.currentPassword} onChange={(e) => setPasswordData({...passwordData, currentPassword: e.target.value})} />
+                    <input id="current-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-black dark:text-white" placeholder="Current Password" value={passwordData.currentPassword} onChange={(e) => setPasswordData({...passwordData, currentPassword: e.target.value})} />
                 </div>
                  <div className="relative">
                     <FiLock className="absolute top-3 left-3 text-gray-400" />
-                    <input id="new-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="New Password" value={passwordData.newPassword} onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}/>
+                    <input id="new-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-black dark:text-white" placeholder="New Password" value={passwordData.newPassword} onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}/>
                 </div>
                  <div className="relative">
                     <FiLock className="absolute top-3 left-3 text-gray-400" />
-                    <input id="confirm-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white" placeholder="Confirm New Password" value={passwordData.confirmPassword} onChange={(e) => setPasswordData({...passwordData, confirmPassword: e.target.value})}/>
+                    <input id="confirm-password" type="password" required className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-black dark:text-white" placeholder="Confirm New Password" value={passwordData.confirmPassword} onChange={(e) => setPasswordData({...passwordData, confirmPassword: e.target.value})}/>
                 </div>
                 <button type="submit" disabled={passwordLoading} className="btn-secondary w-full flex items-center justify-center">
                   {passwordLoading ? <LoadingSpinner text="Updating..." /> : <><FiLock className="mr-2"/>Update Password</>}

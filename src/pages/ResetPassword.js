@@ -19,15 +19,12 @@ function ResetPassword() {
     setMessage('');
     setError('');
 
-    const trimmedPassword = password.trim();
-    const trimmedConfirmPassword = confirmPassword.trim();
-
-    if (trimmedPassword !== trimmedConfirmPassword) {
+    if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
 
-    if (trimmedPassword.length < 6) {
+    if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
       return;
     }
@@ -37,8 +34,8 @@ function ResetPassword() {
     try {
       const response = await api.post('/reset-password.php', {
         token,
-        password: trimmedPassword,
-        confirm_password: trimmedConfirmPassword,
+        password,
+        confirm_password: confirmPassword,
       });
       if (response.data.success) {
         setMessage(response.data.message);
@@ -60,37 +57,37 @@ function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <FiLock className="mx-auto h-12 w-auto text-primary" />
-          <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 dark:text-white">
+          <h2 className="mt-6 text-center text-4xl font-extrabold text-text dark:text-text-inverted">
             Set a New Password
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-center text-sm text-text-muted">
             Create a new, strong password for your account.
           </p>
         </div>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+        <div className="card p-8">
           {message && (
-            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+            <div className="bg-success/10 border-l-4 border-success text-success p-4 mb-6" role="alert">
               <p className="font-bold">Success</p>
               <p>{message}</p>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+            <div className="bg-danger/10 border-l-4 border-danger text-danger p-4 mb-6" role="alert">
               <p className="font-bold">Error</p>
               <p>{error}</p>
             </div>
           )}
 
           {!token && (
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+            <div className="bg-yellow-500/10 border-l-4 border-yellow-500 text-yellow-500 p-4 mb-6" role="alert">
               <p className="font-bold">Invalid Link</p>
               <p>The password reset link is missing or invalid. Please request a new one.</p>
             </div>
@@ -99,10 +96,10 @@ function ResetPassword() {
           {token && (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="password" className="form-label">
                   New Password
                 </label>
-                <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <FiLock className="h-5 w-5 text-gray-400" />
                   </div>
@@ -111,7 +108,7 @@ function ResetPassword() {
                     name="password"
                     type="password"
                     required
-                    className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
+                    className="form-input pl-10"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -120,10 +117,10 @@ function ResetPassword() {
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="confirmPassword" className="form-label">
                   Confirm New Password
                 </label>
-                <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <FiLock className="h-5 w-5 text-gray-400" />
                   </div>
@@ -132,7 +129,7 @@ function ResetPassword() {
                     name="confirmPassword"
                     type="password"
                     required
-                    className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
+                    className="form-input pl-10"
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
