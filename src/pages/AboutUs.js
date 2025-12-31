@@ -123,20 +123,20 @@ const AboutUs = () => {
                 </p>
             </div>
             <div className="relative">
-                <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
                 {history.map((item, index) => (
-                    <div key={index} className="md:flex items-center md:w-full mb-8" data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}>
-                        <div className="md:w-1/2 md:pr-8">
-                           {index % 2 === 0 && <div className="card p-6">
+                    <div key={index} className="md:flex items-center md:w-full mb-8 relative" data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}>
+                        <div className="md:w-1/2 md:pr-8 text-right">
+                           {index % 2 === 0 && <div className="card p-6 inline-block">
                                 <h3 className="text-2xl font-bold text-primary">{item.year}</h3>
                                 <p className="mt-2 text-text-muted">{item.event}</p>
                             </div>}
                         </div>
-                        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 bg-primary rounded-full flex items-center justify-center text-white">
+                        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 bg-primary rounded-full flex items-center justify-center text-white z-10">
                            {item.icon}
                         </div>
                          <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
-                           {index % 2 !== 0 && <div className="card p-6">
+                           {index % 2 !== 0 && <div className="card p-6 inline-block">
                                 <h3 className="text-2xl font-bold text-primary">{item.year}</h3>
                                 <p className="mt-2 text-text-muted">{item.event}</p>
                             </div>}

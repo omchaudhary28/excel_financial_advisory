@@ -31,6 +31,7 @@ const Twitter = lazy(() => import("./pages/Twitter"));
 const LinkedIn = lazy(() => import("./pages/LinkedIn"));
 const Instagram = lazy(() => import("./pages/Instagram"));
 const Rating = lazy(() => import("./pages/Rating"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function AppContent() {
   const location = useLocation();
@@ -75,6 +76,7 @@ function AppContent() {
                   <Route path="/twitter" element={<Twitter />} />
                   <Route path="/linkedin" element={<LinkedIn />} />
                   <Route path="/instagram" element={<Instagram />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
 
                   {/* Protected */}
                   <Route
