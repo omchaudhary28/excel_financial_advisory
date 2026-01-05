@@ -9,8 +9,8 @@ function Footer() {
     { name: 'Facebook', href: '#', icon: <FaFacebook /> },
     { name: 'Twitter', href: '#', icon: <FaTwitter /> },
     { name: 'LinkedIn', href: '#', icon: <FaLinkedin /> },
-    { name: 'Instagram', href: '#', icon: <FaInstagram /> },
-    { name: 'YouTube', href: '#', icon: <FaYoutube /> },
+    { name: 'Instagram', href: 'https://www.instagram.com/@om_chaudhary_28', icon: <FaInstagram /> },
+    { name: 'YouTube', href: 'https://www.youtube.com/', icon: <FaYoutube /> },
     { name: 'Pinterest', href: '#', icon: <FaPinterest /> },
   ];
 
